@@ -8,6 +8,7 @@ lib_load ('validation');
 $birthdate = '';
 
 $val = new ValidationClass();
+$val->validate();
 
 $errors = new ErrorClass();
 
