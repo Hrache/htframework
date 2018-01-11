@@ -14,12 +14,11 @@ class PageClass implements PageInterface {
   # $this->pageNumber = intval (get_ ('pagenumber'));
   
   // properties
-  # $this->required   = __('session')->getCookie ('required') ?? new ArrayClass();
-  # $this->additional = __('session')->getCookie ('additional') ?? new ArrayClass();
-  # $this->errors     = __('session')->getCookie ('errors') ?? new ArrayClass();
+# $this->required   = __('session')->getCookie ('required') ?? new ArrayClass();
+# $this->additional = __('session')->getCookie ('additional') ?? new ArrayClass();
+# $this->errors     = __('session')->getCookie ('errors') ?? new ArrayClass();
 
   switch (__('request')->getAction()) {
-   
    // advertisements.add
    case ('add'): {
     $this->add(); break;}
