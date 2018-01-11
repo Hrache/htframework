@@ -1,0 +1,166 @@
+<h1><?= _abc ('requiredinfo')?></h1>
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ("brand")?></legend>
+  <select name="carbrand" id="carbrand_" size="1">
+ <?= DOMOptions_CarBrands (intval (post_ ('carbrand')))?>
+  </select>
+ </fieldset>
+
+ <fieldset id="carmodelfieldset">
+  <legend><?= _abc ("model")?></legend>
+  <select name="carmodel" id="carmodel_" size="1">
+<?= DOMOptions_CarModelsByCarBrand (intval (post_ ('carbrand')), intval (post_ ('carmodel')))?>
+  </select>
+ </fieldset>
+
+ <fieldset id="carmodelmanfieldset">
+  <legend><?= _abc ("modelmanual")?></legend>
+  <input type="text" name="carmodelman" id="carmodelman" value="<?= post_ ('carmodelman')?>" />
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc("country")?></legend>
+  <select name="country" id="country">
+ <?= DOMCountries (post_ ('country'), '')?>
+  </select>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('state')?></legend>
+  <input type="text" name="state" id="state" />
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('cityorprovince')?></legend>
+  <input type="text" name="cityorprovince" id="cityorprovince" />
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('mainaddress')?></legend>
+  <input type="text" name="mainaddress" id="mainaddress" />
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ('advtype')?></legend>
+  <label><input type="radio" name="advtype" value="spec"/><?= _abc ('specadv')?></label><br/>
+  <label><input type="radio" name="advtype" value="quick"/><?= _abc ('quickadv')?></label><br/>
+  <label><input type="radio" name="advtype" value="free" checked /><?= _abc ('freeadv')?></label>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('buyorsell')?></legend>
+  <label><input type="radio" name="buyorsell" value="0" checked /><?= _abc ('sell')?></label><br/>
+  <label><input type="radio" name="buyorsell" value="1" /><?= _abc ('buy')?></label>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('choosevehtype')?></legend>
+  <label><input type="radio" name="vehicletype" value="cars" checked /><?= _abc ('cars')?></label>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ("measure")?></legend>
+  <label><input type="radio" value="met" name="measure" checked><?= _abc ('metric')?></label><br/>
+  <label><input type="radio" value="imp" name="measure"><?= _abc ('imperial')?></label>
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ('transmissiontype')?></legend>
+<?php
+$ar = new ArrayClass (_abc ('transmission_types'));
+$ar->eachItem (function (&$val, $key) {
+ printf ('<label>%s%s</label><br/>', HTMLHelpers::DOMRadioInput ( 'transmission_type', $val, ( $val === 'Manual')? true: false), $val);
+});
+?>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ( 'transmissiongears')?></legend>
+<?php
+$ar = new ArrayClass ([4, 5, 6, 'sixandmore']);
+$ar->eachItem (function (&$val, $key) {
+ printf ('<label>%s%s</label><br/>', HTMLHelpers::DOMRadioInput ('transmissiongears', $val, ($val === 5)? true: false), _abc ($val));
+});
+?>
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ('bodytype')?></legend>
+  <select name='bodytype'>
+   <option value=""></option>
+ <?php
+ $ar = new ArrayClass (_abc ('bodytype_'));
+ $ar->eachItem (function (&$val, $key) {
+  html_option ($val, $key, ($key === post_ ('bodytype')? true : false));
+ });
+ ?>
+  </select>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('fueltype')?></legend>
+  <select name='fueltype_'>
+   <option value=""></option>
+ <?php
+ $ar = new ArrayClass (_abc ('fueltype_'));
+ $ar->eachItem (function (&$val, $key) {
+  html_option ($val, $key, ($key === post_ ('fueltype_'))? true : false);
+ });
+ ?>
+  </select>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('topspeed')?></legend>
+  <input type="text" name="topspeed" value="<?= post_ ('topspeed')?>" />
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ('releaseyear')?></legend>
+  <select name="releaseyear">
+   <option value=""></option>
+   <?= DOMRangeOptions (intval (date ("Y")), 1930, post_ ('releaseyear'), 1)?>
+  </select>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('distancedriven')?></legend>
+  <input type="text" name="distance" />
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('carcondition')?></legend>
+  <select name="carcondition" id="carcondition">
+   <option value=""></option>
+<?php
+$ar = new ArrayClass (_abc ('carcondition_'));
+$ar->eachItem (function (&$val, $key) {
+ echo HTMLHelpers::DOMOption ($value, $key, 1, ($key === post_ ('carcondition')? true : false));
+});
+?>
+  </select>
+ </fieldset>
+</span>
+
+<span class="col-1-1">
+ <fieldset>
+  <legend><?= _abc ("currency")?></legend>
+  <?= ListOfCurrencies ('currency')?>
+ </fieldset>
+
+ <fieldset>
+  <legend><?= _abc ('vehicleprice')?></legend>
+  <input type="text" name="carprice" id="carprice" />
+ </fieldset>
+</span>

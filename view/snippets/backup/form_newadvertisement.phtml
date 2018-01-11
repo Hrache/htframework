@@ -1,0 +1,143 @@
+<?php 
+$request  = __('request');
+$page     = __('page');
+$language = __('language');
+$database = __('database');
+$bridge   = __('bridge');
+?>
+<!--<span id='newadvformpaneltitle' class="dropdown-title">--><?//= _abc ( 'addadv')?><!--</span>-->
+<div class="white-form form-extras block-object p-one-mm" id='advcreationformwrapper'>
+ <form action="<?= SiteURL?>?advertisements/add" method="post" id="form_newadv">
+ <ul>
+  <li>
+   <span <?= errorBorder ( 'carbrand')?>>
+    <label for="carbrand_"><?= _abc ( "brand")?>:</label><br />
+    <select name="carbrand" id="carbrand_" size="1">
+<?= DOMOptions_CarBrands ( post_ ( 'carbrand'))?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'carmodel')?>>
+    <label for="carmodel_"><?= _abc("model")?>:</label><br />
+    <select name="carmodel" id="carmodel_" size="1">
+<?= DOMOptions_CarModelsByCarBrand( post_('carbrand'), post_('carmodel'))?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'carmodelman')?>>
+    <label for="carmodelman"><?= _abc("modelmanual")?>:</label><br />
+    <input type="text" name="carmodelman" id="carmodelman" value="<?= post_('carmodelman')?>" />
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder ( 'bodytype')?>>
+    <label for=''><?= _abc ( 'bodytype')?>:</label><br />
+    <select name='bodytype'>
+<?php
+ html_option ( '', '');
+ foreach ( _abc ( 'bodytype_') as $index => $value) {
+  html_option ( $value, $index, ( $index === post_ ( 'bodytype')? true : false));
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder('carcondition')?>>
+    <label for="carcondition"><?= _abc('carcondition')?>:</label><br />
+    <select name="carcondition" id="carcondition">
+<?php
+ html_option ( '', '');
+ foreach ( _abc ( 'carcondition_') as $index => $value) {
+  html_option ( $value, $index, ( $index === post_ ( 'carcondition')? true : false));
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'releaseyear')?>>
+    <label for="releaseyear"><?= _abc ( 'releaseyear')?>:</label><br />
+    <select name="releaseyear">
+     <option value=""></option>
+<?php digitinterval_options  (1930, intval ( date ( "Y")), true, post_ ( 'releaseyear')); ?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'distance')?>>
+    <label for="distance"><?= _abc ( 'distancedriven')?>:</label><br />
+    <input type="text" name="distance" value="<?= post_ ( 'distance')?>" />
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder('country')?>>
+    <label for=""><?= _abc("country")?>:</label><br />
+    <select name="country" id="country">
+<?= DOMOptions_PostalInfo([0], post_('country')) ?>
+    </select>
+   </span>
+   <span <?= errorBorder('state')?>>
+    <label for="state"><?= _abc ( 'state')?>:</label><br />
+    <input type="text" name="state" id="state" value="<?= post_ ( 'state')?>" />
+   </span>
+   <span <?= errorBorder('cityorprovince')?>>
+    <label for="cityorprovince"><?= _abc ( 'cityorprovince')?>:</label><br />
+    <input type="text" name="cityorprovince" id="cityorprovince" value="<?= post_ ( 'cityorprovince')?>" />
+   </span>
+   <span <?= errorBorder('mainaddress')?>>
+    <label for="mainaddress"><?= _abc ( 'mainaddress')?>:</label><br />
+    <input type="text" name="mainaddress" id="mainaddress" value="<?= post_ ( 'mainaddress')?>" />
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder('carprice')?>>
+    <label for="carprice"><?= _abc('vehicleprice')?>:</label><br />
+    <input type="text" name="carprice" id="carprice" value="<?= post_ ( 'carprice')?>" />
+   </span>
+   <span <?= errorBorder('carprice_')?>>
+    <label for="carprice"><?= _abc('currency')?>:</label><br />
+    <select name="carprice_" id="carprice_">
+<?php
+ foreach ( _abc ( 'currency_') as $index => $value) {
+  html_option ( $value, $index, ( $index === 'used')? true : false);
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'buyorsell')?>>
+    <label for="buyorsell"><?= _abc('advtype')?>:</label><br />
+    <span>
+     <input type="radio" name="buyorsell" value="vrel" <?= checkedRadio ( ( post_ ( 'buyorsell') === "vrel")? true : false)?>/><?= ' '._abc ( 'sell')?>
+    </span>
+    <span>
+     <input type="radio" name="buyorsell" value="gnel" <?= checkedRadio ( ( post_ ( 'buyorsell') === "gnel")? true : false)?> /><?= ' '._abc ( 'buy')?>
+    </span>
+   </span>
+  </li>
+  <li id="additionalinfo" class="dropdown-title"><?= _abc('additionalinfo')?></li>
+  <li id="additionalinfofields">
+  </li>
+  <li>
+   <input type="submit" value="<?= _abc('add')?>" />
+   <input type="reset" value="<?= _abc('reset')?>" />
+  </li>
+ </ul>
+ </form>
+<!--
+ <span>
+  <div id="map" style="width: 100%; height: 500px"></div>
+ </span>
+<hr />
+
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"></script>
+ <script type='text/javascript'>
+/*
+  function initMap() {
+   var uluru = {lat: -25.363, lng: 131.044};
+   var map = new google.maps.Map(document.getElementById('map'), {
+    zoom : 4,
+    center : uluru
+   });
+   var marker = new google.maps.Marker({
+    position : uluru,
+    map : map
+   });
+  }
+*/
+ </script>
+-->
+</div>
+<?php unset ( $selected, $acceleration_);?>

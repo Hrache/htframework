@@ -1,0 +1,708 @@
+<?php
+$request  = __('request');
+$page     = __('page');
+$language = __('language');
+$database = __('database');
+$bridge   = __('bridge');
+?>
+<span id='newadvformpaneltitle' class="dropdown-title"><?= _abc ( 'addadv')?></span>
+<div class="white-form form-extras block-object p-one-mm" id='advcreationformwrapper'>
+ <form action="<?= SITEURL?>?advertisements/add" method="post" id="form_newadv">
+ <ul>
+  <li>
+   <span <?= errorBorder ( 'carbrand')?>>
+    <label for="carbrand_"><?= _abc ( "brand")._redStar ()?>:</label><br />
+    <select name="carbrand" id="carbrand_" size="1">
+<?= DOMOptions_CarBrands ( post_ ( 'carbrand'))?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'carmodel')?>>
+    <label for="carmodel_"><?= _abc("model")._redStar()?>:</label><br />
+    <select name="carmodel" id="carmodel_" size="1">
+<?= DOMOptions_CarModelsByCarBrand(post_('carbrand'), post_('carmodel'))?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'carmodelman')?>>
+    <label for="carmodelman"><?= _abc("modelmanual")?>:</label><br />
+    <input type="text" name="carmodelman" id="carmodelman" value="<?= post_('carmodelman')?>" />
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder ( 'bodytype')?>>
+    <label for=''><?= _abc ( 'bodytype')._redStar()?>:</label><br />
+    <select name='bodytype'>
+<?php
+ html_option ( '', '');
+ foreach ( _abc ( 'bodytype_') as $index => $value) {
+  html_option ( $value, $index, ( $index === post_ ( 'bodytype')? true : false));
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder('carcondition')?>>
+    <label for="carcondition"><?= _abc('carcondition')._redStar()?>:</label><br />
+    <select name="carcondition" id="carcondition">
+<?php
+ html_option ( '', '');
+ foreach ( _abc ( 'carcondition_') as $index => $value) {
+  html_option ( $value, $index, ( $index === post_ ( 'carcondition')? true : false));
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'releaseyear')?>>
+    <label for="releaseyear"><?= _abc ( 'releaseyear')._redStar()?>:</label><br />
+    <select name="releaseyear">
+     <option value=""></option>
+<?php digitinterval_options  (1930, intval ( date ( "Y")), true, post_ ( 'releaseyear')); ?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'distance')?>>
+    <label for="distance"><?= _abc ( 'distancedriven')._redStar()?>:</label><br />
+    <input type="text" name="distance" value="<?= post_ ( 'distance')?>" />
+    <select name="distance_">
+<?php
+ foreach ( _abc ( 'distance_') as $key => $val) {
+  html_option ( $val, $key, ( $key === post_ ( 'distance_'))? true : false);
+ }
+?>
+    </select>
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder('country')?>>
+    <label for=""><?= _abc("country")._redStar()?>:</label><br />
+    <select name="country" id="country">
+<?= DOMOptions_PostalInfo([0], post_('country')) ?>
+    </select>
+   </span>
+   <span <?= errorBorder('state')?>>
+    <label for="state"><?= _abc ( 'state')._redStar()?>:</label><br />
+    <input type="text" name="state" id="state" value="<?= post_ ( 'state')?>" />
+   </span>
+   <span <?= errorBorder('cityorprovince')?>>
+    <label for="cityorprovince"><?= _abc ( 'cityorprovince')._redStar()?>:</label><br />
+    <input type="text" name="cityorprovince" id="cityorprovince" value="<?= post_ ( 'cityorprovince')?>" />
+   </span>
+   <span <?= errorBorder('mainaddress')?>>
+    <label for="mainaddress"><?= _abc ( 'mainaddress')._redStar ()?>:</label><br />
+    <input type="text" name="mainaddress" id="mainaddress" value="<?= post_ ( 'mainaddress')?>" />
+   </span>
+  </li>
+  <li>
+   <span <?= errorBorder('carprice')?>>
+    <label for="carprice"><?= _abc('vehicleprice')._redStar()?>:</label><br />
+    <input type="text" name="carprice" id="carprice" value="<?= post_ ( 'carprice')?>" />
+   </span>
+   <span <?= errorBorder('carprice_')?>>
+    <label for="carprice"><?= _abc('currency')._redStar()?>:</label><br />
+    <select name="carprice_" id="carprice_">
+<?php
+ foreach ( _abc ( 'currency_') as $index => $value) {
+  html_option ( $value, $index, ( $index === 'used')? true : false);
+ }
+?>
+    </select>
+   </span>
+   <span <?= errorBorder ( 'buyorsell')?>>
+    <label for="buyorsell"><?= _abc('advtype')._redStar()?>:</label><br />
+    <span>
+     <input type="radio" name="buyorsell" value="vrel" <?= checkedRadio ( ( post_ ( 'buyorsell') === "vrel")? true : false)?>/><?= ' '._abc ( 'sell')?>
+    </span>
+    <span>
+     <input type="radio" name="buyorsell" value="gnel" <?= checkedRadio ( ( post_ ( 'buyorsell') === "gnel")? true : false)?> /><?= ' '._abc ( 'buy')?>
+    </span>
+   </span>
+  </li>
+  <li id="additionalinfo" class="dropdown-title"><?= _abc('additionalinfo')?></li>
+  <li id="additionalinfofields">
+   <ul>
+    <li>
+     <span <?= errorBorder('_images')?>>
+      <label for=""><?= _abc ( 'uploadimages')?>:</label><br />
+      <input type="file" accept="image/*" name="_images[]" id="_images" multiple="multiple" />
+     </span>
+     <div>
+<?= _bridge ( 'uploaded_images')?>
+     </div>
+    </li>
+    <li>
+     <span>
+      <label for="description"><?= _abc('shortdescription')?>:</label><br />
+      <textarea name="description" cols="38" rows="7"></textarea>
+     </span>
+    </li>
+    <li>
+     <span>
+      <label for="altaddress"><?= _abc('altaddress')?>:</label><br />
+      <input type="text" size="30" name="altaddress" id="altaddress" value="<?= post_('altaddress')?>" />
+     </span>
+     <span>
+      <label for=""><?= _abc("countryorigin")?>:</label><br />
+      <select name="countryorigin" id="countryorigin">
+<?= DOMOptions_PostalInfo([0], post_('countryorigin')) ?>
+      </select>
+     </span>
+     <span>
+     <label for=""><?= _abc("countryassembly")?>:</label><br />
+      <select name="countryassembly" id="countryassembly">
+<?= DOMOptions_PostalInfo([0], post_('countryassembly')) ?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span>
+      <label for=''><?= _abc('fueltype')?>:</label><br />
+      <select name='fueltype_'>
+      <option value=""></option>
+<?php
+ foreach (_abc('fueltype_') as $key => $val) {
+  html_option($val, $key, ($key === post_('fueltype_'))? true : false);
+ }
+?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('enginesize')?>:</label><br />
+      <input type="text" name="enginesize" value="<?= post_('enginesize')?>" />
+      <select name='engine_'>
+<?php html_option(_abc('engine_'), _abc('engine_'));?>
+      </select>
+     </span>
+     <span><label for=''><?= _abc('aspirationtype')?>:</label><br />
+      <select name='aspirationtype_'>
+      <option value=""></option>
+<?php
+ foreach (_abc('aspirationtype_') as $key => $val) {
+  html_option($val, $key, ($key === post_('aspirationtype_'))? true : false);
+ }
+?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span><label for=''><?= _abc('topspeed')?>:</label><br />
+      <input type="text" name="topspeed" value="<?= post_('topspeed')?>" />
+      <select name='topspeed_'>
+<?php
+ foreach (_abc('speed_') as $key => $val) {
+  html_option($val, $key, ($key === post_('topspeed_'))? true : false);
+ }
+?>
+      </select>
+     </span>
+     <span><label for='acceleration'><?= _abc('acceleration')?>:</label><br />
+      <input type="text" name="acceleration" value="<?= post_('acceleration')?>" />
+      <select name='acceleration_'>
+<?php
+ $acceleration_ = _abc('acceleration_');
+
+ foreach ($acceleration_ as $key => $value) {
+  html_option($value, $key, (post_('acceleration_')? true : false));
+ }
+?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span>
+      <label for=''><?= _abc('power')?>:</label><br />
+      <input type="text" name="power" value="<?= post_('power')?>" />
+      <select name='power_'>
+<?php html_option(_abc('power_'), _abc('power_'));?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('torque')?>:</label><br />
+      <input type="text" name="torque" value="<?= post_('torque')?>" />
+      <select name='torque_'>
+<?php html_option(_abc('torque_'), _abc('torque_'));?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span><label for=''><?= _abc('transmissiontype')?>:</label><br />
+<?php
+ foreach (_abc('transmission_types') as $key => $val) {
+  $label_ = _tag('label', ['for' => 'transmission'], true, $val);
+  $radio_ = _tag('input', ['type' => 'radio', 'checked', 'name' => 'transmission_type', 'value' => $val]);
+  echo _tag('span', [], true, $radio_.' '.$label_);
+ }
+?>
+     </span>
+     <span>
+      <label for=''><?= _abc('transmissiongears')?>:</label><br />
+      <span><input type="radio" name="transmissiongears" value="4" /><?= ' '.'4'?></span>
+      <span><input type="radio" name="transmissiongears" value="5" /><?= ' '.'5'?></span>
+      <span><input type="radio" name="transmissiongears" value="6" /><?= ' '.'6'?></span>
+      <span><input type="radio" name="transmissiongears" value="sixandmore" /><?= ' '._abc('sixandmore')?></span>
+     </span>
+    </li>
+    <li>
+     <span><label for=''><?= _abc('tirewheelsize')?>:</label><br />
+      <input type="text" name="tirewheelsize" value="<?= post_('tirewheelsize')?>" />
+      <select name='tirewheelsize_'>
+<?php html_option(_abc('tirewheelsize_'), _abc('tirewheelsize_'));?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('drivetype')?>:</label><br />
+      <select name='drivetype'>
+<?php
+ foreach (_abc('drivetype_') as $key => $val) {
+  html_option($val, $key, ($key === '4x4')? true : false);
+ }
+?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span>
+      <label for=''><?= _abc('city_consumption')?>:</label><br />
+      <input type="text" name="city_consumption" value="<?= post_('city_consumption')?>" />
+      <select name='consumption_city'>
+<?php html_option(_abc('consumption_'), _abc('consumption_'));?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('highway_consumption')?>:</label><br />
+      <input type="text" name="highway_consumption" value="<?= post_('highway_consumption')?>" />
+      <select name='consumption_highway'>
+<?php html_option(_abc('consumption_'), _abc('consumption_'));?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('combined_consumption')?>:</label><br />
+      <input type="text" name="combined_consumption" value="<?= post_('combined_consumption')?>" />
+      <select name='consumption_combined'>
+<?php html_option(_abc('consumption_'), _abc('consumption_'));?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('displacement')?>:</label><br />
+      <input type="text" name="displacement" value="<?= post_('displacement')?>" />
+      <select name='displacement_'>
+<?php
+ foreach (_abc('displacement_') as $key => $val) {
+  html_option($val, $key);
+ }
+?>
+      </select>
+     </span>
+     <span>
+      <label for=''><?= _abc('co2emissions')?>:</label><br />
+      <input type="text" name="co2emissions" value="<?= post_('co2emissions')?>" />
+     </span>
+     <span>
+      <label for=''><?= _abc('curbweight')?>:</label><br />
+      <input type="text" name="curbweight" value="<?= post_('curbweight')?>" />
+      <select name='weight_'>
+<?php html_option(_abc('weight_'), _abc('weight_'));?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span><label for=''><?= _abc('towingcapacity')?>:</label><br />
+      <input type="text" name="towingcapacity" value="<?= post_('towingcapacity')?>" />
+      <select name='capacity_towing'>
+<?php
+ foreach (_abc('capacity_') as $key => $val) {
+  html_option($val, $key, (post_('capacity_towing')? true : false));
+ }
+?>
+      </select>
+     </span>
+     <span><label for=''><?= _abc('cargoallseatsfolded')?>:</label><br />
+      <input type="text" name="cargoallseatsfolded" value="<?= post_('cargoallseatsfolded')?>" />
+     </span><br />
+     <span><label for=''><?= _abc('width')?>:</label><br />
+      <input type="text" name="width" value="<?= post_('width')?>" />
+      <select name='width_'>
+<?php html_option(_abc('dimensions_'), _abc('dimensions_'));?>
+      </select>
+     </span>
+     <span><label for=''><?= _abc('height')?></label><br />
+      <input type="text" name="height" value="<?= post_('height')?>" />
+      <select name='height_'>
+<?php html_option(_abc('dimensions_'), _abc('dimensions_'));?>
+      </select>
+     </span>
+     <span><label for=''><?= _abc('length')?>:</label><br />
+      <input type="text" name="length" value="<?= post_('length')?>" />
+      <select name='length_'>
+<?php html_option(_abc('dimensions_'), _abc('dimensions_'));?>
+      </select>
+     </span>
+    </li>
+    <li>
+     <span><label for=''><?= _abc('audio_totalnumberofspeakers')?>:</label><br />
+      <input type="text" name="audio_totalnumberofspeakers" value="<?= post_('audio_totalnumberofspeakers')?>" />
+     </span>
+     <span><label for=''><?= _abc('seatingscapacity')?>:</label><br />
+      <input type="text" name="seatingscapacity" value="<?= post_('seatingscapacity')?>" />
+     </span>
+     <span><label for=''><?= _abc('doors')?>:</label><br />
+      <select name='doors_'>
+<?php
+ foreach (_abc('doors_') as $key => $val) {
+  html_option($val, $key, post_('doors_')? true : false);
+ }
+?>
+      </select>
+     </span>
+    </li>
+    <li class="_inline">
+     <span class="col-50">
+      <span>
+       <input type="checkbox" <?= checkedPost('headairbags')?>name="headairbags" value="1" />
+       <label for=''><?= _abc('headairbags')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('hipairbags')?>name="hipairbags" value="1" />
+       <label for=''><?= _abc('hipairbags')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('passengerairbagdeactivation')?>name="passengerairbagdeactivation" value="1" />
+       <label for=''><?= _abc('passengerairbagdeactivation')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('sideairbags')?>name="sideairbags" value="1" />
+       <label for=''><?= _abc('sideairbags')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('trunkspace')?>name="trunkspace" value="1" />
+       <label for=''><?= _abc('trunkspace')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('sidecurtainairbagrolloversensor')?>name="sidecurtainairbagrolloversensor" value="1" />
+       <label for=''><?= _abc('sidecurtainairbagrolloversensor')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('postcollisionsafetysystem')?>name="postcollisionsafetysystem" value="1" />
+       <label for=''><?= _abc('postcollisionsafetysystem')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tirepressuremonitoringsystem')?>name="tirepressuremonitoringsystem" value="1" />
+       <label for=''><?= _abc('tirepressuremonitoringsystem')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('bluetooth')?>name="bluetooth" value="1" />
+       <label for=''><?= _abc('bluetooth')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_cdmp3playback')?>name="audio_cdmp3playback" value="1" />
+       <label for=''><?= _abc('audio_cdmp3playback')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_cdplayer')?>name="audio_cdplayer" value="1" />
+       <label for=''><?= _abc('audio_cdplayer')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_auxaudioinputs')?>name="audio_auxaudioinputs" value="1" />
+       <label for=''><?= _abc('audio_auxaudioinputs')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_usbinputs')?>name="audio_usbinputs" value="1" />
+       <label for=''><?= _abc('audio_usbinputs')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_digitalaudioinput')?>name="audio_digitalaudioinput" value="1" />
+       <label for=''><?= _abc('audio_digitalaudioinput')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_radio')?>name="audio_radio" value="1" />
+       <label for=''><?= _abc('audio_radio')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audio_usbconnection')?>name="audio_usbconnection" value="1" />
+       <label for=''><?= _abc('audio_usbconnection')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('driverseat_heightadjustable')?>name="driverseat_heightadjustable" value="1" />
+       <label for=''><?= _abc('driverseat_heightadjustable')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('sunshade')?>name="sunshade" value="1" />
+       <label for=''><?= _abc('sunshade')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cargonettrunkrear')?>name="cargonettrunkrear" value="1" />
+       <label for=''><?= _abc('cargonettrunkrear')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('allweatherfloormats')?>name="allweatherfloormats" value="1" />
+       <label for=''><?= _abc('allweatherfloormats')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cargonetside2nets')?>name="cargonetside2nets" value="1" />
+       <label for=''><?= _abc('cargonetside2nets')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cargotray')?>name="cargotray" value="1" />
+       <label for=''><?= _abc('cargotray')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('leathershiftknob')?>name="leathershiftknob" value="1" />
+       <label for=''><?= _abc('leathershiftknob')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tweeterkit')?>name="tweeterkit" value="1" />
+       <label for=''><?= _abc('tweeterkit')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('metalpedalpadsetatsti')?>name="metalpedalpadsetatsti" value="1" />
+       <label for=''><?= _abc('metalpedalpadsetatsti')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('autodimmingmirrorwcompass')?>name="autodimmingmirrorwcompass" value="1" />
+       <label for=''><?= _abc('autodimmingmirrorwcompass')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('autodimmingmirrorwcompassandhomelink')?>name="autodimmingmirrorwcompassandhomelink" value="1" />
+       <label for=''><?= _abc('autodimmingmirrorwcompassandhomelink')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('audiocontrolsonsteeringwheel')?>name="audiocontrolsonsteeringwheel" value="1" />
+       <label for=''><?= _abc('audiocontrolsonsteeringwheel')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cruisecontrolsonsteeringwheel')?>name="cruisecontrolsonsteeringwheel" value="1" />
+       <label for=''><?= _abc('cruisecontrolsonsteeringwheel')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('phonecontrolsonsteeringwheel')?>name="phonecontrolsonsteeringwheel" value="1" />
+       <label for=''><?= _abc('phonecontrolsonsteeringwheel')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('steeringwheeladjustments')?>name="steeringwheeladjustments" value="1" />
+       <label for=''><?= _abc('steeringwheeladjustments')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('transmissioncontrolsonsteeringwheel')?>name="transmissioncontrolsonsteeringwheel" value="1" />
+       <label for=''><?= _abc('transmissioncontrolsonsteeringwheel')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('numberofpassengerseatmanualadjustments')?>name="numberofpassengerseatmanualadjustments" value="1" />
+       <label for=''><?= _abc('numberofpassengerseatmanualadjustments')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('adjustableseatheadrest')?>name="adjustableseatheadrest" value="1" />
+       <label for=''><?= _abc('adjustableseatheadrest')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('seatwhiplashprotection')?>name="seatwhiplashprotection" value="1" />
+       <label for=''><?= _abc('seatwhiplashprotection')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('adjustable2ndrowheadrests')?>name="adjustable2ndrowheadrests" value="1" />
+       <label for=''><?= _abc('adjustable2ndrowheadrests')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('folding2ndrow')?>name="folding2ndrow" value="1" />
+       <label for=''><?= _abc('folding2ndrow')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('_2ndrowcenterarmrest')?>name="_2ndrowcenterarmrest" value="1" />
+       <label for=''><?= _abc('_2ndrowcenterarmrest')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('_1strowupholstery')?>name="_1strowupholstery" value="1" />
+       <label for=''><?= _abc('_1strowupholstery')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cupholderslocation')?>name="cupholderslocation" value="1" />
+       <label for=''><?= _abc('cupholderslocation')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('_2ndrowcenterseatbelt')?>name="_2ndrowcenterseatbelt" value="1" />
+       <label for=''><?= _abc('_2ndrowcenterseatbelt')?></label>
+      </span>
+     </span>
+     <span class="col-50">
+      <span>
+       <input type="checkbox" <?= checkedPost('doorpocketslocation')?>name="doorpocketslocation" value="1" />
+       <label for=''><?= _abc('doorpocketslocation')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('powerwindows')?>name="powerwindows" value="1" />
+       <label for=''><?= _abc('powerwindows')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('externaltemperaturegauge')?>name="externaltemperaturegauge" value="1" />
+       <label for=''><?= _abc('externaltemperaturegauge')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tachometer')?>name="tachometer" value="1" />
+       <label for=''><?= _abc('tachometer')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('clock')?>name="clock" value="1" />
+       <label for=''><?= _abc('clock')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tirepressuremonitoringsystem')?>name="tirepressuremonitoringsystem" value="1" />
+       <label for=''><?= _abc('tirepressuremonitoringsystem')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tripcomputer')?>name="tripcomputer" value="1" />
+       <label for=''><?= _abc('tripcomputer')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('airfiltration')?>name="airfiltration" value="1" />
+       <label for=''><?= _abc('airfiltration')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('frontairconditioning')?>name="frontairconditioning" value="1" />
+       <label for=''><?= _abc('frontairconditioning')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('frontairconditioningzones')?>name="frontairconditioningzones" value="1" />
+       <label for=''><?= _abc('frontairconditioningzones')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('poweroutlets')?>name="poweroutlets" value="1" />
+       <label for=''><?= _abc('poweroutlets')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('centerconsole')?>name="centerconsole" value="1" />
+       <label for=''><?= _abc('centerconsole')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('overheadconsole')?>name="overheadconsole" value="1" />
+       <label for=''><?= _abc('overheadconsole')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('seatbackstorage')?>name="seatbackstorage" value="1" />
+       <label for=''><?= _abc('seatbackstorage')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('intermittentfrontwipers')?>name="intermittentfrontwipers" value="1" />
+       <label for=''><?= _abc('intermittentfrontwipers')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('onetouchwindows')?>name="onetouchwindows" value="1" />
+       <label for=''><?= _abc('onetouchwindows')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('daytimerunninglights')?>name="daytimerunninglights" value="1" />
+       <label for=''><?= _abc('daytimerunninglights')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('headlightsautodelay')?>name="headlightsautodelay" value="1" />
+       <label for=''><?= _abc('headlightsautodelay')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('headlightsdusksensor')?>name="headlightsdusksensor" value="1" />
+       <label for=''><?= _abc('headlightsdusksensor')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('_1strowvanitymirrors')?>name="_1strowvanitymirrors" value="1" />
+       <label for=''><?= _abc('_1strowvanitymirrors')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('exteriormirroradjustment')?>name="exteriormirroradjustment" value="1" />
+       <label for=''><?= _abc('exteriormirroradjustment')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('antilockbrakingsystem')?>name="antilockbrakingsystem" value="1" />
+       <label for=''><?= _abc('antilockbrakingsystem')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('brakingassist')?>name="brakingassist" value="1" />
+       <label for=''><?= _abc('brakingassist')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('frontstabilizerbar')?>name="frontstabilizerbar" value="1" />
+       <label for=''><?= _abc('frontstabilizerbar')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('frontsuspensionclassification')?>name="frontsuspensionclassification" value="1" />
+       <label for=''><?= _abc('frontsuspensionclassification')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('independentsuspension')?>name="independentsuspension" value="1" />
+       <label for=''><?= _abc('independentsuspension')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('rearstabilizerbar')?>name="rearstabilizerbar" value="1" />
+       <label for=''><?= _abc('rearstabilizerbar')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('rearsuspensionclassification')?>name="rearsuspensionclassification" value="1" />
+       <label for=''><?= _abc('rearsuspensionclassification')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('tailpipecover')?>name="tailpipecover" value="1" />
+       <label for=''><?= _abc('tailpipecover')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('wheellockkitsteelwheels')?>name="wheellockkitsteelwheels" value="1" />
+       <label for=''><?= _abc('wheellockkitsteelwheels')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('rearbumperapplique')?>name="rearbumperapplique" value="1" />
+       <label for=''><?= _abc('rearbumperapplique')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('splashguards')?>name="splashguards" value="1" />
+       <label for=''><?= _abc('splashguards')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('autodimmingmirrorwapproachlighting')?>name="autodimmingmirrorwapproachlighting" value="1" />
+       <label for=''><?= _abc('autodimmingmirrorwapproachlighting')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('bodysidemolding')?>name="bodysidemolding" value="1" />
+       <label for=''><?= _abc('bodysidemolding')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('bodysidemoldingkit')?>name="bodysidemoldingkit" value="1" />
+       <label for=''><?= _abc('bodysidemoldingkit')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('foglampkitlegacy')?>name="foglampkitlegacy" value="1" />
+       <label for=''><?= _abc('foglampkitlegacy')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('cargotiedowns')?>name="cargotiedowns" value="1" />
+       <label for=''><?= _abc('cargotiedowns')?></label>
+      </span>
+      <span>
+       <input type="checkbox" <?= checkedPost('remoteenginestarterkeystart')?>name="remoteenginestarterkeystart" value="1" />
+       <label for=''><?= _abc('remoteenginestarterkeystart')?></label>
+      </span>
+     </span>
+    </li>
+   </ul>
+  </li>
+  <li>
+   <input type="submit" value="<?= _abc('add')?>" />
+   <input type="reset" value="<?= _abc('reset')?>" />
+  </li>
+ </ul>
+ </form>
+<!--
+ <span>
+  <div id="map" style="width: 100%; height: 500px"></div>
+ </span>
+<hr />
+
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"></script>
+ <script type='text/javascript'>
+/*
+  function initMap() {
+   var uluru = {lat: -25.363, lng: 131.044};
+   var map = new google.maps.Map(document.getElementById('map'), {
+    zoom : 4,
+    center : uluru
+   });
+   var marker = new google.maps.Marker({
+    position : uluru,
+    map : map
+   });
+  }
+*/
+ </script>
+-->
+</div>
+<?php unset ( $selected, $acceleration_);?>

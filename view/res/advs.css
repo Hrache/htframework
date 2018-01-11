@@ -1,0 +1,24 @@
+textarea {
+ margin: 0;
+ min-width: 305px;
+ min-height: 160px;
+ width: 75%;}
+input[type=checkbox],
+input[type=radio] {}
+.adv-hidden-list {
+ font-size: 18px;}
+.adv-hidden-list > span {
+ padding: 10px 45px 10px 20px;
+ margin-bottom: 1px;
+ display: inline-block;
+ background-image: url('images/left_corner_arrow.png');
+ background-repeat: no-repeat;
+ background-position: left top;
+ cursor: default;
+ width: 23%;
+ vertical-align: top;}
+.adv-hidden-list > span:first-letter {
+ font-size: 25px;
+ font-weight: bold;}
+#carmodelman {
+ display: none;}

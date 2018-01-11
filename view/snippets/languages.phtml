@@ -1,0 +1,19 @@
+<?php
+$menulinks = [
+ "en-UK" => [
+  "link" => "&lang=en-uk",
+  "flagcss" => "flag-britain",],
+ "ru-RU" => [
+  "link" => "&lang=ru-ru",
+  "flagcss" => "flag-russia",],
+ "hy-AM" => [
+  "link" => "&lang=hy-am",
+  "flagcss" => "flag-armenia",]];
+?>
+<span class="alanguage">
+<?php
+foreach ($menulinks as $key => $val) {
+ $val = (object) $val;
+ printf ('<a href="%s" class="%s %s">%s</a>', SiteURL.'?'.__('request')->getPage().$val->link, $val->flagcss, ($key == Lang)? 'menu-active-link' : '', '');}
+?>
+</span>
