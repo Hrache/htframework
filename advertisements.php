@@ -9,7 +9,7 @@ class PageClass implements PageInterface {
  # $query = $account_advs = null;
   __('language')->append ('advertisements');
   acs_PageTitle (_abc ('pagetitle'));
-  
+
   // advertisement.pagination
   # $this->pageNumber = intval (get_ ('pagenumber'));
   
