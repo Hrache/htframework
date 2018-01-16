@@ -9,11 +9,12 @@
   <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 <?php __('cpage')->meta();?>
   <title><?= __('page')->getTitle()?></title>
-<?= HTMLHelpers::CSSLink ("view/res/reset.css")?>
-<?= HTMLHelpers::CSSLink ("view/res/common.css")?>
-<?= HTMLHelpers::CSSLink ("view/res/flags.css")?>
-<?= HTMLHelpers::CSSLink ("view/res/responsive.css")?>
 <?php
+echo HTMLHelpers::CSSLink ("view/res/reset.css");
+echo HTMLHelpers::CSSLink ("view/res/common.css");
+echo HTMLHelpers::CSSLink ("view/res/flags.css");
+echo HTMLHelpers::CSSLink ("view/res/responsive.css");
+
 if (preg_match ('/(MSIE [6-8]{1,2})/', $_SERVER ['HTTP_USER_AGENT'])) {
  echo HTMLHelpers::JSScript ('view/res/js/jquery-1.12.4.min.js');}
 else {
