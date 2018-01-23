@@ -1,4 +1,4 @@
 <?php
- define ('Core', dirname (__DIR__) . DIRECTORY_SEPARATOR . 'hrachmvc' . DIRECTORY_SEPARATOR);
- require_once (Core . 'core.php');
+ define ('Core', realpath (dirname (__DIR__). '/hrachmvc'));
+ require_once (realpath (Core . '/core.php'));
 ?>

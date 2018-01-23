@@ -5,23 +5,23 @@ class FinalSettings extends SettingsClass {
  function __construct() {
   $settings = new ArrayClass ([
    self::MAPKEY                => 'AIzaSyBlOZ_t3-7-EvtAuBGG2rPMVNmP2xeAfIw',
-   SettingsClass::TEMPLATEFILE => 'default.phtml',
-   SettingsClass::ERRORPAGE    => 'error.php',
+   SettingsClass::TemplateFile => 'default.phtml',
+   SettingsClass::Errorpage    => 'error.php',
    SettingsClass::PageExt      => 'php',
-   SettingsClass::HOMEPAGE     => 'home',
-   SettingsClass::TIMEZONE     => 'Asia/Yerevan',
-   SettingsClass::SNIPPETS     => true,
-   SettingsClass::GLOBALS      => true,
-   SettingsClass::DATABASE     => false,
-   SettingsClass::SESSION      => new ArrayClass ([
-    // 'id' => md5 ('HrachToomasyan'),
+   SettingsClass::Homepage     => 'home',
+   SettingsClass::Timezone     => 'Asia/Yerevan',
+   SettingsClass::Snippets     => true,
+   SettingsClass::Globals      => true,
+   SettingsClass::Database     => false,
+   SettingsClass::Session      => new ArrayClass ([
+    // 'id' => md5 ('HracheToomasyan'),
     'start_options' => ['cookie_lifetime' => 7200]]),
-   SettingsClass::LANGUAGE     => true,
-   SettingsClass::DEFAULTLANG  => 'en-uk',
-   SettingsClass::LANGEXT      => 'lang.php',]);
+   SettingsClass::Language     => true,
+   SettingsClass::DefaultLang  => 'en-uk',
+   SettingsClass::LangFileExt      => 'lang.php',]);
 
   /* Uncomment if you're database using in your project */
-  $settings->add (SettingsClass::DATABASE, new ArrayClass ([
+  $settings->add (SettingsClass::Database, new ArrayClass ([
    SettingsClass::DBUSER     => 'acs_limited_user',
    SettingsClass::DBPASSWORD => 'j1HIXERipiW2',
    SettingsClass::DBHOST     => '127.0.0.1',
