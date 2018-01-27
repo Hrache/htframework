@@ -1,0 +1,65 @@
+<h1><?= _abc('createaccount') ?></h1>
+<form class="form-theme" action="<?= SiteURL ?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
+ <?php if (__('cpage')->getSignup()) { ?>
+  <span class="col-1-1">
+   <h2><?= _abc('signupsuccess') ?></h2>
+  </span>
+ <?php } ?>
+ <input name="<?= AccountModel::name ?>" size="30" type="text" id="<?= AccountModel::name ?>" value="<?= post_('firstname') ?>" placeholder="<?= _abc("firstname") ?>"/>
+ <input name="<?= AccountModel::surname ?>" size="30" type="text" id="<?= AccountModel::surname ?>" value="<?= post_('lastname') ?>" placeholder="<?= _abc("lastname") ?>"/><br/>
+ <select name="birthyear" id="birthyear">
+  <option value=""><?= _abc('year') ?></option>
+  <?= DOMRangeOptions(intval(date("Y")), 1940, post_('birthyear'), 1) ?>
+ </select>
+ <select name="birthmonth" id="birthmonth">
+  <option value=""><?= _abc('month') ?></option>
+  <?php html_dropdown_items(_abc('months'), !is_numeric(post_('birthmonth')) ? -1 : post_('birthmonth')); ?>
+ </select>
+ <select name="birthday" id="birthday">
+  <option value=""><?= _abc('day') ?></option>
+  <?= DOMRangeOptions(1, 31, post_('birthday'), 1) ?>
+ </select>
+ <select name="<?= AccountModel::gender ?>" id="<?= AccountModel::gender ?>">
+  <option value=""><?= _abc('gender') ?></option>
+  <option value="m" <?= (post_('gender') === 'm') ? 'checked' : '' ?>><?= _abc("man") ?></option>
+  <option value="w" <?= (post_('gender') === 'w') ? 'checked' : '' ?>><?= _abc("woman") ?></option>
+ </select><br/>
+
+ <?php
+ do_if(errorCondition('gender'), function() {
+  printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('gendererror1'));
+ });
+
+ do_if(errorCondition('personidentity'), function() {
+  printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('namesurnamerequired'));
+ });
+
+ do_if(errorCondition('birthdate'), function() {
+  printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('birthdate'));
+ });
+ ?>
+
+ <select name="<?= AccountModel::phonecodeid ?>" id="<?= AccountModel::phonecodeid ?>" style="max-width: 160px;">
+  <option value=""><?= _abc('phonecode') ?></option>
+  <?= DOMOptions_PostalInfo(post_('phonecodeid'), '', [0, 4]) ?>
+ </select>
+ <input type="text" size="30" name="<?= AccountModel::phonenumber ?>" id="<?= AccountModel::phonenumber ?>" value="<?= post_('phonenumber') ?>" placeholder="<?= _abc('phonenumber') ?>"/><br/>
+
+ <?php
+ do_if(errorCondition('phonenumberexists'), function() {
+  printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('phonenumberexists'));
+ });
+ ?>
+ <input type="text" size="30" name="<?= AccountModel::email ?>" id="<?= AccountModel::email ?>" value="<?= post_('signupemail') ?>" placeholder="<?= _abc("email") ?>" />
+ <input type="text" size="30" name="<?= AccountModel::email ?>c" id="<?= AccountModel::email ?>c" onclick="$(this).val($('#<?= AccountModel::email ?>').val());" value="<?= post_('signupemailc') ?>" placeholder="<?= _abc('confirmemail') ?>" /><br/>
+ <?php
+ do_if(errorCondition('emailexists'), function() {
+  printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('emailexists'));
+ });
+ ?>
+ <input type="password" size="30" name="<?= AccountModel::password ?>" id="<?= AccountModel::password ?>" placeholder="<?= _abc('password') ?>"/>
+ <input type="password" size="30" name="<?= AccountModel::password ?>c" id="<?= AccountModel::password ?>c" placeholder="<?= _abc('confirmpassword') ?>"/>
+ <span class="description rule small-font">&nbsp;<?= _abc('passwordlength'); ?></span>
+ <span class="description rule small-font">&nbsp;<?= _abc('passwordsigns'); ?></span>
+ <input type="submit" onclick='$("#signupform").submit();' value="<?= _abc("createaccount") ?>">
+</form>

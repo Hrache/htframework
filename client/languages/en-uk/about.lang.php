@@ -1,5 +1,6 @@
 <?php
-return (array (
-	"pagetitle" => "About",
-));
+
+return (array(
+    "pagetitle" => "About",
+        ));
 ?>

@@ -1,12 +1,13 @@
 <?php
+
 /*
  * Description: function returns word from vocabolary
  * @param string or int - index of the word in vocabolary
  * @return string
  */
 
-function _abc ($index) {
- return  (is_numeric ($index))? $index: __('language')->getWord ($index);
+function _abc($index) {
+ return (is_numeric($index)) ? $index : __('language')->getWord($index);
 }
 
 /**
@@ -24,8 +25,8 @@ function _redStar() {
  * @param string or int - index of the POST data
  * @return mixed
  */
-function post_ ($index) {
- return (__('request')->postItem ($index));
+function post_($index) {
+ return (__('request')->postItem($index));
 }
 
 /**
@@ -33,8 +34,8 @@ function post_ ($index) {
  * @param string or int - index of the GET data
  * @return mixed
  */
-function get_ ($index) {
- return (__('request')->getItem ($index));
+function get_($index) {
+ return (__('request')->getItem($index));
 }
 
 /**
@@ -43,8 +44,8 @@ function get_ ($index) {
  * @param bool $condition should function print checked or no
  * @return string
  */
-function checkedRadio (bool $condition): string {
- return (($condition)? ' checked="checked"' : '');
+function checkedRadio(bool $condition): string {
+ return (($condition) ? ' checked="checked"' : '');
 }
 
 /**
@@ -54,12 +55,12 @@ function checkedRadio (bool $condition): string {
  * @param index string - key of the posted data
  * @return string
  */
-function checkedPost (string $index): string {
- return (boolval (post_ ($index))) ? 'checked="checked" ' : '';
+function checkedPost(string $index): string {
+ return (boolval(post_($index))) ? 'checked="checked" ' : '';
 }
 
-function errorCondition (string $errorIndex): bool {
- return (boolval (__('errors')) && __('errors')->getSingleError ($errorIndex))? true : false;
+function errorCondition(string $errorIndex): bool {
+ return (boolval(__('errors')) && __('errors')->getSingleError($errorIndex)) ? true : false;
 }
 
 /**
@@ -74,26 +75,28 @@ function errorCondition (string $errorIndex): bool {
  * @param $_empty - the first option is empty, but may contain text data
  * @return string
  */
-function DOMOptions_PostalInfo ($selected = false, $_empty = '', array $fields = [0, 4]): string {
- $info = PostalInfoCustom (-1, $fields);
+function DOMOptions_PostalInfo($selected = false, $_empty = '', array $fields = [0, 4]): string {
+ $info = PostalInfoCustom(-1, $fields);
 
  if ($info->isEmpty()) {
-  return '';}
- else {
-  lib_load ('html');
-  $_data = '';}
+  return '';
+ } else {
+  lib_load('html');
+  $_data = '';
+ }
 
  while (!$info->isEmpty()) {
-  $i = new ArrayClass ((array) $info->pull()->value);
-  $id = $i->grab (AcsCountryinfoTblModel::id)->value;
-  $country = $i->grab (AcsCountryinfoTblModel::nicename)->value;
-  $phonecode = $i->grab (AcsCountryinfoTblModel::phonecode)->value;
-  $_data .= HTMLHelpers::DOMOption ($id, implode (' ', [$country, $phonecode]));}
+  $i = new ArrayClass((array) $info->pull()->value);
+  $id = $i->grab(AcsCountryinfoTblModel::id)->value;
+  $country = $i->grab(AcsCountryinfoTblModel::nicename)->value;
+  $phonecode = $i->grab(AcsCountryinfoTblModel::phonecode)->value;
+  $_data .= HTMLHelpers::DOMOption($id, implode(' ', [$country, $phonecode]));
+ }
 
- unset ($info);
- lib_unload ('html');
+ unset($info);
+ lib_unload('html');
 
- return trim ($_data);
+ return trim($_data);
 }
 
 /**
@@ -108,45 +111,59 @@ function DOMOptions_PostalInfo ($selected = false, $_empty = '', array $fields =
  * @param array $fields
  * @return ArrayClass Desired data by the given fields
  */
-function PostalInfoCustom (int $selected = -1, array $fields = [0, 4]): ArrayClass {
- $fieldsArray = new ArrayClass ([AcsCountryinfoTblModel::id]);
+function PostalInfoCustom(int $selected = -1, array $fields = [0, 4]): ArrayClass {
+ $fieldsArray = new ArrayClass([AcsCountryinfoTblModel::id]);
 
- while (boolval ($fields)) {
-  $field = array_shift ($fields);
+ while (boolval($fields)) {
+  $field = array_shift($fields);
 
-  switch (intval ($field)) {
+  switch (intval($field)) {
    case (0): {
-    $fieldsArray->add (null, AcsCountryinfoTblModel::nicename); break;}
+     $fieldsArray->add(null, AcsCountryinfoTblModel::nicename);
+     break;
+    }
    case (1): {
-    $fieldsArray->add (null, AcsCountryinfoTblModel::iso); break;}
+     $fieldsArray->add(null, AcsCountryinfoTblModel::iso);
+     break;
+    }
    case (2): {
-    $fieldsArray->add (null, AcsCountryinfoTblModel::iso3); break;}
+     $fieldsArray->add(null, AcsCountryinfoTblModel::iso3);
+     break;
+    }
    case (3): {
-    $fieldsArray->add (null, AcsCountryinfoTblModel::numcode); break;}
+     $fieldsArray->add(null, AcsCountryinfoTblModel::numcode);
+     break;
+    }
    default: {
-    $fieldsArray->add (null, AcsCountryinfoTblModel::phonecode);}}}
+     $fieldsArray->add(null, AcsCountryinfoTblModel::phonecode);
+    }
+  }
+ }
 
  $qry = '';
 
  if ($selected >= 0) {
   $arr = $fieldsArray->inputArray();
 
-  array_walk_recursive ($arr, function (&$val, $key) {
-   $val = MySQLModelAbstract::_fier ($val);
+  array_walk_recursive($arr, function (&$val, $key) {
+   $val = MySQLModelAbstract::_fier($val);
   });
 
-  $fieldsArray->replaceArray ($arr); unset ($arr);
-  $fields = implode (',', $fieldsArray->inputArray());
-  $qry = sprintf ('SELECT %s FROM %s WHERE `%s`=%s;', $fields, AcsCountryinfoTblModel::MODEL, AcsCountryinfoTblModel::id, $selected);}
- else {
-  $qry = AcsCountryinfoTblModel::getByFields ($fieldsArray, AcsCountryinfoTblModel::MODEL);}
+  $fieldsArray->replaceArray($arr);
+  unset($arr);
+  $fields = implode(',', $fieldsArray->inputArray());
+  $qry = sprintf('SELECT %s FROM %s WHERE `%s`=%s;', $fields, AcsCountryinfoTblModel::MODEL, AcsCountryinfoTblModel::id, $selected);
+ } else {
+  $qry = AcsCountryinfoTblModel::getByFields($fieldsArray, AcsCountryinfoTblModel::MODEL);
+ }
 
- $info = __('database')->PDOFetchArray ($qry, 1); unset ($fieldsArray);
+ $info = __('database')->PDOFetchArray($qry, 1);
+ unset($fieldsArray);
  return $info;
 }
 
-function DOMCountries ($selected = false, $_empty = '') {
- return DOMOptions_PostalInfo ($selected, $_empty, [0]);
+function DOMCountries($selected = false, $_empty = '') {
+ return DOMOptions_PostalInfo($selected, $_empty, [0]);
 }
 
 /**
@@ -155,9 +172,9 @@ function DOMCountries ($selected = false, $_empty = '') {
  * @param $selected value which will be selection criteria
  * @return string list of registered currencies from website's database
  * */
-function ListOfCurrencies (string $name, $selected = 0): string {
+function ListOfCurrencies(string $name, $selected = 0): string {
  // reading currencies from database
- $currencies = __('database')->PDOFetchArray (AcsCurrencyModel::getAll (AcsCurrencyModel::MODEL), 1);
+ $currencies = __('database')->PDOFetchArray(AcsCurrencyModel::getAll(AcsCurrencyModel::MODEL), 1);
 
  // item of drop down list
  $items = '';
@@ -166,13 +183,15 @@ function ListOfCurrencies (string $name, $selected = 0): string {
  while (!$currencies->isEmpty()) {
   $item = $currencies->pull();
 
-  if (!boolval ($item)) {
-   continue;}
+  if (!boolval($item)) {
+   continue;
+  }
 
-  $items .= sprintf ('<option value="%s"%s>%s</option>'.PHP_EOL, $item->value->id, ($item->value->id === $selected || $selected === 0)? ' selected' : '', _abc ($item->value->currency));}
+  $items .= sprintf('<option value="%s"%s>%s</option>' . PHP_EOL, $item->value->id, ($item->value->id === $selected || $selected === 0) ? ' selected' : '', _abc($item->value->currency));
+ }
 
  // variable that will keep HTML code of the list of currencies
- $list = sprintf ('<select name="%s">%s</select>', $name, $items);
+ $list = sprintf('<select name="%s">%s</select>', $name, $items);
  return $list;
 }
 
@@ -182,21 +201,23 @@ function ListOfCurrencies (string $name, $selected = 0): string {
  * @param $_empty - the first option is empty, but may contain text data
  * @return string
  */
-function DOMOptions_CarBrands ($selected = -1, string $_empty = ''): string {
+function DOMOptions_CarBrands($selected = -1, string $_empty = ''): string {
  // CarBrandsModel
- $brands = __('database')->PDOFetchArray (CarBrandsModel::getAll (CarBrandsModel::MODEL), 1);
+ $brands = __('database')->PDOFetchArray(CarBrandsModel::getAll(CarBrandsModel::MODEL), 1);
  $_carBrands = '';
 
  while (!$brands->isEmpty()) {
   $i = $brands->pull();
 
-  if (!boolval ($i->value)) {
-   continue;}
+  if (!boolval($i->value)) {
+   continue;
+  }
 
-  $_carBrands .= html_option (utf8_decode ($i->value->title), $i->value->id, ($i->key == intval ($selected) && ($selected != false || $selected != '')) ? true : false);}
+  $_carBrands .= html_option(utf8_decode($i->value->title), $i->value->id, ($i->key == intval($selected) && ($selected != false || $selected != '')) ? true : false);
+ }
 
  unset($brands);
- return trim ($_carBrands);
+ return trim($_carBrands);
 }
 
 /**
@@ -207,20 +228,22 @@ function DOMOptions_CarBrands ($selected = -1, string $_empty = ''): string {
  * @param $_empty - the 1st option is empty, but may contain text data
  * @return string
  */
-function DOMOptions_CarModelsByCarBrand (int $carBrand = -1, $selected = false, $_empty = ''): string {
+function DOMOptions_CarModelsByCarBrand(int $carBrand = -1, $selected = false, $_empty = ''): string {
  // CarModelsModel
- $models = __('database')->PDOFetchArray (CarModelsModel::getByColumn (CarModelsModel::brand_id, $carBrand, CarModelsModel::MODEL), 1);
+ $models = __('database')->PDOFetchArray(CarModelsModel::getByColumn(CarModelsModel::brand_id, $carBrand, CarModelsModel::MODEL), 1);
  $_carModels = '';
 
-	while (!$models->isEmpty()) {
+ while (!$models->isEmpty()) {
   $i = $models->pull();
 
-  if (!is_object ($i)) {
-   continue;}
+  if (!is_object($i)) {
+   continue;
+  }
 
-  $_carModels .= html_option ($i->value->title, $i->value->id, (boolval ($selected) && $i->value->id == $selected)? true : false);}
+  $_carModels .= html_option($i->value->title, $i->value->id, (boolval($selected) && $i->value->id == $selected) ? true : false);
+ }
 
- unset ($models);
+ unset($models);
  return $_carModels;
 }
 
@@ -228,11 +251,12 @@ function DOMOptions_CarModelsByCarBrand (int $carBrand = -1, $selected = false, 
  * Description of formDataNames
  * @return string $requestArray
  */
-function formDataNames (Array $requestArray): string {
+function formDataNames(Array $requestArray): string {
  $keyList = '';
 
  foreach ($requestArray as $key => $val) {
-  $keyList .= $key . PHP_EOL;}
+  $keyList .= $key . PHP_EOL;
+ }
 
  return $keyList;
 }
@@ -244,15 +268,17 @@ function formDataNames (Array $requestArray): string {
  */
 function html_nl(): string {
  return '<br/>';
-};
+}
+
+;
 
 /**
  * Description of dynPageTitle
  *
  *
  * */
-function acs_PageTitle (string $text): void {
- __('page')->setTitle ($text . ': ' . __('page')->getTitle());
+function acs_PageTitle(string $text): void {
+ __('page')->setTitle($text . ': ' . __('page')->getTitle());
 }
 
 /**
@@ -275,41 +301,50 @@ function acs_PageTitle (string $text): void {
  *  bool [vertical] decides weather menu is vertical ( true) or horizontal ( false)
  * ]
  */
-function createmenu (array $menulinks, array $attr) {
- if (!isset ($attr ["menu"])) {
-  $attr ["menu"] = "";}
+function createmenu(array $menulinks, array $attr) {
+ if (!isset($attr ["menu"])) {
+  $attr ["menu"] = "";
+ }
 
- if (!isset ($attr ["id"])) {
-  $attr ["id"] = "";}
+ if (!isset($attr ["id"])) {
+  $attr ["id"] = "";
+ }
 
  $items = '';
 
  foreach ($menulinks as $page => $link) {
-  if (isset ($link ['display']) && !boolval ($link ['display'])) {
-   continue;}
+  if (isset($link ['display']) && !boolval($link ['display'])) {
+   continue;
+  }
 
   if (!isset($attr ["menu-item"])) {
-   $attr ["menu-item"] = '';}
+   $attr ["menu-item"] = '';
+  }
 
   $itemClass = $attr ["menu-item"];
 
-  if (isset ($attr ['page']) && $page == $attr ['page']) {
-   $itemClass .= (isset ($attr ['active']) ? ' ' . $attr ['active'] : '');}
+  if (isset($attr ['page']) && $page == $attr ['page']) {
+   $itemClass .= (isset($attr ['active']) ? ' ' . $attr ['active'] : '');
+  }
 
-  if (!isset ($link ["getdata"])) {
-   $link ["getdata"] = "";}
-  else {
-   $link ["getdata"] = '&' . $link ["getdata"];}
+  if (!isset($link ["getdata"])) {
+   $link ["getdata"] = "";
+  } else {
+   $link ["getdata"] = '&' . $link ["getdata"];
+  }
 
-  if (!isset ($attr ["menu-item"])) {
-   $attr ["menu-item"] = "";}
+  if (!isset($attr ["menu-item"])) {
+   $attr ["menu-item"] = "";
+  }
 
-  if (!isset ($link ["text"])) {
-   $link ["text"] = '';}
+  if (!isset($link ["text"])) {
+   $link ["text"] = '';
+  }
 
-  $items .= sprintf (PHP_EOL . '<a href="%s" class="%s">%s</a>%s', (isset ($link ['url'])? $link ['url'] : $attr ['url'] . $page . $link ["getdata"]), $itemClass, $link ["text"], (boolval ($attr ['vertical']) ? '<br/>' : ''));}
+  $items .= sprintf(PHP_EOL . '<a href="%s" class="%s">%s</a>%s', (isset($link ['url']) ? $link ['url'] : $attr ['url'] . $page . $link ["getdata"]), $itemClass, $link ["text"], (boolval($attr ['vertical']) ? '<br/>' : ''));
+ }
 
- printf (PHP_EOL . '<span%s>%s</span>', boolval ($attr ["menu"])? ' class="'. $attr ["menu"] .'"' : '', $items);
+ printf(PHP_EOL . '<span%s>%s</span>', boolval($attr ["menu"]) ? ' class="' . $attr ["menu"] . '"' : '', $items);
 }
 
 /**
@@ -320,11 +355,11 @@ function createmenu (array $menulinks, array $attr) {
  * @return array file-system file-paths and URLs of the files in the directory
  * (use 'path', 'names' and 'url' to access corresponding information)
  */
-function pathAndURL (string $path, string $webDir): array {
+function pathAndURL(string $path, string $webDir): array {
  $files = [
-  'path' => $path,
-  'url' => $webDir,
-  'names' => scandir_c ($path)];
+     'path' => $path,
+     'url' => $webDir,
+     'names' => scandir_c($path)];
 
  return $files;
 }
@@ -332,28 +367,31 @@ function pathAndURL (string $path, string $webDir): array {
 /**
  * Generates HTML code within text
  * for form fields that need description
- * @param ArrayClass $keyVal 
+ * @param ArrayClass $keyVal
  * Some array of key-val pairs that will be returned
  * @param string $desclang
  * The translation of the word 'Description'
- * @return string 
+ * @return string
  */
-function ffDesc (ArrayClass $keyVal, string $desclang = 'Description'): string {
- $divcss = implode (';', [
-  'padding: 1px 4px 4px 4px', 'max-width: 90%',
-  'font-size: 12px'
+function ffDesc(ArrayClass $keyVal, string $desclang = 'Description'): string {
+ $divcss = implode(';', [
+     'padding: 1px 4px 4px 4px', 'max-width: 90%',
+     'font-size: 12px'
  ]);
  $desctext = [];
 
  while (!$keyVal->isEmpty()) {
   $i = $keyVal->pull();
 
-  if (is_array ($i->value)) {
-   $i->value = implode (', ', $i->value);}
+  if (is_array($i->value)) {
+   $i->value = implode(', ', $i->value);
+  }
 
-  $i->key = ucfirst ($i->key);
-  $desctext [$i->key] = $i->value;}
+  $i->key = ucfirst($i->key);
+  $desctext [$i->key] = $i->value;
+ }
 
- return sprintf ('<br/><span style="%s">%s: %s</span>', $divcss, ucfirst ($desclang), implode (', ', $desctext));
+ return sprintf('<br/><span style="%s">%s: %s</span>', $divcss, ucfirst($desclang), implode(', ', $desctext));
 }
+
 ?>

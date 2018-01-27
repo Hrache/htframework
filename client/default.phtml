@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<?php
+lib_load('html');
+__('language')->append('pages');
+?>
+<html>
+ <head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+  <?php __('cpage')->meta(); ?>
+  <title><?= __('page')->getTitle() ?></title>
+  <?php
+  echo HTMLHelpers::CSSLink("view/res/reset.css");
+  echo HTMLHelpers::CSSLink("view/res/common.css");
+  echo HTMLHelpers::CSSLink("view/res/flags.css");
+  echo HTMLHelpers::CSSLink("view/res/responsive.css");
+
+  if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER ['HTTP_USER_AGENT'])) {
+   echo HTMLHelpers::JSScript('view/res/js/jquery-1.12.4.min.js');
+  } else {
+   echo HTMLHelpers::JSScript('view/res/js/jquery-3.1.1.min.js');
+  }
+
+  echo HTMLHelpers::JSScript('view/res/js/common.js');
+  echo __('pre_res');
+  __('cpage')->resources();
+  ?>
+  <script type="text/javascript">
+   $(document).ready(function() {
+<?php
+get_file(Res . 'js' . ds . 'common.inc.js');
+__('cpage')->jsDocReady();
+?>
+    $('#wrapper').fadeToggle(700);
+   });
+  </script>
+ </head>
+ <body>
+  <blockquote id="wrapper" class="body-80" style="display: none;">
+   <span class="col-1-1">
+    <?php __('cpage')->header(); ?>
+   </span>
+   <?php
+   __('page')->insertSnippet('header_menu');
+   __('page')->insertSnippet('layouts' . DIRECTORY_SEPARATOR . 'layout_two_columns');
+   __('page')->insertSnippet('footer');
+   __('cpage')->footer();
+   ?>
+  </blockquote>
+ </body>
+</html>

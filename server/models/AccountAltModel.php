@@ -1,7 +1,8 @@
 <?php
-class AccountAltModel extends MySQLModelAbstract {
- const MODEL = 'acs_accountalt_tbl';
 
+class AccountAltModel extends MySQLModelAbstract {
+
+ const MODEL = 'acs_accountalt_tbl';
  const accountid = 'account_id';
  const nickname = 'nickname';
  const company = 'company';
@@ -38,8 +39,8 @@ class AccountAltModel extends MySQLModelAbstract {
  protected $facebook = null;
  protected $google = null;
 
- function __construct ( Array $accountAltInfo = []) {
-  parent::__construct ( self::MODEL, $accountAltInfo);
+ function __construct(Array $accountAltInfo = []) {
+  parent::__construct(self::MODEL, $accountAltInfo);
  }
 
  function getAccount_id() {
@@ -109,5 +110,7 @@ class AccountAltModel extends MySQLModelAbstract {
  function getGoogle() {
   $this->google;
  }
+
 }
+
 ?>

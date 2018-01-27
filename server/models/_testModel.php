@@ -1,5 +1,7 @@
 <?php
+
 class TestModel {
+
  const TABLE = 'tbl_account';
 
  private $id;
@@ -9,5 +11,8 @@ class TestModel {
  private $lastvisit;
  private $signupdate;
 
- function  __construct () {}
+ function __construct() {
+
+ }
+
 }
