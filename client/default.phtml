@@ -28,7 +28,7 @@ __('language')->append('pages');
   <script type="text/javascript">
    $(document).ready(function() {
 <?php
-get_file(Client . realpath('js/common.inc.js'));
+get_file(realpath(Client . 'js/common.inc.js'));
 __('cpage')->jsDocReady();
 ?>
     $('#wrapper').fadeToggle(700);

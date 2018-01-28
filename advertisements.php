@@ -90,12 +90,12 @@ class PageClass implements PageInterface {
 
  function resources() {
   lib_load('html');
-  echo HTMLHelpers::CSSLink('view/res/advs.css');
+  echo HTMLHelpers::CSSLink('client/css/advs.css');
  }
 
  // advertisements._documentReady
  function jsDocReady() {
-  get_file(Res . 'js' . ds . 'advs.inc.js');
+  get_file('client/js/advs.inc.js');
  }
 
  // advertisements._content
