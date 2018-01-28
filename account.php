@@ -78,7 +78,7 @@ class PageClass implements PageInterface {
  // account.resources
  public function resources() {
   if (!__('session')->cookieExists('account')) {
-   echo HTMLHelpers::JSScript('view/res/js/md5.min.js');
+   echo HTMLHelpers::JSScript('client/js/md5.min.js');
   }
  }
 

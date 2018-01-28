@@ -7,11 +7,12 @@
    .message {
     color: #c60000;
     font-size: 16pt;
-    font-family: "Times New Roman", Georgia, Serif;}
-   </style>
-  </head>
-  <body>
-   <img src="view/res/images/error.png" />
-   <div class="message"><?= _abc($e->getMessage()) ?></div>
+    font-family: "Times New Roman", Georgia, Serif;
+   }
+  </style>
+ </head>
+ <body>
+  <img src="client/images/error.png" />
+  <div class="message"><?= $params->getMessage() ?></div>
  </body>
 </html>

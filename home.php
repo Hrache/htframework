@@ -13,7 +13,7 @@ class PageClass implements PageInterface {
  }
 
  function resources() {
-  echo HTMLHelpers::CSSLink('view/res/advs.css');
+  echo HTMLHelpers::CSSLink('client/css/advs.css');
  }
 
  function footer() {

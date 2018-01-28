@@ -9,7 +9,7 @@ class FinalSettings extends SettingsClass {
       self::MapKey => 'AIzaSyBlOZ_t3-7-EvtAuBGG2rPMVNmP2xeAfIw',
       SettingsClass::TemplateFile => 'default.phtml',
       SettingsClass::Errorpage => 'error.php',
-      SettingsClass::PageExt => 'php',
+      SettingsClass::PageFileExt => 'php',
       SettingsClass::Homepage => 'home',
       SettingsClass::Timezone => 'Asia/Yerevan',
       SettingsClass::Snippets => true,

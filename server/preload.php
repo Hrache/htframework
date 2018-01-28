@@ -1,12 +1,14 @@
 <?php
 
-define('Models', realpath(__DIR__ . '/models') . DIRECTORY_SEPARATOR);
+define('Classes', Server . 'classes' . DIRECTORY_SEPARATOR);
+
+set_include_path(get_include_path() . ps . Models . ps . Classes . ps . Scripts);
+
 define('Img_uploads', Shared . 'image_store' . DIRECTORY_SEPARATOR);
 define('ImgURL', 'image_store/');
 define('Layouts', Snippets . 'layouts' . ds);
-set_include_path(get_include_path() . ps . System . ps . Models . ps . UserLib . ps . Scripts);
 
-// account
+// Account
 $account = $errors = null;
 _di('account', $account);
 _di('errors', $errors);
@@ -24,10 +26,10 @@ if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
  lib_load('html');
 
  /**
-  * var pre_res resources from preinit.php file
+  * @var pre_res resources from preinit.php file
   * created for default template file
   */
- _di('pre_res', implode(PHP_EOL, [HTMLHelpers::CSSLink("view/res/account.css"),]));
+ _di('pre_res', implode(PHP_EOL, [HTMLHelpers::CSSLink("client/css/account.css"),]));
  $language->append('signup', 'date', 'account');
 }
 
