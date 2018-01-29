@@ -8,6 +8,8 @@ define('Img_uploads', Shared . 'image_store' . DIRECTORY_SEPARATOR);
 define('ImgURL', 'image_store/');
 define('Layouts', Snippets . 'layouts' . ds);
 
+lib_load('html');
+
 // Account
 $account = $errors = null;
 _di('account', $account);
@@ -23,8 +25,6 @@ $language->append('common', 'common_carinfo', 'errors');
 $settings->setSetting('useheadersearch', true);
 
 if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
- lib_load('html');
-
  /**
   * @var pre_res resources from preinit.php file
   * created for default template file
