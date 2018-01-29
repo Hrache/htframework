@@ -1,6 +1,6 @@
 <?php
 
-class PageClass implements PageInterface {
+class PageClass extends PageMethods {
 
  function __construct() {
   __('language')->append('home');
@@ -14,22 +14,6 @@ class PageClass implements PageInterface {
 
  function resources() {
   echo HTMLHelpers::CSSLink('client/css/advs.css');
- }
-
- function footer() {
-
- }
-
- function header() {
-
- }
-
- function jsDocReady() {
-
- }
-
- function meta() {
-
  }
 
 }

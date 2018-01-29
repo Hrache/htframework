@@ -4,7 +4,7 @@
  * The class of the response
  * The class below contains action methods of the sub-page
  */
-class PageClass implements PageInterface {
+class PageClass extends PageMethods {
 
  /**
   * @var mixed Indicates the sign-up
@@ -80,22 +80,6 @@ class PageClass implements PageInterface {
   if (!__('session')->cookieExists('account')) {
    echo HTMLHelpers::JSScript('client/js/md5.min.js');
   }
- }
-
- public function meta() {
-
- }
-
- public function header() {
-
- }
-
- public function jsDocReady() {
-
- }
-
- public function footer() {
-
  }
 
  /**

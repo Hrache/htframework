@@ -29,7 +29,7 @@ __('language')->append('pages');
    $(document).ready(function() {
 <?php
 get_file(realpath(Client . 'js/common.inc.js'));
-__('cpage')->jsDocReady();
+__('cpage')->domonload();
 ?>
     $('#wrapper').fadeToggle(700);
    });

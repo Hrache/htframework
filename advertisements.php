@@ -1,6 +1,6 @@
 <?php
 
-class PageClass implements PageInterface {
+class PageClass extends PageMethods {
 
  private $required;
  private $additional;
@@ -94,7 +94,7 @@ class PageClass implements PageInterface {
  }
 
  // advertisements._documentReady
- function jsDocReady() {
+ function domonload() {
   get_file('client/js/advs.inc.js');
  }
 
@@ -103,18 +103,6 @@ class PageClass implements PageInterface {
   __('language')->append('common_forms', 'measures', 'newadvform', 'carinfo');
   __('page')->insertSnippet('account_advertisements');
   __('page')->insertSnippet('advertisements_create');
- }
-
- public function footer() {
-
- }
-
- public function header() {
-
- }
-
- public function meta() {
-
  }
 
 }

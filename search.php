@@ -1,6 +1,6 @@
 <?php
 
-class PageClass implements PageInterface {
+class PageClass extends PageMethods {
 
  public function __construct() {
   __('language')->append('search');
@@ -27,26 +27,6 @@ class PageClass implements PageInterface {
  // Content
  public function content() {
   __('page')->insertSnippet('message', ['text' => 'You are trying to do some search.']);
- }
-
- public function footer() {
-
- }
-
- public function header() {
-
- }
-
- public function jsDocReady() {
-
- }
-
- public function meta() {
-
- }
-
- public function resources() {
-
  }
 
  // Quick search

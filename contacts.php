@@ -9,30 +9,6 @@ class PageClass implements PageInterface {
   $page->setTitle(_abc('pagetitle'));
  }
 
- public function jsDocReady() {
-
- }
-
- public function meta() {
-
- }
-
- public function resources() {
-
- }
-
- public function content() {
-
- }
-
- public function footer() {
-
- }
-
- public function header() {
-
- }
-
 }
 
 ?>
