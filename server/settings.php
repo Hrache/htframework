@@ -12,22 +12,22 @@ class FinalSettings extends SettingsClass {
       SettingsClass::PageFileExt => 'php',
       SettingsClass::Homepage => 'home',
       SettingsClass::Timezone => 'Asia/Yerevan',
-      SettingsClass::Snippets => true,
-      SettingsClass::Globals => true,
-      SettingsClass::Database => false,
+      SettingsClass::SnippetsModule => true,
+      SettingsClass::Globals_ => true,
+      SettingsClass::DatabaseModule => false,
       SettingsClass::PreLoad => 'preload.php',
       SettingsClass::PostLoad => 'postload.php',
-      SettingsClass::Session => new ArrayClass([
+      SettingsClass::SessionModule => new ArrayClass([
           // 'id' => md5 ('HracheToomasyan'),
           'start_options' => ['cookie_lifetime' => 7200]]),
-      SettingsClass::Language => true,
+      SettingsClass::LanguageModule => true,
       SettingsClass::DefaultLang => 'en-uk',
       SettingsClass::LangFileExt => 'lang.php',];
 
   $settings = new ArrayClass($settings);
 
   // Uncomment if you're database using in your project
-  $settings->add(SettingsClass::Database, new ArrayClass([
+  $settings->add(SettingsClass::DatabaseModule, new ArrayClass([
       SettingsClass::DBUSER => 'acs_limited_user',
       SettingsClass::DBPASSWORD => 'j1HIXERipiW2',
       SettingsClass::DBHOST => '127.0.0.1',

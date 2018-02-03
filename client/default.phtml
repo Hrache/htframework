@@ -7,24 +7,24 @@ __('language')->append('pages');
  <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-  <?php __('cpage')->meta(); ?>
+<?php __('cpage')->meta(); ?>
   <title><?= __('page')->getTitle() ?></title>
-  <?php
-  echo HTMLHelpers::CSSLink("client/css/reset.css");
-  echo HTMLHelpers::CSSLink("client/css/common.css");
-  echo HTMLHelpers::CSSLink("client/css/flags.css");
-  echo HTMLHelpers::CSSLink("client/css/responsive.css");
+<?php
+ echo HTMLHelpers::CSSLink("client/css/reset.css");
+ echo HTMLHelpers::CSSLink("client/css/common.css");
+ echo HTMLHelpers::CSSLink("client/css/flags.css");
+ echo HTMLHelpers::CSSLink("client/css/responsive.css");
 
-  if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER ['HTTP_USER_AGENT'])) {
-   echo HTMLHelpers::JSScript('client/js/jquery-1.12.4.min.js');
-  } else {
-   echo HTMLHelpers::JSScript('client/js/jquery-3.1.1.min.js');
-  }
+ if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER ['HTTP_USER_AGENT'])) {
+  echo HTMLHelpers::JSScript('client/js/jquery-1.12.4.min.js');
+ } else {
+  echo HTMLHelpers::JSScript('client/js/jquery-3.1.1.min.js');
+ }
 
-  echo HTMLHelpers::JSScript('client/js/common.js');
-  echo __('pre_res');
-  __('cpage')->resources();
-  ?>
+ echo HTMLHelpers::JSScript('client/js/common.js');
+ echo __('pre_res');
+ __('cpage')->resources();
+?>
   <script type="text/javascript">
    $(document).ready(function() {
 <?php
@@ -38,14 +38,14 @@ __('cpage')->domonload();
  <body>
   <blockquote id="wrapper" class="body-80" style="display: none;">
    <span class="col-1-1">
-    <?php __('cpage')->header(); ?>
+<?php __('cpage')->header(); ?>
    </span>
-   <?php
-   __('page')->insertSnippet('header_menu');
-   __('page')->insertSnippet('layouts' . DIRECTORY_SEPARATOR . 'layout_two_columns');
-   __('page')->insertSnippet('footer');
-   __('cpage')->footer();
-   ?>
+<?php
+__('page')->insertSnippet('header_menu');
+__('page')->insertSnippet('layouts' . DIRECTORY_SEPARATOR . 'layout_two_columns');
+__('page')->insertSnippet('footer');
+__('cpage')->footer();
+?>
   </blockquote>
  </body>
 </html>
