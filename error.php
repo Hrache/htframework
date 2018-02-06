@@ -12,7 +12,7 @@
   </style>
  </head>
  <body>
-  <img src="client/images/error.png" />
+  <img src="client/images/error.png" style="display: "/>
   <div class="message"><?= $params->getMessage() ?></div>
  </body>
 </html>

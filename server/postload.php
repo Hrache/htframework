@@ -1,4 +1,5 @@
 <?php
+
 define('Img_uploads', Shared . 'image_store' . DIRECTORY_SEPARATOR);
 define('ImgURL', 'image_store/');
 define('Layouts', Snippets . 'layouts' . ds);
@@ -14,16 +15,14 @@ _di('errors', $errors);
 require_once('user_functions.php');
 
 // language
-$language->append('common', 'common_carinfo', 'errors');
+__('language')->append('common', 'common_carinfo', 'errors');
 
 // setting for header search
 $settings->setSetting('useheadersearch', true);
 
-
-
 if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
  /**
-  * @var pre_res resources from preinit.php file
+  * @var pre_res resources from preload.php file
   * created for default template file
   */
  _di('pre_res', implode(PHP_EOL, [HTMLHelpers::CSSLink("client/css/account.css"),]));
@@ -37,7 +36,7 @@ if (__('session')->cookieExists('account')) {
  }
 
  if (!boolval($account = __('database')->PDOFetchArray(AccountModel::getAccountByAccountId(__('session')->getCookie('account')), 1)->item(0))) {
-  throw new Error('sessionrestoreerror1');
+  throw new Error(_abc('sessionrestoreerror1'));
  }
 
  _di('account', $account);
@@ -45,10 +44,10 @@ if (__('session')->cookieExists('account')) {
 
  // updating the last visit date
  if (!__('database')->boolQuery(AccountModel::updateLastVisit(__('account')->id))) {
-  throw new Error('backenderror1');
+  throw new Error(_abc('backenderror1'));
  }
 }
 
 if (!boolval(__('account')) && in_array($request->getPage(), ['advertisements'])) {
- throw new Error('onlinepageerror');
+ throw new Error(_abc('onlinepageerror'));
 }
