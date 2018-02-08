@@ -47,21 +47,21 @@ class PageClass extends PageMethods {
   }
  }
 
- public function signup() {
+ private function signup() {
   get_file(Scripts . 'account_signup.php');
  }
 
- public function signin() {
+ private function signin() {
   get_file(Scripts . 'account_signin.php');
  }
 
  // account.signout
- public function signout() {
+ private function signout() {
   __('session')->close();
   header("Location: " . SiteURL);
  }
 
- public function delete(int $id) {
+ private function delete(int $id) {
   __('database')->deleteByColumn($id);
  }
 

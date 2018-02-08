@@ -1,6 +1,6 @@
 <?php
 
-class PageClass implements PageInterface {
+class PageClass extends PageMethods {
 
  public function __construct() {
   $language = __('language');
