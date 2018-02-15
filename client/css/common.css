@@ -88,7 +88,7 @@ legend {
 .menu3 a:hover,
 .alanguage a:hover {
  color: gold;}
-.impact-font, .menu1 a, .menu3 a, .alanguage a {
+.impact-font, .alanguage a {
  font-family: "Impact", sans-serif, "Charcoal";}
 .menu-active-link {
  color: #da1;}

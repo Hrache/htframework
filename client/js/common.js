@@ -39,6 +39,7 @@ function html_option(value, content) {
 
 function randtext(selector, length) {
  length = (length < 1) ? 25 : length;
+
  $(selector).each(function() {
   $(this).val(rword(Math.round(Math.random() * length)));
  });
