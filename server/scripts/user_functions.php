@@ -1,41 +1,13 @@
 <?php
 
-/*
- * Description: function returns word from vocabolary
- * @param string or int - index of the word in vocabolary
- * @return string
- */
-
-function _abc($index) {
- return (is_numeric($index)) ? $index : __('language')->getWord($index);
-}
-
 /**
  * Description of _redStar
  * prints out the html text red star as a sign of importance
  *
  * @return void
- * */
+ */
 function _redStar() {
  echo ( "<b class='red-star'>*</b>");
-}
-
-/**
- * Description of post_ returns POST data by index
- * @param string or int - index of the POST data
- * @return mixed
- */
-function post_($index) {
- return (__('request')->postItem($index));
-}
-
-/**
- * Description: function returns GET data by index
- * @param string or int - index of the GET data
- * @return mixed
- */
-function get_($index) {
- return (__('request')->getItem($index));
 }
 
 /**
@@ -49,8 +21,7 @@ function checkedRadio(bool $condition): string {
 }
 
 /**
- * Description of checkedPost
- * if data was sent as a checked checkbox it will return
+ * If data was sent as a checked checkbox it will return
  * attribute checked on the next request of a same page or on error
  * @param index string - key of the posted data
  * @return string
