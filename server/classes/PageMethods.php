@@ -6,46 +6,33 @@
  */
 abstract class PageMethods {
 
- /**
-  *
-  */
- public function content() {
+	/**
+	 *
+	 */
+	public function content() {}
 
- }
+	/**
+	 *
+	 */
+	public function header() {}
 
- /**
-  *
-  */
- public function header() {
+	/**
+	 *
+	 */
+	public function footer() {}
 
- }
+	/**
+	 *
+	 */
+	public function domonload() {}
 
- /**
-  *
-  */
- public function footer() {
+	/**
+	 *
+	 */
+	public function meta() {}
 
- }
-
- /**
-  *
-  */
- public function domonload() {
-
- }
-
- /**
-  *
-  */
- public function meta() {
-
- }
-
- /**
-  *
-  */
- public function resources() {
-
- }
-
+	/**
+	 *
+	 */
+	public function resources() {}
 }

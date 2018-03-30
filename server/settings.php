@@ -1,7 +1,6 @@
 <?php
 
 class FinalSettings extends SettingsClass {
-
 	const MapKey = 'googlemapkey';
 	const db1 = 'db1';
 
@@ -27,12 +26,9 @@ class FinalSettings extends SettingsClass {
 			SettingsClass::DefaultLang => 'en-uk',
 			SettingsClass::LangFileExt => 'lang.php',
 		];
-
 		$settings = new ArrayClass($settings);
-
-		// Uncomment if you're database using in your project
-		$settings->add(SettingsClass::DatabaseModule, new ArrayClass([
-			self::db1 => [
+		$settings->add(SettingsClass::DatabaseModule, new ArrayClass([// Uncomment if you're database using in your project
+			self::db1 => new ArrayClass([
 				SettingsClass::DBUSER => 'acs_limited_user',
 				SettingsClass::DBPASSWORD => 'j1HIXERipiW2',
 				SettingsClass::DBHOST => '127.0.0.1',
@@ -40,20 +36,13 @@ class FinalSettings extends SettingsClass {
 				SettingsClass::DBNAME => 'acs_database',
 				SettingsClass::DBCHARSET => 'UTF8',
 				SettingsClass::DBTYPE => DatabaseClass::MYSQL,
-			]
+			])
 		]));
-
-		/**
-		 * Set the default database
-		 */
-		$settings->add(SettingsClass::DefaultDatabase, self::db1);
-
+		$settings->add(SettingsClass::DefaultDatabase, self::db1);	// Setting the default database
 		parent::__construct($settings);
 		error_reporting(E_ALL);
 		ini_set('max_file_uploads', 7);
 		ini_set('upload_max_filesize', '420K');
 	}
-
 }
-
 ?>

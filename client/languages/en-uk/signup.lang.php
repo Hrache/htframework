@@ -9,8 +9,9 @@ return([
 	"createaccount" => "Create account",
 	'captcha_error' => 'No Captcha was found',
 	'phonecode' => 'Phonecode',
- 'signupdate' => 'Signup date',
- 'signup' => 'Signup',
- 'signupsuccess' => 'You are now signedup. Now you may signin by using your credentials.'
+	'signupdate' => 'Signup date',
+	'signup' => 'Signup',
+	'signinaftersignup' => 'Sign in after signup.',
+	'signupsuccess' => 'You are now signedup. Now you may signin by using your credentials.'
 ]);
 ?>

@@ -1,9 +1,9 @@
-<span class="col-4-1">
- <?php
- if (__('session')->cookieExists('account')) {
-  __('page')->insertSnippet('account_info');
- } else {
-  __('page')->insertSnippet('account_login_form');
- }
- ?>
+<span class="col-3-1">
+<?php
+if (__('session')->cookieExists('account')) {
+	__('page')->insertSnippet('account_info');
+} else {
+	__('page')->insertSnippet('account_login_form');
+}
+?>
 </span>

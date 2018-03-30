@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @var string The physical path of the web-site
  */
