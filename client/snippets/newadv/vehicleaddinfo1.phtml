@@ -16,11 +16,9 @@
  <br/>
  <select name='aspirationtype_'>
   <option value=""><?= _abc('aspirationtype') ?></option>
-  <?php
-  foreach (_abc('aspirationtype_') as $key => $val) {
-   html_option($val, $key, ($key === post_('aspirationtype_')) ? true : false);
-  }
-  ?>
+<?php
+	foreach (_abc('aspirationtype_') as $key => $val) html_option($val, $key, ($key === post_('aspirationtype_')) ? true : false);
+?>
  </select>
  <br/><input type="text" name="acceleration" value="<?= post_('acceleration') ?>" placeholder="<?= _abc('acceleration') ?>"/>
  <br/><input type="text" name="power" value="<?= post_('power') ?>" placeholder="<?= _abc('power') ?>"/>
@@ -31,20 +29,12 @@
 <?= ffDesc(new ArrayClass(_abc('tirewheelsize_')), _abc('measure')) ?><br/>
  <select name='drivetype'>
   <option><?= _abc('drivetype') ?></option>
-  <?php
-  foreach (_abc('drivetype_') as $key => $val) {
-   html_option($val, $key);
-  }
-  ?>
+<?php foreach (_abc('drivetype_') as $key => $val) html_option($val, $key);?>
  </select>
  <br/><input type="text" name="seatingscapacity" value="<?= post_('seatingscapacity') ?>" placeholder="<?= _abc('seatingscapacity') ?>"/><br/>
  <select name='doors_'>
   <option value=""><?= _abc('doors') ?></option>
-  <?php
-  foreach (_abc('doors_') as $key => $val) {
-   html_option($val, $key, post_('doors_') ? true : false);
-  }
-  ?>
+<?php foreach (_abc('doors_') as $key => $val) html_option($val, $key, post_('doors_') ? true : false);?>
  </select>
 </span>
 

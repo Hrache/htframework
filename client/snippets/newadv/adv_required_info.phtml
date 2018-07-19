@@ -16,7 +16,6 @@
  <input type="text" name="cityorprovince" id="cityorprovince" placeholder="<?= _abc('cityorprovince') ?>" />
  <input type="text" name="mainaddress" id="mainaddress" placeholder="<?= _abc('mainaddress') ?>" />
 </span>
-
 <span class="col-1-1">
  <select name="advtype">
   <option value="free" selected><?= _abc('freeadv') ?></option>
@@ -42,7 +41,6 @@
   <option value="imp" ><?= _abc('imperial') ?></option>
  </select>
 </span>
-
 <span class="col-1-1">
  <select name="transmissiontype">
   <option value=""><?= _abc('transmissiontype') ?></option>
@@ -76,7 +74,7 @@
   <?php
   $ar = new ArrayClass(_abc('fueltype_'));
   $ar->eachItem(function (&$val, $key) {
-   html_option($val, $key, ($key === post_('fueltype_')) ? true : false);
+		html_option($val, $key, ($key === post_('fueltype_')) ? true : false);
   });
   ?>
  </select>

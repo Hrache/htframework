@@ -1,20 +1,24 @@
 <?php
 $menulinks = [
-    "en-UK" => [
-        "link" => "&lang=en-uk",
-        "flagcss" => "flag-britain",],
-    "ru-RU" => [
-        "link" => "&lang=ru-ru",
-        "flagcss" => "flag-russia",],
-    "hy-AM" => [
-        "link" => "&lang=hy-am",
-        "flagcss" => "flag-armenia",]];
+	"hy-AM" => [
+		"link" => "&lang=hy-am",
+		"flagcss" => "flag-armenia"
+	],
+	"ru-RU" => [
+		"link" => "&lang=ru-ru",
+		"flagcss" => "flag-russia"
+	],
+	"en-UK" => [
+		"link" => "&lang=en-uk",
+		"flagcss" => "flag-britain"
+	]
+];
 ?>
-<span class="alanguage">
- <?php
- foreach ($menulinks as $key => $val) {
-  $val = (object) $val;
-  printf('<a href="%s" class="%s %s">%s</a>', SiteURL . '?' . __('request')->getPage() . $val->link, $val->flagcss, ($key == Lang) ? 'menu-active-link' : '', '');
- }
- ?>
+<span class="col-1" dir="rtl">
+<?php
+foreach ($menulinks as $key => $val) {
+	$val = (object) $val;
+	printf('<a href="%s" class="%s %s">%s</a>', SiteURL.'?'.CurrentPage.$val->link, $val->flagcss, ($key == Lang) ? 'menu-active-link' : '', '');
+}
+?>
 </span>

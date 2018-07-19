@@ -126,12 +126,5 @@ class AcsAccountTblModel extends MySQLModelAbstract {
 	function __construct(array $modelData = []) {
 		parent::__construct(self::MODEL, $modelData);
 	}
-
-	/**
-	 *
-	 */
-	static function addNewAccount(ArrayClass $newAccountInfo) {
-		return sprintf('');
-	}
 }
 ?>

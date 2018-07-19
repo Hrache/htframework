@@ -2,7 +2,8 @@ function advCarModel_Complete(data, textStatus, jqXHR) {
 	if ($('#carmodel_>option').length <= 1) {
 		$('#carmodelman').show();
 		$('#carmodel_').hide();
-	} else {
+	}
+	else {
 		$('#carmodelman').hide();
 		$('#carmodel_').show();
 	}
@@ -11,14 +12,12 @@ function advCarModel_Complete(data, textStatus, jqXHR) {
 		$('#carmodel_').hide();
 	}
 }
-
 BrandForModel('carbrand_', 'carmodel_', advCarModel_Complete);
-
 $('#vehicleimgs').change(function() {
 	var fileInputName = $(this).attr('name');
 	$.ajax({
 		'type': 'POST',
-		'url': '<?= SiteURL?>',
+		'url': SiteUrl,
 		'async': true,
 		'contentType': 'text/plain',
 		'dataType': 'text',
@@ -35,9 +34,7 @@ $('#vehicleimgs').change(function() {
 		'success': function(data, textStatus, jqXHR) {
 			$('#uploadedImages').html(data);
 		},
-
 		//  'complete': '',
-
 		/**
 		* Description of error (data, textStatus, jqXHR)
 		* jqXHR: jqXHR
@@ -49,7 +46,6 @@ $('#vehicleimgs').change(function() {
 		}
 	});
 });
-
 $('#newadvform').submit(function() {
 	$('<div></div>').append($(this)).css({
 		'position': 'fixed',
@@ -58,5 +54,4 @@ $('#newadvform').submit(function() {
 	}).text($(this).serialize());
 	$(this).preventDefault();
 });
-
 hiddenToButton('.adv-hidden-list');

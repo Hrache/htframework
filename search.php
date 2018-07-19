@@ -1,35 +1,17 @@
 <?php
 
 class PageClass extends PageMethods {
-
 	public function __construct() {
-		$action = __('request')->getAction();
-		logf('Hello');
-		if ($action == 'ajaxmodel') {
-			die(DOMOptions_CarModelsByCarBrand(get_('brand')));
-		}
-		__('language')->append('search');
-		__('page')->setTitle(_abc('search'));
-		if ($action == 'qs') {
-			// $this->quickSearch();
-		} elseif ($action == 'as') {
-			// $this->advancedSearch();
-		} else {
-			throw new Error(_abc('wrongactionerror'));
-		}
-		unset($action);
+		require_once(Scripts.'search_construct.php');
 	}
-
 	// Content
 	public function content() {
 		__('page')->insertSnippet('message', ['text' => 'You are trying to do some search.']);
 	}
-
 	// Quick search
 	public function quickSearch(): string {
 		get_file('search_quick.php');
 	}
-
 	static function bodytype(string $type): string {
 		switch ($type) {
 			case 'cp' : return 'Coupe';
@@ -47,7 +29,6 @@ class PageClass extends PageMethods {
 			default : return '';
 		}
 	}
-
 	// Advanced search
 	function advancedSearch() {
 		$searchResult = quickSearch();

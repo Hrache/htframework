@@ -1,11 +1,10 @@
 <h1><?= _abc('createaccount') ?></h1>
-<form class="form-theme" action="<?= SiteURL ?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
+<form action="<?= SiteURL?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
 	<input name="<?= AcsAccountTblModel::name ?>" size="30" type="text" id="<?= AcsAccountTblModel::name ?>" value="<?= post_('firstname') ?>" placeholder="<?= _abc('firstname') ?>"/>
 	<input name="<?= AcsAccountTblModel::surname ?>" size="30" type="text" id="<?= AcsAccountTblModel::surname ?>" value="<?= post_('lastname') ?>" placeholder="<?= _abc('lastname') ?>"/><br/>
-	<!-- Time format yyyy mm dd -->
 	<select id="byear">
 		<option value=""><?= _abc('year') ?></option>
-		<?= DOMRangeOptions(intval(date("Y")), 1940, post_('birthyear'), 1) ?>
+<?= DOMRangeOptions(intval(date("Y")), 1940, post_('birthyear'), 1) ?>
 	</select>
 	<select id="bmonth">
 		<option value=""><?= _abc('month') ?></option>
@@ -13,7 +12,7 @@
 	</select>
 	<select id="bday">
 		<option value=""><?= _abc('day') ?></option>
-		<?= DOMRangeOptions(1, 31, post_('birthday'), 1) ?>
+<?= DOMRangeOptions(1, 31, post_('birthday'), 1) ?>
 	</select>
 	<input type="hidden" value="" id="<?= AcsAccountTblModel::birthday ?>" name="<?= AcsAccountTblModel::birthday ?>" />
 	<select name="<?= AcsAccountTblModel::gender ?>" id="<?= AcsAccountTblModel::gender ?>">
@@ -37,6 +36,7 @@
 		<?= DOMOptions_PostalInfo(post_(AcsAccountTblModel::country_id), '', [0, 4]) ?>
 	</select>
 	<input type="text" size="30" name="<?= AcsAccountTblModel::phonenumber ?>" id="<?= AcsAccountTblModel::phonenumber ?>" value="<?= post_('phonenumber') ?>" placeholder="<?= _abc('phonenumber') ?>"/><br/>
+	<input type="hidden" name="dateformat" id="dateformat" value="dd-mm-yyyy" />
 <?php
 	do_if(errorCondition('phonenumberexists'), function() {
 		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('phonenumberexists'));
@@ -51,8 +51,7 @@
 ?>
 	<input type="password" size="30" name="<?= AcsAccountTblModel::password ?>" id="<?= AcsAccountTblModel::password ?>" placeholder="<?= _abc('password') ?>"/>
 	<input type="password" size="30" name="<?= AcsAccountTblModel::password ?>c" id="<?= AcsAccountTblModel::password ?>c" placeholder="<?= _abc('confirmpassword') ?>"/><br />
-	<span class="description rule small-font">&nbsp;<?= _abc('passwordlength') ?></span>
-	<span class="description rule small-font">&nbsp;<?= _abc('passwordsigns') ?></span>
+	<span class="board-small-text"><?= _abc('passwordlength')._abc('passwordsigns') ?></span>
 	<input type="checkbox" name="signin" id="signinsftersignup" value="1" checked="checked" /><?= _abc('signinaftersignup') ?><br/>
 	<input type="submit" onclick='$("#signupform").submit();' value="<?= _abc('createaccount') ?>">
 </form>

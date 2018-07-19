@@ -1,22 +1,18 @@
 /**
- * Description of html_option
- * function creates HTML Option DOM element and returns it
+ * Function creates HTML Option DOM element and returns it
  * @param value
  * @param content
  * @return DOM Object
- *
  **/
 function html_option(value, content) {
 	return $('<option value="' + value + '">' + content + '</option>');
 }
-
 function randtext(selector, length) {
 	length = (length < 1) ? 25 : length;
 	$(selector).each(function() {
 		$(this).val(rword(Math.round(Math.random() * length)));
 	});
 }
-
 /**
  * Description of responsive_parameters
  * automatically adopted the dimensions of the DOM block element to the screen
@@ -41,13 +37,14 @@ function _responsive(margin, width) {
 	}
 	if (width && margin) {
 		return (result);
-	} else if (width) {
+	}
+	else if (width) {
 		return result ['width'];
-	} else if (margin) {
+	}
+	else if (margin) {
 		return result ['margin-left'];
 	}
 }
-
 function NumberRangeOptions(start, end) {
 	var options = '';
 	var selected = start;
@@ -68,7 +65,6 @@ function NumberRangeOptions(start, end) {
 	}
 	return options;
 }
-
 /**
  * Turns input::hidden into an toggle button
  *

@@ -1,5 +1,4 @@
 <?php
-
 return [
 	'cars' => 'acs_cars_tbl',
 	'accounts' => 'acs_account_tbl',

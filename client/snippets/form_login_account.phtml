@@ -1,10 +1,6 @@
-<?php
-if (boolval(__('account'))) {
-	return false;
-}
-?>
+<?php if (__('account')) return false;?>
 <h3><?= _abc('login') ?></h3>
-<form id="headerloginform" class="form-theme" action="<?= SiteURL ?>?account/signin" method="post" enctype="application/x-www-form-urlencoded">
+<form id="headerloginform" action="<?= SiteURL ?>?account/signin" method="post" enctype="application/x-www-form-urlencoded">
 	<input type="text" id="loginidentity" name="loginidentity" placeholder="<?= _abc("email") ?>" /><br>
 	<input type="password" id="loginpassword" name="loginpassword" placeholder="<?= _abc("password") ?>" /><br>
 	<input type="submit" value="<?= _abc("login") ?>" />

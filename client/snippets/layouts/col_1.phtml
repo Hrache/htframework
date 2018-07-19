@@ -1,9 +1,6 @@
 <span class="col-3-1">
 <?php
-if (__('session')->cookieExists('account')) {
-	__('page')->insertSnippet('account_info');
-} else {
-	__('page')->insertSnippet('account_login_form');
-}
+if (__('session')->cookieExists('account')) __('page')->insertSnippet('account_info');
+else __('page')->insertSnippet('form_login_account');
 ?>
 </span>

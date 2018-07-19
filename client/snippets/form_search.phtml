@@ -1,0 +1,48 @@
+<?php
+if (!__('settings')->getSetting('useheadersearch')) return false;
+__('language')->append('searchform');
+?>
+<form action="<?= SiteURL ?>?search/qs" method="GET" name="headersearchform">
+ <select name="carbrand" id="carbrand">
+	<option value=""><?= _abc("brand") ?></option>
+<?= DOMOptions_CarBrands(get_('carbrand')) ?>
+ </select>
+ <select name="carmodel" id="carmodel" style="display: none;">
+	<option value=""><?= _abc("model") ?></option>
+<?= DOMOptions_CarModelsByCarBrand((intval(get_('carbrand')) ?? -1), (intval(get_('carmodel')) ?? -1)) ?>
+ </select>
+ <select name="bodytype">
+	<option value=""><?= _abc("bodytype") ?></option>
+<?php foreach (_abc('bodytype_') as $key => $val) 	html_option($val, $key);?>
+ </select>
+ <select name="caryearfrom" id="caryearfrom">
+	<option value=""><?= _abc("age") ?></option>
+<?= DOMRangeOptions(intval(date("Y")), 1930, false, 1); ?>
+ </select>
+ <select name="caryearto" id="caryearto">
+ </select>
+ <select name="carcondition" id="carcondition">
+	<option value=""><?= _abc('condition') ?></option>
+<?php
+	$carcondition_ = _abc('carcondition_');
+	foreach ($carcondition_ as $index => $value) html_option($value, $index);
+	unset($carcondition_);
+?>
+ </select>
+ <select name="carprice">
+	<option value=""><?= _abc("price") ?></option>
+	<option value="l">50 - 1000</option>
+	<option value="ml">1000 - 5000</option>
+	<option value="hl">5000 - 10000</option>
+	<option value="lm">10000 - 15000</option>
+	<option value="m">15000 - 20000</option>
+	<option value="hm">20000 - 50000</option>
+	<option value="lh">50000 - 80000</option>
+	<option value="mh">80000 - 120000</option>
+	<option value="h">120000 - 300000</option>
+	<option value="vh">300000 - 500000</option>
+	<option value="xxl">500000 - 700000</option>
+	<option value="xxxl">700000 <?= _abc("andhigher") ?></option>
+ </select>
+ <input type="button" value="<?= _abc("search"); ?>" onclick='$("#headersearchform").submit();'/>
+</form>

@@ -1,0 +1,17 @@
+<div class="menu menu-horizontal">
+	<div>
+		<a href="<?= SiteURL?>?home"><?= _abc("home")?></a>
+		<a href="<?= SiteURL?>?about"><?= _abc("about") ?></a>
+		<a href="<?= SiteURL?>?contacts"><?= _abc("contacts") ?></a>
+<?php
+if (__('session')->getCookie('account')):
+?>
+		<a href="<?= SiteURL ?>?account"><?= __('account')->name.' '.__('account')->surname ?></a>
+		<a href="<?= SiteURL ?>?advertisements"><?= _abc('advertisements') ?></a>
+		<a href="<?= SiteURL.'?account/signout'?>"><?= _abc('signout') ?></a>
+<?php else:?>
+		<a href="<?= SiteURL.'?account'?>"><?= _abc('account') ?></a>
+<?php endif;?>
+	</div>
+	<a href="#">Menu</a>
+</div>

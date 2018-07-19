@@ -1,0 +1,35 @@
+<span class="col-1">
+<?php __('page')->insertSnippet('languages'); ?>
+</span>
+<?php __('page')->insertSnippet('payed_advs'); ?>
+<span class="col-1-1">
+<?php
+__('page')->insertSnippet('menu_header');
+/*
+$menuLinks = new ArrayClass();
+$menuLinks->append([
+	'home' => ["text" => _abc("home")],
+	'about' => ["text" => _abc("about")],
+	'contacts' => ["text" => _abc("contacts")]]
+);
+if (__('session')->getCookie('account')):
+	$menuLinks->add('account', ['text' => __('account')->name . ' ' . __('account')->surname]);
+	$menuLinks->add('advertisements', ['text' => _abc('advertisements')]);
+	$menuLinks->add('signout', ['text' => _abc('signout'), 'url' => SiteURL . "?account/signout"]);
+else:
+	$menuLinks->add('account', ["text" => _abc("account")]);
+endif;
+createmenu($menuLinks->input, [
+		'active' => 'menu-active-link',
+		'page' => __('request')->getPage(),
+		'url' => SiteURL . '?',
+		'vertical' => false,
+		'menu' => 'menu1'
+	]
+);
+unset($menuLinks);*/
+?>
+</span>
+<span class="col-1">
+	<?php __('page')->insertSnippet('form_search'); ?>
+</span>

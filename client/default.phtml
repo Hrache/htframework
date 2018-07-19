@@ -9,38 +9,41 @@
 		<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
 <?php __('cpage')->meta(); ?>
 		<title><?= __('page')->getTitle() ?></title>
+		<link href="client/css/reset.css" type="text/css" rel="stylesheet" />
+		<link href="client/css/common.css" type="text/css" rel="stylesheet" />
+		<link href="client/css/flags.css" type="text/css" rel="stylesheet" />
+		<link href="client/css/responsive.css" type="text/css" rel="stylesheet" />
 <?php
-	echo HTMLHelpers::CSSLink("client/css/reset.css");
-	echo HTMLHelpers::CSSLink("client/css/common.css");
-	echo HTMLHelpers::CSSLink("client/css/flags.css");
-	echo HTMLHelpers::CSSLink("client/css/responsive.css");
-	if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER['HTTP_USER_AGENT'])) {
-		echo HTMLHelpers::JSScript('client/js/jquery-1.12.4.min.js');
-	} else {
-		echo HTMLHelpers::JSScript('client/js/jquery-3.1.1.min.js');
-	}
+	if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER['HTTP_USER_AGENT'])):
+?>
+		<script src="client/js/jquery-1.12.4.min.js" type="text/javascript"></script>
+<?php
+	else:
+		echo HTMLHelpers::JSScript('client/js/jquery-3.3.1.min.js');
+	endif;
 ?>
 		<script src="client/js/common.js" type="text/javascript"></script>
-<?php
-	echo __('pre_res');
-	__('cpage')->resources();
-?>
+		<script type="text/javascript">
+			var SiteUrl = "<?= SiteURL?>";
+		</script>
+<?= __('pre_res')?>
+<?php	__('cpage')->resources();?>
 	</head>
 	<body>
-		<blockquote id="wrapper" class="body-80" style="display: none;">
+		<div id="wrapper" style="display: none;">
 			<span class="col-1-1">
 <?php __('cpage')->header(); ?>
 			</span>
 <?php
-		__('page')->insertSnippet('header_menu');
-		__('page')->insertSnippet('layouts' . DIRECTORY_SEPARATOR . 'layout_two_columns');
-		__('page')->insertSnippet('footer');
-		__('cpage')->footer();
+	__('page')->insertSnippet('header_view');
+	__('page')->insertSnippet('layouts'.DIRECTORY_SEPARATOR.'layout_two_columns');
+	__('page')->insertSnippet('footer');
+	__('cpage')->footer();
 ?>
-		</blockquote>
+		</div>
 	<script src="client/js/common.inc.js" type="text/javascript"></script>
 	<script type="text/javascript">
-	$('#wrapper').fadeToggle(700);
+	$('#wrapper').fadeToggle(300);
 <?php __('cpage')->domonload(); ?>
 	</script>
 	</body>
