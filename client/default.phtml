@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <?php
-	lib_load('html');
-	__('language')->append('pages');
+lib_load('html');
+__('language')->append('pages');
 ?>
-<html>
+<html lang="en">
 	<head>
+		<meta charset="UTF-8">
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-		<meta name="viewport" content="initial-scale=1, maximum-scale=1" />
-<?php __('cpage')->meta(); ?>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<?php __('cpage')->meta(); ?>
 		<title><?= __('page')->getTitle() ?></title>
-		<link href="client/css/reset.css" type="text/css" rel="stylesheet" />
-		<link href="client/css/common.css" type="text/css" rel="stylesheet" />
-		<link href="client/css/flags.css" type="text/css" rel="stylesheet" />
-		<link href="client/css/responsive.css" type="text/css" rel="stylesheet" />
-<?php
-	if (preg_match('/(MSIE [6-8]{1,2})/', $_SERVER['HTTP_USER_AGENT'])):
-?>
-		<script src="client/js/jquery-1.12.4.min.js" type="text/javascript"></script>
-<?php
-	else:
-		echo HTMLHelpers::JSScript('client/js/jquery-3.3.1.min.js');
-	endif;
-?>
+  	<link rel="stylesheet" href="shared/w3/w3.css" />
+		<link rel="stylesheet" href="shared/pygerfront/flags.css" />
+		<link rel="stylesheet" href="client/css/common.css" />
+		<?= HTMLHelpers::JSScript(
+			'shared/jquery/'.((preg_match('/(MSIE [6-8]{1,2})/', $_SERVER['HTTP_USER_AGENT']))?
+			'jquery-1.12.4.min.js': 'jquery-3.3.1.min.js')) ?>
+		<script src="shared/w3/w3.js" type="text/javascript"></script>
+		<script src="shared/pygerfront/PygerJS.js" type="text/javascript"></script>
 		<script src="client/js/common.js" type="text/javascript"></script>
+		<script src="client/js/ArmCarShopJS.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			var SiteUrl = "<?= SiteURL?>";
+		SiteURL = "<?= SiteURL?>";
+
+		$(document).ready(function()
+		{
+			<?php require_once(Client.'js'.DIRECTORY_SEPARATOR.'common.inc.js');?>
+			<?php __('cpage')->jqueryready(); ?>
+		});
 		</script>
-<?= __('pre_res')?>
-<?php	__('cpage')->resources();?>
+	<?= __('pre_res')?>
+	<?php	__('cpage')->resources(); ?>
 	</head>
-	<body>
-		<div id="wrapper" style="display: none;">
-			<span class="col-1-1">
-<?php __('cpage')->header(); ?>
-			</span>
-<?php
-	__('page')->insertSnippet('header_view');
-	__('page')->insertSnippet('layouts'.DIRECTORY_SEPARATOR.'layout_two_columns');
-	__('page')->insertSnippet('footer');
-	__('cpage')->footer();
-?>
-		</div>
-	<script src="client/js/common.inc.js" type="text/javascript"></script>
-	<script type="text/javascript">
-	$('#wrapper').fadeToggle(300);
-<?php __('cpage')->domonload(); ?>
-	</script>
+	<body id="wrapper">
+		<?php __('page')->snippet->insert('header_view');?>
+		<?php __('cpage')->content(); ?>
+		<div class="w3-panel" style="margin-bottom:160px;"></div>
+		<?php __('page')->snippet->insert('footer'); ?>
+		<?php __('cpage')->bottomres(); ?>
+		<script type="text/javascript">
+		<?php __('cpage')->domonload(); ?>
+		</script>
 	</body>
 </html>

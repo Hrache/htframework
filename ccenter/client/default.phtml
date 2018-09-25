@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1;">
+ 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<?php __('cpage')->meta(); ?>
+		<title><?= __('page')->getTitle()?></title>
+		<link rel="stylesheet" href="http://localhost/libs/w3/w3.css" type="text/css" />
+		<?= HTMLHelpers::JSScript('http://localhost/libs/jquery/jquery-3.3.1.min.js') ?>
+		<?= HTMLHelpers::JSScript('http://localhost/libs/w3/w3.js') ?>
+		<?= HTMLHelpers::JSScript('http://localhost/pyger/shares/pygerfront/PygerJS.js') ?>
+		<?php __('cpage')->resources(); ?>
+<style type="text/css">
+a
+{
+	cursor: pointer;
+}
+<?php __('cpage')->csscode(); ?>
+</style>
+	</head>
+	<body class="w3-white">
+		<?php __('page')->snippet->insert('headerlogo'); ?>
+		<?php __('page')->snippet->insert('menu'); ?>
+		<div class="w3-container w3-content" style="z-index:1;padding-bottom:120px;">
+			<?php __('cpage')->content(); ?>
+		</div>
+		<?php __('cpage')->bottomres(); ?>
+		<script type="text/javascript">
+		<?php __('cpage')->jscode(); ?>
+		</script>
+	</body>
+</html>

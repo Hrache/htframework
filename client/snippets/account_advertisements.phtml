@@ -1,17 +1,38 @@
 <?php
 $query = "select count(`id`) as `advs` from `" . AcsAdvertisementsJsonModel::MODEL . "`;";
+
 $advsCount = intval(__('database')->fetch($query)->item(0, 'advs'));
-if (!$advsCount) return false;
+
+if (!$advsCount)
+{
+	return false;
+}
 ?>
-<div class="col-1-1 row-8-2">
- <div class="pagination">
-<?php for ($pn = 1; $pn <= $advsCount; $pn++) echo _tag('a', ["href" => SiteURL . "?advertisements&pagenumber=" . $pn], true, $pn);?>
- </div>
- <div class="advertisement-info-wrapper">
-<?php foreach ($account_advs as $adv) $advertisement = new AcsAdvertisementsJsonModel($adv); ?>
- </div>
- <div class="pagination">
-<?php for ($pn = 1; $pn <= $advsCount; $pn++) echo _tag('a', ["href" => SiteURL . "?advertisements&pagenumber=" . $pn], true, $pn);?>
- </div>
+<div class="">
+	<div class="pagination">
+<?php
+for ($pn = 1; $pn <= $advsCount; $pn++)
+{
+	echo _tag('a', ["href" => SiteURL . "?advertisements&pagenumber=" . $pn], true, $pn);
+}
+?>
+	</div>
+	<div class="advertisement-info-wrapper">
+<?php
+foreach ($account_advs as $adv)
+{
+	$advertisement = new AcsAdvertisementsJsonModel($adv);
+}
+?>
+	</div>
+	<div class="pagination">
+<?php
+for ($pn = 1; $pn <= $advsCount; $pn++)
+{
+	echo _tag('a', ["href" => SiteURL . "?advertisements&pagenumber=" . $pn], true, $pn);
+}
+
+unset($query);
+?>
+	</div>
 </div>
-<?php unset($query); ?>

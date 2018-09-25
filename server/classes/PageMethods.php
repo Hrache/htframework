@@ -1,11 +1,10 @@
 <?php
-
 /**
  *
  * @author Max Pyger
  */
-abstract class PageMethods {
-
+abstract class PageMethods
+{
 	/**
 	 *
 	 */
@@ -35,4 +34,15 @@ abstract class PageMethods {
 	 *
 	 */
 	public function resources() {}
+
+	/**
+	 *
+	 */
+	public function bottomres() {}
+	
+	/**
+		*
+		*/
+	public function jqueryready()	{}
 }
+?>

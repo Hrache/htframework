@@ -1,0 +1,26 @@
+<div class="w3-row">
+	<div class="w3-col w3-content m4 l4 s12">
+		<label for="passwordlength"><?= _abc('passwordlength')?></label>
+		<input type="text" value="" id="passwordlength" size="4" class="w3-input w3-border w3-margin-bottom"/>
+		<button id="generatePassword" class="w3-btn w3-red"><?= _abc('strongpass') ?></button>
+		<div id="passwordScreen" class="w3-card"></div>
+	</div>
+</div>
+<script type="text/javascript">
+var strongPassword = function()
+{
+	var length = parseInt($('#passwordlength').val());
+	var sp = new PygerJS.StrongPassword(length);
+
+	$('#passwordScreen').text(sp.generate());
+
+	delete(length, sp);
+};
+
+$('#passwordlength').keypress(function(eo)
+{
+	(eo.keyCode !== 13) || strongPassword();
+});
+
+$('#generatePassword').click(strongPassword);
+</script>

@@ -1,0 +1,200 @@
+/* ============ OTHER =============== */
+.line-15 {
+	line-height: 150%;
+}
+.flr {
+	float: right;
+}
+.fll {
+	float: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-left {
+	text-align: left;
+}
+.center {
+	text-align: center;
+}
+.justify {
+	text-align: justify;
+}
+.title {
+	font-weight: bold;
+	font-size: 14pt;
+	display: block;
+	max-width: 310px;
+	margin: 10px 5px 5px 1px;
+}
+.block-object {
+	display: block;
+}
+/* <pre class="pyger-popup" id="pygerpopup" onclick="this.style.visibility='visible';"></pre> */
+.pyger-popup {
+	visibility: hidden;
+	display: block;
+	position: fixed;
+	top: 25%;
+	right: 0;
+	padding: 2.5%;
+	font-size: 130%;
+	font-weight: bold;
+	line-height: 150%;
+	min-width: 25%;
+	max-width: 95%;
+	max-height: 50%;
+	color: black;
+	border-radius: 10px;
+	z-index: 10;
+	text-align: left;
+	word-wrap: break-word;
+}
+/*
+Pygerfront menu
+<div class="menu menu-horizontal">
+	<div>
+		<a href="some-url">CCenter</a>
+	</div>
+	<a href="#">Menu</a>
+</div>
+*/
+.menu {
+	display: inline-block;
+	z-index: 1;
+	line-height: 200%;
+}
+.menu > div {
+	position: absolute;
+}
+.menu > div > a:hover {
+	background-color: gold;
+	color: black;
+}
+.menu > div > *, .menu > a {
+	font-size: 1.5em;
+	text-decoration: none;
+	font-weight: bold;
+	font-family: 'Trebuchet MS', sans-serif, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial;
+	padding: 0.5rem;
+	background-color: white;
+	border-radius: 5px;
+	display: none;
+}
+.menu > a, .menu:hover * {
+	display: block;
+	color: black;
+}
+.fixed {
+	position: fixed;
+}
+.board, .small-text {
+	padding: 5px;
+	display: block;
+	max-width: 99%;
+}
+.small-text {
+	font-size: 75%;
+}
+input, select {
+	max-width: 230px;
+	display: inline-block;
+	font-size: 120%;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ccccff;
+	vertical-align: top;
+	margin-bottom: 0.5%;
+}
+input, option {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+input:hover, select:hover,
+button:hover {
+	filter: drop-shadow(0px 0px 2px skyblue);
+}
+input[type=submit], input[type=reset],
+button {
+	line-height: 1.5rem;
+	padding: 0.5em 1em;
+	border-radius: 0.2em;
+	font-family: Georgia;
+	border: 1px solid white;
+	font-size: 100%;
+	vertical-align: middle;
+}
+[type=radio], [type=checkbox] {
+	min-width: inherit;
+	max-width: inherit;
+	padding: 1%;
+}
+.text-block {
+	display: inline-block;
+}
+.text-block > * {
+	display: inline-block;
+	vertical-align: top;
+}
+.text-block [type=text],
+.text-block [type=password] {
+	max-width: 100%;
+}
+.wrapper {
+	line-height: 2rem;
+}
+.wrapper > * {
+	display: inline-block;
+	vertical-align: top;
+}
+.toolbar {
+	line-height: 200%;
+	vertical-align: middle;
+}
+a {
+	text-decoration: none;
+	font-weight: 300;
+}
+.bg-red {
+	background-color: #ff6666;
+}
+.bg-yellow {
+	background-color: #ffd361;
+}
+.bg-blue {
+	background-color: #8b9aff;
+}
+.absolute-static {
+	display: block;
+	position: absolute;
+	top: 5rem;
+	z-index: -1;
+	margin-top: 5%;
+	text-align: center;
+}
+.absolute-static-70perc {
+	width: 70%;
+	margin-left: 15%;
+}
+.absolute-static-80perc {
+	width: 80%;
+	margin-left: 10%;
+}
+.absolute-static-90perc {
+	width: 90%;
+	margin-left: 5%;
+}
+.absolute-static-footer {
+	position: fixed;
+	bottom: 0;
+	padding-bottom: 1em;
+	max-height: 10%;
+}
+.form-holder {
+	display: block;
+	min-width: 235.2px;
+	padding: 1%;
+}
+.body-footer-row {
+	margin-bottom: 15%;
+}

@@ -1,35 +1,81 @@
-<span class="col-1">
-<?php __('page')->insertSnippet('languages'); ?>
-</span>
-<?php __('page')->insertSnippet('payed_advs'); ?>
-<span class="col-1-1">
+<div id="modal01" class="w3-modal w3-animate-zoom">
+	<span class="w3-button w3-hover-red w3-xlarge w3-display-topright"
+		onclick="getById('modal01').style.display='none';ArmCarShopJS.w3Tabs.changeActiveTab('');">&times;</span>
+	<div class="w3-modal-content w3-content">
+		<div class="w3-container w3-center w3-cell" id="tabContent">
+			<div class="w3-cell-middle" style="display:none;" id="menuLinks">
+				<a href="<?= SiteURL ?>?home"><?= _abc("home")?></a>
+				<a href="<?= SiteURL ?>?about"><?= _abc("about") ?></a>
+				<a href="<?= SiteURL ?>?contacts"><?= _abc("contacts") ?></a>
+			<?php if (is_online()):?>
+				<a href="<?= SiteURL ?>?account"><?= __('account')->name.' '.__('account')->surname ?></a>
+				<a href="<?= SiteURL ?>?account/signout"><?= _abc('signout') ?></a>
+			<?php else:?>
+				<a href="<?= SiteURL.'?account'?>"><?= _abc('account') ?></a>
+			<?php endif;?>
+			</div>
+		</div>
+		<?php if (equal(CurrentPage, 'account') && !is_online()):?>
+		<div class="w3-content w3-cell" style="display:none;" id="signupHelp">
+			<div class="w3-cell-middle">
+				<div class="w3-panel w3-white w3-leftbar w3-border-red w3-padding">
+					<?= _abc('passwordlength')?>
+				</div>
+				<div class="w3-panel w3-white w3-leftbar w3-border-red w3-padding">
+					<div class="w3-alert"><?= _abc('passwordsigns')?></div>
+				</div>
+				<div class="w3-panel w3-white w3-leftbar w3-border-red w3-padding">
+					<div class="w3-alert"><?= _abc('allfieldsrequired')?></div>
+				</div>
+			</div>
+		</div>
+		<?php endif; ?>
+		<?php __('page')->snippet->insert('form_search'); ?>
+		<div class="w3-content w3-cell" style="display:none;" id="loginForm">
+		<?php __('page')->snippet->insert('form_login_account'); ?>
+		</div>
+		<div class="w3-row" style="display:none;" id="languages">
+			<div class="w3-col">
+			<?php __('page')->snippet->insert('languages')?>
+			</div>
+		</div>
+	</div><!-- Sidebar -->
+</div>
+
+<div class="w3-container w3-lime w3-hide-large">
+	<button class="w3-btn w3-green"
+		onclick="w3.toggleClass('#maintabs', 'w3-bar w3-lime w3-hide-small w3-hide-medium', 'w3-bar w3-lime');">☰</button>
+</div>
+
+<div class="w3-bar w3-lime w3-hide-small w3-hide-medium" id="maintabs">
+	<div class="w3-bar-item w3-xlarge"
+		onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#menuLinks');document.getElementById('modal01').style.display='block'"><?= _abc('menu')?></div>
+	<div class="w3-bar-item w3-xlarge"
+		onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#headersearchform');document.getElementById('modal01').style.display='block'"><?= _abc('search')?></div>
+	<div class="w3-bar-item w3-xlarge"
+		onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#loginForm');document.getElementById('modal01').style.display='block'"><?= _abc('login')?></div>
+	<div class="w3-bar-item w3-xlarge"
+		onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#languages');document.getElementById('modal01').style.display='block'"><?= _abc('language')?></div>
+<?php if (equal(CurrentPage, 'account') && !is_online()): ?>
+	<div class="w3-bar-item w3-red w3-xlarge"
+		onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#signupHelp');document.getElementById('modal01').style.display='block'"><?= _abc('rules')?></div>
+<?php endif; ?>
+</div>
+
+<div class="w3-container">
+<?php __('cpage')->header(); ?>
+</div>
+
 <?php
-__('page')->insertSnippet('menu_header');
-/*
-$menuLinks = new ArrayClass();
-$menuLinks->append([
-	'home' => ["text" => _abc("home")],
-	'about' => ["text" => _abc("about")],
-	'contacts' => ["text" => _abc("contacts")]]
-);
-if (__('session')->getCookie('account')):
-	$menuLinks->add('account', ['text' => __('account')->name . ' ' . __('account')->surname]);
-	$menuLinks->add('advertisements', ['text' => _abc('advertisements')]);
-	$menuLinks->add('signout', ['text' => _abc('signout'), 'url' => SiteURL . "?account/signout"]);
-else:
-	$menuLinks->add('account', ["text" => _abc("account")]);
-endif;
-createmenu($menuLinks->input, [
-		'active' => 'menu-active-link',
-		'page' => __('request')->getPage(),
-		'url' => SiteURL . '?',
-		'vertical' => false,
-		'menu' => 'menu1'
-	]
-);
-unset($menuLinks);*/
+__('page')->snippet->insert('payed_advs');
+__('page')->snippet->insert('modal_quick_search');
+
+if (__('session')->cookieExists('account'))
+{
+	__('page')->snippet->insert('account_info');
+}
+else
+{
+	__('page')->snippet->insert('form_login_account');
+}
 ?>
-</span>
-<span class="col-1">
-	<?php __('page')->insertSnippet('form_search'); ?>
-</span>

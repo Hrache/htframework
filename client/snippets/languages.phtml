@@ -1,24 +1,11 @@
-<?php
-$menulinks = [
-	"hy-AM" => [
-		"link" => "&lang=hy-am",
-		"flagcss" => "flag-armenia"
-	],
-	"ru-RU" => [
-		"link" => "&lang=ru-ru",
-		"flagcss" => "flag-russia"
-	],
-	"en-UK" => [
-		"link" => "&lang=en-uk",
-		"flagcss" => "flag-britain"
-	]
-];
-?>
-<span class="col-1" dir="rtl">
-<?php
-foreach ($menulinks as $key => $val) {
-	$val = (object) $val;
-	printf('<a href="%s" class="%s %s">%s</a>', SiteURL.'?'.CurrentPage.$val->link, $val->flagcss, ($key == Lang) ? 'menu-active-link' : '', '');
-}
-?>
-</span>
+<div class="w3-container w3-padding">
+	<a href="<?= SiteURL.'?'.CurrentPage."&lang=en-uk" ?>" class="w3-border">
+		<img class="w3-image" src="client/images/flags/gb.jpg" />
+	</a>
+	<a href="<?= SiteURL.'?'.CurrentPage."&lang=hy-am" ?>">
+		<img class="w3-image" src="client/images/flags/arm.jpg" />
+	</a>
+	<a href="<?= SiteURL.'?'.CurrentPage."&lang=ru-ru" ?>">
+		<img class="w3-image" src="client/images/flags/ru.jpg" />
+	</a>
+</div>

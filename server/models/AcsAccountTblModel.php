@@ -1,5 +1,6 @@
 <?php
-class AcsAccountTblModel extends MySQLModelAbstract {
+class AcsAccountTblModel extends MySQLModelAbstract
+{
 	use ModelsTrait;
 	const MODEL = 'acs_account_tbl';
 	const id = 'id';

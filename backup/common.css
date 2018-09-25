@@ -1,100 +1,171 @@
 /* =========== DEFAULTS.PROJECT =========== */
-body {
- background: no-repeat url('images/logo_3D_L.png');
- background-position: top right;
- line-height: 1;}
-body * {
- font-family: "Times New Roman", Georgia, Serif;}
-a {
- font-size: 12pt;
- text-decoration: none;
- color: brown;}
-h1, h2, h3, h4, h5, h6 {
- padding-left: 1mm;}
+body
+{
+	background: no-repeat url('images/logo_3D_L.png');
+	background-position: top right;
+	line-height: 1;
+}
+
+body *
+{
+	font-family: "Times New Roman", Georgia, Serif;
+}
+
+a
+{
+	font-size: 12pt;
+	text-decoration: none;
+	color: brown;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+	padding-left: 1mm;
+}
 
 /* =========== FORM ============= */
-input, select, button, textarea {
- border: 1px #ccc solid;
- font-size: 12pt;
- display: inline-block;}
+input, select, button, textarea
+{
+	border: 1px #ccc solid;
+	font-size: 12pt;
+	display: inline-block;
+}
+
 input[type='text'],
 input[type='password'],
 input[type='radio'],
-select, textarea {
- margin: 0;}
-input[type='radio'] {
- margin: 0px 5px 10px 1px;}
+select, textarea
+{
+	margin: 0;
+}
+
+input[type='radio']
+{
+	margin: 0px 5px 10px 1px;
+}
+
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
-button {
- padding: 2px;
- line-height: 1;
- min-width: 2.0cm;}
+button
+{
+	padding: 2px;
+	line-height: 1;
+	min-width: 2.0cm;
+}
+
 input[type="text"],
 input[type="password"],
-textarea {
- padding: 5px 0 5px 5px;}
-select {
- padding: 7px 0;}
+textarea
+{
+	padding: 5px 0 5px 5px;
+}
+
+select
+{
+	padding: 7px 0;
+}
+
 select,
 input[type="text"],
-input[type="password"] {
- max-width: 210px;
- width: auto;
- margin-bottom: 5px;
- margin-right: 5px;}
-label {
- color: #330000;}
-textarea {
- min-width: 90%;}
+input[type="password"]
+{
+	max-width: 210px;
+	width: auto;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+label
+{
+	color: #330000;
+}
+
+textarea
+{
+	min-width: 90%;
+}
 
 /* ==============  ============ */
-fieldset {
- padding: 0 0px;
- max-width: 99%;
- padding-left: 5px;
- font-size: 12pt;
- display: inline-block;
- vertical-align: top;}
-legend {
- font-size: 1.1em;
- margin-bottom: 5px;
- font-family: "Arial Black", Gadget, sans-serif;
- max-width: 80%;}
+fieldset
+{
+	padding: 0 0px;
+	max-width: 99%;
+	padding-left: 5px;
+	font-size: 12pt;
+	display: inline-block;
+	vertical-align: top;
+}
+
+legend
+{
+	font-size: 1.1em;
+	margin-bottom: 5px;
+	font-family: "Arial Black", Gadget, sans-serif;
+	max-width: 80%;
+}
 
 /* ============ MENU ============ */
-.menu1 {
- background-color: brown;
- color: white;
- vertical-align: middle;}
-.menu1 a {
- font-size: 30px;
- display: inline-block;
- padding: 2mm 2mm;
- margin-bottom: 5px;
- color: white;}
-.menu2 a {
- font-size: 13pt;}
-.menu3 a {
- font-size: 20px;}
-.alanguage a {
- line-height: 1;
- display: inline-block;}
+.menu1
+{
+	background-color: brown;
+	color: white;
+	vertical-align: middle;
+}
+
+.menu1 a
+{
+	font-size: 30px;
+	display: inline-block;
+	padding: 2mm 2mm;
+	margin-bottom: 5px;
+	color: white;
+}
+
+.menu2 a
+{
+	font-size: 13pt;
+}
+
+.menu3 a
+{
+	font-size: 20px;
+}
+
+.alanguage a
+{
+	line-height: 1;
+	display: inline-block;
+}
+
 .menu1 a:hover,
 .menu3 a:hover,
-.alanguage a:hover {
- color: gold;}
-.impact-font, .menu1 a, .menu3 a, .alanguage a {
- font-family: "Impact", sans-serif, "Charcoal";}
-.menu-active-link {
- color: #da1;}
-.footer-menu, .footer-menu .footermenuitem {
- min-width: 30px;
- min-height: 13pt;}
-.list-sections {
- max-width: 100%;
- display: block;}
+.alanguage a:hover
+{
+	color: gold;
+}
+
+.impact-font, .menu1 a, .menu3 a, .alanguage a
+{
+	font-family: "Impact", sans-serif, "Charcoal";
+}
+
+.menu-active-link
+{
+	color: #da1;
+}
+
+.footer-menu, .footer-menu .footermenuitem
+{
+	min-width: 30px;
+	min-height: 13pt;
+}
+
+.list-sections
+{
+	max-width: 100%;
+	display: block;
+}
 
 /* =============== WRAPPER.LINE =============== */
 .line-wrapper {

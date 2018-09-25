@@ -1,0 +1,15 @@
+<script type="text/javascript">
+url_listoftables_php = "<?= CurrentURL.ListOfTables?>";
+url_generatemodels_php = "<?= CurrentURL.GenerateModels?>";
+tablelistajaxfailure_php = "<?= _abc('TableListAjaxFailure')?>";
+required =
+[
+	"<?= MySQLClass::DBUSER ?>",
+	"<?= MySQLClass::DBPASSWORD ?>",
+	"<?= MySQLClass::DBHOST ?>",
+	"<?= MySQLClass::DBPORT ?>",
+	"<?= MySQLClass::DBNAME ?>",
+	"<?= MySQLClass::DBCHARSET ?>"
+];
+</script>
+<?= HTMLHelpers::JSScript('client/js/modelsettings.js')?>

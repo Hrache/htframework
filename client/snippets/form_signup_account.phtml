@@ -1,57 +1,90 @@
-<h1><?= _abc('createaccount') ?></h1>
-<form action="<?= SiteURL?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
-	<input name="<?= AcsAccountTblModel::name ?>" size="30" type="text" id="<?= AcsAccountTblModel::name ?>" value="<?= post_('firstname') ?>" placeholder="<?= _abc('firstname') ?>"/>
-	<input name="<?= AcsAccountTblModel::surname ?>" size="30" type="text" id="<?= AcsAccountTblModel::surname ?>" value="<?= post_('lastname') ?>" placeholder="<?= _abc('lastname') ?>"/><br/>
-	<select id="byear">
-		<option value=""><?= _abc('year') ?></option>
-<?= DOMRangeOptions(intval(date("Y")), 1940, post_('birthyear'), 1) ?>
-	</select>
-	<select id="bmonth">
-		<option value=""><?= _abc('month') ?></option>
-<?php html_dropdown_items(_abc('months'), !is_numeric(post_('birthmonth')) ? -1 : post_('birthmonth')); ?>
-	</select>
-	<select id="bday">
-		<option value=""><?= _abc('day') ?></option>
-<?= DOMRangeOptions(1, 31, post_('birthday'), 1) ?>
-	</select>
-	<input type="hidden" value="" id="<?= AcsAccountTblModel::birthday ?>" name="<?= AcsAccountTblModel::birthday ?>" />
-	<select name="<?= AcsAccountTblModel::gender ?>" id="<?= AcsAccountTblModel::gender ?>">
-		<option value=""><?= _abc('gender') ?></option>
-		<option value="m" <?= (post_('gender') === 'm') ? 'checked' : '' ?>><?= _abc("man") ?></option>
-		<option value="w" <?= (post_('gender') === 'w') ? 'checked' : '' ?>><?= _abc("woman") ?></option>
-	</select><br/>
-<?php
-	do_if(errorCondition('gender'), function() {
-		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('gendererror1'));
-	});
-	do_if(errorCondition('personidentity'), function() {
-		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('namesurnamerequired'));
-	});
-	do_if(errorCondition('birthdate'), function() {
-		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('birthdate'));
-	});
-?>
-	<select name="<?= AcsAccountTblModel::country_id ?>" id="<?= AcsAccountTblModel::country_id ?>" style="max-width: 160px;">
-		<option value=""><?= _abc('country') ?></option>
-		<?= DOMOptions_PostalInfo(post_(AcsAccountTblModel::country_id), '', [0, 4]) ?>
-	</select>
-	<input type="text" size="30" name="<?= AcsAccountTblModel::phonenumber ?>" id="<?= AcsAccountTblModel::phonenumber ?>" value="<?= post_('phonenumber') ?>" placeholder="<?= _abc('phonenumber') ?>"/><br/>
-	<input type="hidden" name="dateformat" id="dateformat" value="dd-mm-yyyy" />
-<?php
-	do_if(errorCondition('phonenumberexists'), function() {
-		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('phonenumberexists'));
-	});
-?>
-	<input type="text" size="30" name="<?= AcsAccountTblModel::email ?>" id="<?= AcsAccountTblModel::email ?>" value="<?= post_('signupemail') ?>" placeholder="<?= _abc('email') ?>" />
-	<input type="text" size="30" name="<?= AcsAccountTblModel::email ?>c" id="<?= AcsAccountTblModel::email ?>c" onclick="$(this).val($('#<?= AcsAccountTblModel::email ?>').val());" value="<?= post_('signupemailc') ?>" placeholder="<?= _abc('confirmemail') ?>" /><br/>
-<?php
-	do_if(errorCondition('emailexists'), function() {
-		printf('<span class="col-1-1 description rule small-font">&nbsp;%s</span>', _abc('emailexists'));
-	});
-?>
-	<input type="password" size="30" name="<?= AcsAccountTblModel::password ?>" id="<?= AcsAccountTblModel::password ?>" placeholder="<?= _abc('password') ?>"/>
-	<input type="password" size="30" name="<?= AcsAccountTblModel::password ?>c" id="<?= AcsAccountTblModel::password ?>c" placeholder="<?= _abc('confirmpassword') ?>"/><br />
-	<span class="board-small-text"><?= _abc('passwordlength')._abc('passwordsigns') ?></span>
-	<input type="checkbox" name="signin" id="signinsftersignup" value="1" checked="checked" /><?= _abc('signinaftersignup') ?><br/>
-	<input type="submit" onclick='$("#signupform").submit();' value="<?= _abc('createaccount') ?>">
+<form class="w3-content" action="<?= SiteURL?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
+	<h1 class="w3-padding"><?= _abc('createaccount') ?></h1>
+	<div class="w3-row-padding">
+		<div class="w3-half">
+			<label for="<?= Accounts::email ?>"><?= _abc('email') ?></label>
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>" id="<?= Accounts::email ?>" value="<?= post_('signupemail') ?>" />
+			<label for="<?= Accounts::email ?>c"><?= _abc('confirmemail') ?></label>
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>c" id="<?= Accounts::email ?>c" value="<?= post_('signupemailc') ?>" />
+			<label for="<?= Accounts::password ?>"><?= _abc('password') ?></label>
+			<input type="password" class="w3-input w3-border" name="<?= Accounts::password ?>" id="<?= Accounts::password ?>" />
+			<label for="<?= Accounts::password ?>c"><?= _abc('confirmpassword') ?></label>
+			<input type="password" class="w3-input w3-border" name="<?= Accounts::password ?>c" id="<?= Accounts::password ?>c" />
+			<div class="w3-cell-row w3-margin-top">
+				<div class="w3-cell w3-cell-top">
+					<label for="<?= Accounts::country_id ?>"><?= _abc('country') ?></label>
+				</div>
+				<div class="w3-cell">
+					<select class="w3-select" name="<?= Accounts::country_id ?>" id="country_id">
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<label for="<?= Accounts::phonenumber ?>"><?= _abc('phonenumber') ?></label>
+			<input type="text" name="<?= Accounts::phonenumber ?>" class="w3-input w3-border" id="<?= Accounts::phonenumber ?>" value="<?= post_('phonenumber') ?>" />
+		</div>
+		<div class="w3-half">
+			<label for="<?= Accounts::name ?>"><?= _abc('firstname') ?></label>
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::name ?>" id="<?= Accounts::name ?>" value="<?= post_('firstname') ?>" />
+			<label for="<?= Accounts::surname ?>"><?= _abc('lastname') ?></label>
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::surname ?>" id="<?= Accounts::surname ?>" value="<?= post_('lastname') ?>" />
+			<div class="w3-cell-row w3-margin-top">
+				<div class="w3-cell w3-cell-top w3-text-right">
+					<label for="<?= Accounts::gender ?>"><?= _abc('gender') ?></label>
+				</div>
+				<div class="w3-cell">
+					<select id="<?= Accounts::gender ?>" name="<?= Accounts::gender ?>" class="w3-select w3-margin-bottom">
+						<option value=""></option>
+						<option value="m" <?= (post_('gender') === 'm')? 'checked' : '' ?>><?= _abc("man") ?></option>
+						<option value="w" <?= (post_('gender') === 'w')? 'checked' : '' ?>><?= _abc("woman") ?></option>
+					</select>
+				</div>
+			</div>
+			<div class="w3-cell-row">
+				<div class="w3-cell">
+					<label for="byear"><?= _abc('year') ?></label>
+				</div>
+				<div class="w3-cell w3-cell-top">
+					<select id="byear" class="w3-select w3-margin-bottom">
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="w3-cell-row">
+				<div class="w3-cell">
+					<label for="bmonth"><?= _abc('month') ?></label>
+				</div>
+				<div class="w3-cell w3-cell-top">
+					<select id="bmonth" class="w3-select w3-margin-bottom">
+						<option value=""></option>
+						<?php html_dropdown_items(_abc('months'), !is_numeric(post_('birthmonth'))? -1 : post_('birthmonth')); ?>
+					</select>
+				</div>
+			</div>
+			<div class="w3-cell-row">
+				<div class="w3-cell">
+					<label for=""><?= _abc('day') ?></label>
+				</div>
+				<div class="w3-cell w3-cell-top">
+					<select id="bday" class="w3-select w3-margin-bottom">
+						<option value=""></option>
+						<?= DOMRangeOptions(1, 31, post_('birthday'), 1) ?>
+					</select>
+				</div>
+			</div>
+			<input type="hidden" id="<?= Accounts::birthday ?>" name="<?= Accounts::birthday ?>" value="" />
+			<input type="hidden" name="dateformat" id="dateformat" value="dd-mm-yyyy" />
+		</div>
+	</div>
+	<div class="w3-row w3-padding">
+		<div class="w3-col">
+			<div style="word-wrap:break-word;">
+				<input type="checkbox" class="w3-check" name="signin" id="signinsftersignup" value="1" checked="checked" />
+				<label for="signinsftersignup"><?= _abc('signinaftersignup') ?></label>
+			</div>
+		</div>
+	</div>
 </form>
+<div class="w3-content w3-center w3-padding">
+	<button class="w3-btn w3-lime" id="createaccount"><?= _abc('createaccount') ?></button>
+</div><!-- Signup form -->

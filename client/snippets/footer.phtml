@@ -1,16 +1,25 @@
-<span class="col-1-1">
-<?php
-$menuLinks = [
-	'support' => ["text" => _abc("support")],
-	'termsofuse' => ["text" => _abc("termsofuse")],
-	'privacy' => ["text" => _abc("privacy")]
-];
-createmenu($menuLinks, [
-	'active' => 'menu-active-link',
-	'page' => CurrentPage,
-	'url' => SiteURL . '?',
-	'vertical' => true,
-]);
- ?>
-</span>
-<span class="col-1-1" dir="rtl">&nbsp;Author: <a href="<?= SiteURL?>"><i>Max Pyger</i></a></span>
+<div class="w3-row w3-bottom" style="z-index:1;">
+	<div class="w3-col">
+		<div class="w3-cell-row">
+			<div class="w3-box w3-cell w3-cell-top w3-tooltip w3-padding w3-right">
+				<img src="client/images/arrowdown.png" class="w3-image"
+						 onclick="getById('footercontent').style.display='none';"
+						 onmouseover="getById('footercontent').style.display='block';"
+						 style="position:relative;bottom:-40px;filter:drop-shadow(0 0 15px #00ee00);" />
+			</div>
+		</div>
+		<div class="w3-row w3-lime" id="footercontent" style="display:none;">
+			<div class="w3-col">
+				<ul class="w3-ul">
+					<li><a href="<?= SiteURL.'?support' ?>"><?= _abc("support")?></a></li>
+					<li><a href="<?= SiteURL.'?termsofuse' ?>"><?= _abc("termsofuse")?></a></li>
+					<li><a href="<?= SiteURL.'?privacy' ?>"><?= _abc("privacy")?></a></li>
+				</ul>
+				<div class="w3-container w3-padding w3-green">
+					<span class="w3-right">Author: <a href="<?= SiteURL?>">Max Pyger</a></span>
+				</div>
+			</div>
+		</div>
+		<?php __('cpage')->footer(); ?>
+	</div>
+</div>

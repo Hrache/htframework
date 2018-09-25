@@ -1,7 +1,13 @@
-<?php if (__('account')) return false;?>
-<h3><?= _abc('login') ?></h3>
-<form id="headerloginform" action="<?= SiteURL ?>?account/signin" method="post" enctype="application/x-www-form-urlencoded">
-	<input type="text" id="loginidentity" name="loginidentity" placeholder="<?= _abc("email") ?>" /><br>
-	<input type="password" id="loginpassword" name="loginpassword" placeholder="<?= _abc("password") ?>" /><br>
-	<input type="submit" value="<?= _abc("login") ?>" />
+<?php
+if (__('account'))
+{
+	return false;
+}
+?>
+<form id="headerloginform" class="w3-cell-middle w3-padding w3-margin w3-round w3-white" action="<?= SiteURL ?>?account/signin" method="post" enctype="application/x-www-form-urlencoded">
+	<label for="loginidentity" class="w3-text-blue"><b><?= _abc("email") ?></b></label>
+	<input type="text" id="loginidentity" name="loginidentity" class="w3-input w3-border" />
+	<label for="loginidentity" class="w3-text-blue"><b><?= _abc("password") ?></b></label>
+	<input type="password" id="loginpassword" name="loginpassword" class="w3-input w3-border w3-margin-bottom" />
+	<input type="submit" class="w3-btn w3-blue" value="<?= _abc("login") ?>" />
 </form>

@@ -1,0 +1,56 @@
+<h1 id="wrapperr"><?= _abc('modelvalidationsettings')?></h1>
+<style type="text/css">
+.col-2-1 * {
+	min-height: 2rem;
+	vertical-align: middle;
+}
+</style>
+<div class="line-15 col-2-1">
+	<div id="dbdata" class="col-4">
+		<input type="text" name="dbname" id="dbname" placeholder="<?= _abc('dbname')?>" />
+	</div>
+	<div><?= _abc('choosedatabase')?></div>
+	<select id='dbselect' alt="Databases">
+	<?php dbsSelect(); ?>
+	</select>
+	<div><?= _abc('choosetable')?></div>
+	<select id='tableselect' alt="Tables of the database"></select>
+<!--
+	<div><?= _abc('tablefields')?></div>
+	<select id='tablefields' alt="Fields of the table"></select>
+	<form id="modelsettings">
+		<div><?= _abc('fieldtype')?></div>
+		<select name="fieldtype" id='tablefields' alt="Field type">
+		<?= arrayToDDown([
+			'email' => _abc('email'), 'password' => _abc('password'),
+			'address' => _abc('address'), 'text' => _abc('text'),
+			'nickname' => _abc('nickname'), 'digits' => _abc('digits'),
+			'enum' => _abc('enum'), 'date' => _abc('date'),
+			'format' => _abc('format'), 'website' => _abc('website'),
+			'time' => _abc('time'), 'ipaddress' => _abc('ipaddress'),
+			'url' => _abc('url'), 'facebook' => _abc('facebook'),
+			'file' => _abc('file'),
+		], [], '')?>
+		</select>
+		<div><?= _abc('required')?></div>
+		<input type="radio" id="requiredfield" name="requiredfield" value="1" alt="Required field" /><?= _abc('yes')?>
+		<input type="radio" id="requiredfield" name="requiredfield" value="0" alt="Required field" /><?= _abc('no')?><br/>
+		<div><?= _abc('confirmable')?></div>
+		<input type="radio" id="confirmfield" name="confirmfield" value="1" alt="Confirmable field" /><?= _abc('yes')?>
+		<input type="radio" id="confirmfield" name="confirmfield" value="0" alt="Confirmable field" /><?= _abc('no')?><br/>
+		<div><?= _abc('minlength')?></div>
+		<input type="text" name="minlength" aria-label="Small" aria-describedby="inputGroup-sizing-sm" alt="Minimal length" />
+		<div><?= _abc('additionalinfo')?></div>
+		<input type="text" name="additionalinfo" aria-label="Small" aria-describedby="inputGroup-sizing-sm1" alt="Additional info" />
+		<div><?= _abc('additredex')?></div>
+		<input type="text" name="addregex" aria-label="Small" aria-describedby="inputGroup-sizing-sm0" alt="Additional RegEx" />
+	</form>
+-->
+</div>
+<div class="col-2-1 line-15">
+	<div id="fieldetails"></div>
+	<div id="fieldvalidos"></div>
+	<h5><?= _abc('copygendata')?></h5>
+	<div id="generatedtext"></div>
+	<button id="generate_btn"><?= _abc('generate')?></button><button id="save_btn"><?= _abc('save')?></button>
+</div>

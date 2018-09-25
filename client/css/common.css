@@ -1,74 +1,47 @@
-#menu {
-	background-color: #3b3b3b;
-	padding: 0%;
-}
-#menu > a {
-	display: inline-block;
-	margin: 10px;
-	padding: 5px;
-	background-color: inherit;
+a
+{
 	text-decoration: none;
-	color: tomato;
-	font-size: 16pt;
-	text-align: center;
 }
-#menu > a:hover {
-	background-color: darkslategray;
+
+.w3-lime
+{
+	color: darkgreen !important;
+	background-color: lightgreen !important;
 }
-.line-15 {
-	line-height: 150%;
+
+#footercontent ul li
+{
+	border: none;
 }
-/*
-<div class="menu menu-horizontal">
-	<div>
-		<a href="[domain]/[index.php]?home/welcome">CCenter</a>
-	</div>
-	<a href="#">Menu</a>
-</div>
-*/
-.menu {
-	display: inline-block;
-	min-width: auto;
-	text-align: center;
+
+.w3-bar-item
+{
+	cursor: pointer;
 }
-.menu > div {
-	position: absolute;
+
+#modal01 div
+{
+	background:none;
 }
-.menu > div > a:hover {
-	background-color: brown;
-	color: white;
-}
-.menu a {
-	font-size: 1.5em;
-	text-decoration: none;
-	font-weight: bold;
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	padding: 1rem;
+
+#menuLinks a
+{
 	background-color: white;
-	color: darkslategrey;
-	vertical-align: top;
-	border-radius: 5px;
-	display: none;
-}
-.menu > a,
-.menu:hover a {
+	max-width: 144px;
+	width: 144px;
+	max-height: 144px;
+	height: 144px;
+	margin: 16px;
 	display: inline-block;
-	background-color: #e9fdd0;
-	color: black;
+	vertical-align: middle;
+	text-align: center;
+	font-size: 200%;
 }
-.board, .board-small-text {
-	padding: 5px;
-	display: block;
-	min-width: 270px;
-	max-width: 99%;
-	width: 99%;
-}
-.board-small-text {
-	font-size: 75%;
-}
-input, select {
-	display: inline-block;
-	margin: 0.5% 0.5%;
-	padding: 0.5rem;
-	border: 1px solid #ddd;
+
+#menuLinks a:hover
+{
+	background-color: green;
+	height: 144px;
+	border-bottom: 16px #ffffff solid;
+	color:white;
 }
