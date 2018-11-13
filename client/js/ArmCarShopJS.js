@@ -1,4 +1,4 @@
-var ArmCarShopJS =
+ArmCarShopJS =
 {
 	w3Tabs:
 	{
@@ -50,5 +50,5 @@ var ArmCarShopJS =
 
 			return true;
 		});
-	},
+	}
 };

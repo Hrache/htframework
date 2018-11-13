@@ -28,8 +28,11 @@ switch (CurrentAction)
 	case ('as'):
 	{
 		__('language')->append('search');
+		
 		__('page')->setTitle(_abc('search'));
+
 		$this->advancedSearch();
+
 		break;
 	}
 	default: {}

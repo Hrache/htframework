@@ -1,7 +1,7 @@
 <?php
 $snippet = '';
 
-if (CurrentAction === DbToModel)
+if (CurrentAction === ModelSettings)
 {
 	$snippet = 'dbtomodel_bottom';
 }

@@ -12,7 +12,7 @@ if ($('#country_id') && $('#country_id').find('option').length <= 1)
 }
 
 // Filling up the years of the new account form
-$('#byear').append(PygerJS.NumberRangeOptions(1940, (new Date()).getFullYear()));
+$('#byear').append(HracheJS.NumberRangeOptions(1940, (new Date()).getFullYear()));
 
 // New account submit
 $('#createaccount').click(function()

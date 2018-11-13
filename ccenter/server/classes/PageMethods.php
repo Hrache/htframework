@@ -1,22 +1,18 @@
 <?php
 /**
- * Description of PageMethods
- *
  * @author Max Pyger
  */
-abstract class PageMethods {
-	//
+abstract class PageMethods
+{
 	function content() {}
-	//
-	function jscode() {}
-	//
+
 	function csscode() {}
-	//
+	
+	function jscode() {}
+
 	function meta() {}
-	//
-	function resources() {}
-	//
-	function bottomres() {
-		
-	}
+
+	function topres() {}
+
+	function bottomres() {}
 }

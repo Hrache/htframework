@@ -1,26 +1,26 @@
-<div class="w3-row">
-	<div class="w3-col w3-content m4 l4 s12">
-		<label for="passwordlength"><?= _abc('passwordlength')?></label>
-		<input type="text" value="" id="passwordlength" size="4" class="w3-input w3-border w3-margin-bottom"/>
-		<button id="generatePassword" class="w3-btn w3-red"><?= _abc('strongpass') ?></button>
-		<div id="passwordScreen" class="w3-card"></div>
-	</div>
+<div class="w3-col l4 m10 s12 w3-padding">
+	<label for="passwordlength"><?= _abc('passwordlength')?></label>
+	<input type="text" id="passwordlength" value="" class="w3-input w3-border w3-margin-bottom" />
+	<button id="generatePassword" class="w3-btn w3-red"><?= _abc('strongpass') ?></button>
+	<div id="passwordScreen" class="w3-panel w3-margin"></div>
 </div>
 <script type="text/javascript">
 var strongPassword = function()
 {
 	var length = parseInt($('#passwordlength').val());
-	var sp = new PygerJS.StrongPassword(length);
 
+	var sp = new HracheJS.StrongPassword(length);
+
+	// Adds genereted password-text into the password screen
 	$('#passwordScreen').text(sp.generate());
-
 	delete(length, sp);
 };
 
-$('#passwordlength').keypress(function(eo)
-{
+// Generates password if is pressed "Enter"
+$('#passwordlength').keypress(function(eo) {
 	(eo.keyCode !== 13) || strongPassword();
 });
 
+// Generates password if the button is clicked
 $('#generatePassword').click(strongPassword);
 </script>

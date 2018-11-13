@@ -14,22 +14,22 @@ class RequestClass extends CustomLinkClass
 	  * @param string $indexPage The home/index-page of the web-site
 	  * @param string $pagefileExtension The extension of the page file
 	  */
-	function __construct(string $websiteDir, string $defaultLink, string $indexPage, string $pagefileExtension = 'php')
+	function __construct(string $websiteDir, string $defaultLink, string $indexPage, string $defaultAction, string $pagefileExtension = 'php')
 	{
 		require_once(realpath(__DIR__.'/../scripts').ds.'requestclass.php');
 
-		parent::__construct($_SERVER['REQUEST_URI'], $indexPage);
+		parent::__construct($_SERVER['REQUEST_URI'], $indexPage, $defaultAction);
 
-		// const SiteURL
+		# const SiteURL
 		define('SiteURL', $_SERVER['PHP_SELF']);
 
-		// const CurrentPage
+		# const CurrentPage
 		define('CurrentPage', $this->getPage());
 
-		// const CurrentAction
+		# const CurrentAction
 		define('CurrentAction', $this->getAction());
 
-		// const CurrentURL
+		# const CurrentURL
 		define('CurrentURL', SiteURL.'?'.CurrentPage.'/');
 	}
 

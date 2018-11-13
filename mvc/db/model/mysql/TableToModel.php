@@ -1,5 +1,6 @@
 <?php
-class TableToModel {
+class TableToModel
+{
 	const field_length = 'length';
 	/**
 		* Constructor for TableToModel class
@@ -8,24 +9,39 @@ class TableToModel {
 		* @param mixed $tables The list of the names of the desired tables
 		* for model class creation
 		*/
-	public function __construct(string $filePath, MySQLClass $mysql, string ...$tables) {
-// SHOW ALL TABLES
+	public function __construct(string $filePath, MySQLClass $mysql, string ...$tables)
+	{
+		// SHOW ALL TABLES
 		$tables_q = 'SHOW FULL TABLES;';
 		$tables_qr = $mysql->PDOFetchArray($tables_q, MySQLClass::PDO_FETCH_COLUMN);
 		$tables_qr = $tables_qr->input;
-		foreach ($tables_qr as $id => $name) {
-			if ($tables && (!in_array($name, $tables) || !$name)) continue;
+
+		foreach ($tables_qr as $id => $name)
+		{
+			if ($tables && (!in_array($name, $tables) || !$name))
+			{
+				continue;
+			}
+
 			$desc_q = sprintf('DESCRIBE %s;', $name);
 			$desc_qr = $mysql->PDOFetchArray($desc_q, MySQLClass::PDO_FETCH_DEFAULT)->input;
-			if (!is_array($desc_qr)) continue;
+			
+			if (!is_array($desc_qr))
+			{
+				continue;
+			}
+			
 			$modelInheritance = self::modelInheritance(ucfirst($name));
 			$properties = self::createProperties($desc_qr);
 			$content = self::modelFinalizer($name, $modelInheritance, $properties);
+			
 			self::varnameDesigner($name);
 			self::renderModelFile($filePath . DIRECTORY_SEPARATOR . $name . 'Model.php', $content);
 		}
+
 		unset($tables_q, $tables_qr);
 	}
+
 	/**
 		* After getting the info of the individual mysql table
 		* by using "describe" mysql-command this method below
@@ -34,13 +50,16 @@ class TableToModel {
 		* @param array $tbl_desc The result of 'describe' mysql-command for individual mysql table
 		* @return string
 		*/
-	public static function createProperties(array $tbl_desc): string {
+	public static function createProperties(array $tbl_desc): string
+	{
 		$rules = $properties = $constants = $enums_ = '';
-// @var $enums
 		$rules = PHP_EOL . '	const rules = [%s' . PHP_EOL . '	];';
 		$rules_items = '';
-		foreach ($tbl_desc as $i => $val) {
-			if (is_array($val)) {
+
+		foreach ($tbl_desc as $i => $val)
+		{
+			if (is_array($val))
+			{
 				$constants .= PHP_EOL . '	const ' . $val[MySQLField::tbl_field] . ' = \'' . $val[MySQLField::tbl_field] . '\';';
 				$matches = [];
 				$rules_item = '';
@@ -50,13 +69,18 @@ class TableToModel {
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_TYPE_MYSQL . "' => '%s',", $type[0]);
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_NULL_MYSQL . "' => '%s',", $val[2]);
 				$enum = strripos($type_parts[0], 'enum');
-				if ($enum !== false) {
+
+				if ($enum !== false)
+				{
 					$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_ENUM_MYSQL . "' => array%s,", substr($type_parts[0], 4));
 				}
-				if (preg_match('/\d+/i', $type_parts[0], $matches) && $enum === false) {
+
+				if (preg_match('/\d+/i', $type_parts[0], $matches) && $enum === false)
+				{
 					$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_LENGTH_MYSQL . "' => '%s',", $matches[0]);
 					$matches = null;
 				}
+
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_EXTRA_MYSQL . "' => '%s',", $type_extra);
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_DEFAULT_MYSQL . "' => '%s',%s", $val[MySQLField::tbl_default], PHP_EOL);
 				$rules_items .= sprintf(PHP_EOL . '		self::%s => [%s		],', $val[MySQLField::tbl_field], $rules_item);
@@ -65,6 +89,7 @@ class TableToModel {
 				$properties .= /* (empty($val[MySQLField::tbl_default])? '' : ' = \'' . $val[MySQLField::tbl_default] . '\'') . */';' . PHP_EOL;
 			}
 		}
+
 		return ($constants . sprintf($rules, $rules_items) . PHP_EOL . $properties);
 	}
 	/**
@@ -74,14 +99,19 @@ class TableToModel {
 		* @param string $implements If will be iterface then the name of interface
 		* @return string
 		*/
-	static function modelInheritance(string $modelName, string $extends = 'MySQLModelAbstract', string $implements = ''): string {
+	static function modelInheritance(string $modelName, string $extends = 'MySQLModelAbstract', string $implements = ''): string
+	{
 		$modelName .= 'Model';
+	
 		self::varnameDesigner($modelName);
+	
 		$extends = (boolval($extends) ? 'extends ' . $extends . ' ' : '');
 		$implements = (!boolval($extends) && boolval($implements)) ? 'implements ' . $implements : '';
 		$data = sprintf('class %s %s %s', $modelName, $extends, $implements);
+	
 		return $data;
 	}
+
 	/**
 		* Makes the name of the variable nicely capitalized without underscores
 		* e.g. tbl_hello_site - TblHelloSite this method was designed mostly for
@@ -89,13 +119,18 @@ class TableToModel {
 		* @param string $varName Desired name of the model
 		* @return void works with argument given by reference
 		*/
-	static function varnameDesigner(string &$varName): void {
+	static function varnameDesigner(string &$varName): void
+	{
 		$varName = explode('_', $varName);
-		array_walk($varName, function (&$val, $key) {
+
+		array_walk($varName, function (&$val, $key)
+		{
 			$val = ucfirst($val);
 		});
+
 		$varName = implode('', $varName);
 	}
+
 	/**
 		* Creates the code of the model class-file this method
 		* gathers the all information that was generated by the
@@ -105,7 +140,8 @@ class TableToModel {
 		* @param string $properties
 		* @return string The text of the model class file
 		*/
-	static function modelFinalizer(string $modelName, string $modelInheritance, string $properties): string {
+	static function modelFinalizer(string $modelName, string $modelInheritance, string $properties): string
+	{
 		$data = <<<EOD
 <?php
 $modelInheritance {
@@ -117,18 +153,26 @@ $modelInheritance {
 }
 ?>
 EOD;
+
 		return $data;
 	}
+
 	/**
 		* Creates the model's class-file within given code-text
 		* @param string $path The full filepath ( within filename) of the model's class-file
 		* @param mixed $content The code-text of the model
 		* @return void
 		*/
-	static function renderModelFile(string $path, $content = ''): void {
+	static function renderModelFile(string $path, $content = ''): void
+	{
 		$fres = fopen($path, 'w', false);
-		if (fclose($fres)) file_put_contents($path, $content);
+
+		if (fclose($fres))
+		{
+			file_put_contents($path, $content);
+		}
 	}
+
 	/**
 		*
 		* @param string $id
@@ -136,8 +180,10 @@ EOD;
 		* @return string if $id is not null, by default array
 		*         of MySQL datatypes for v.10.1.16-MariaDB
 		*/
-	static function fieldType(string $id = '') {
-		$mysqlType = [
+	static function fieldType(string $id = '')
+	{
+		$mysqlType =
+		[
 			'real',
 			'tinyint',
 			'smallint',
@@ -179,9 +225,17 @@ EOD;
 			'enum',
 			'set'
 		];
-		if (boolval($id) && isset($mysqlType [$id])) return $mysqlType [$id];
-		else return $mysqlType;
+
+		if (boolval($id) && isset($mysqlType [$id]))
+		{
+			return $mysqlType [$id];
+		}
+		else
+		{
+			return $mysqlType;
+		}
 	}
+
 	/**
 		* Generetes array of the validation options for the given table
 		*/

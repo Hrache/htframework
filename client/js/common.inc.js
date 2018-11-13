@@ -30,7 +30,7 @@ if ($('#carbrand'))
 }
 
 // Filling up car release year
-$('#caryearfrom').append(PygerJS.NumberRangeOptions(1941, (new Date()).getFullYear(), true))
+$('#caryearfrom').append(HracheJS.NumberRangeOptions(1941, (new Date()).getFullYear(), true))
 .change(function()
 {
 	var start = $(this).val();
@@ -41,7 +41,7 @@ $('#caryearfrom').append(PygerJS.NumberRangeOptions(1941, (new Date()).getFullYe
 		return false;
 	}
 
-	$('#caryearto').html(PygerJS.NumberRangeOptions(start, (new Date()).getFullYear())).prepend(DOMHelpersJS.option);
+	$('#caryearto').html(HracheJS.NumberRangeOptions(start, (new Date()).getFullYear())).prepend(DOMHelpersJS.option);
 });
 
 // Header search form validation

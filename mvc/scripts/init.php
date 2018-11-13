@@ -10,7 +10,7 @@ $settings = new FinalSettings();
 date_default_timezone_set($settings->getSetting(SettingsClass::Timezone) ?? 'Europe/London');
 
 # Request
-$request = new RequestClass(Project, $settings->getSetting(SettingsClass::DefaultLink), $settings->getSetting(SettingsClass::Homepage),	$settings->getSetting(SettingsClass::PagefileExt));
+$request = new RequestClass(Project, $settings->getSetting(SettingsClass::DefaultLink), $settings->getSetting(SettingsClass::Homepage), $settings->getSetting(SettingsClass::DefaultAction), $settings->getSetting(SettingsClass::PagefileExt));
 
 _d8('request', $request);
 
@@ -34,7 +34,7 @@ if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass)
 # Page
 $page = new PageBase($request->getPage(), $settings->getSetting(SettingsClass::Homepage), $settings->getSetting(SettingsClass::PagefileExt));
 
-# Core.pre.load
+# Preload
 if ($settings->getSetting(SettingsClass::PreLoad))
 {
 	require_once(Server.$settings->getSetting(SettingsClass::PreLoad));
@@ -43,7 +43,7 @@ if ($settings->getSetting(SettingsClass::PreLoad))
 # Snippets Module
 if ($settings->getSetting(SettingsClass::SnippetsModule))
 {
-	$page->setSnippetsPath(Snippets);
+	$page->activateSnippets(Snippets, $settings->getSetting(SettingsClass::DefaultAction));
 }
 
 # Database Module

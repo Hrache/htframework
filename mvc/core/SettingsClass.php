@@ -46,12 +46,14 @@ class SettingsClass
 	function setSetting($key, $value): SettingsClass
 	{
 		$this->settings->add($key, $value);
+
 		return $this;
 	}
 
 	function appendSettings(Array $settings): SettingsClass
 	{
 		$this->settings->append($settings);
+
 		return $this;
 	}
 
@@ -64,6 +66,7 @@ class SettingsClass
 	public function triggerModule(int $constSetting): SettingsClass
 	{
 		$this->settings->add($constSetting, true);
+
 		return $this;
 	}
 
@@ -76,6 +79,7 @@ class SettingsClass
 	public function setDefaultDatabase($defaultDatabase): SettingsClass
 	{
 		$this->settings->add(self::DefaultDatabase, $defaultDatabase);
+
 		return $this;
 	}
 }

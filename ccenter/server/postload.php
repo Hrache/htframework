@@ -1,3 +1,3 @@
 <?php
-__('language')->append('common');
+__('language')->append('common', 'menu');
 ?>

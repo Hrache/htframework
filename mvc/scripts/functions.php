@@ -174,44 +174,39 @@ if (array_search('core.php', scandir($lib)))
 
 		$data = new ArrayClass();
 
-		function __($key)
-		{
-			global $data;
+		function __($key) {
 
+			global $data;
 			return $data->item($key);
 		}
 
-		function _di($key, $val)
-		{
-			global $data;
+		function _di($key, $val) {
 
+			global $data;
 			$data->add($key, $val);
 		}
 
-		function _d8($key, &$val)
-		{
-			global $data;
+		function _d8($key, &$val) {
 
+			global $data;
 			$data->add($key, $val);
 		}
 
-		function _dx($key)
-		{
-			global $data;
+		function _dx($key) {
 
+			global $data;
 			$data->del($key);
 		}
 
-		function _db($key)
-		{
-			global $data;
+		function _db($key) {
 
+			global $data;
 			return boolval($data->item($key));
 		}
 	}
 }
-else
-{
+else {
+
 	die('Error: System file is missing.');
 }
 
@@ -230,8 +225,8 @@ function html_option($text, $value, $selected = false)
  *	@param bool $strict Decides whether do strict comparison or lose
  *	@return bool
  */
-function is($op1, $op2, bool $strict = false): bool
-{
+function is($op1, $op2, bool $strict = false): bool {
+
 	return(($strict)? $op1 === $op2: $op1 == $op2);
 }
 
@@ -241,10 +236,10 @@ function is($op1, $op2, bool $strict = false): bool
  * @param callable $function In case of first parameter this function will be called
  * @return void
  */
-function do_if(bool $exprCondition, callable $function): void
-{
-	if ($exprCondition)
-	{
+function do_if(bool $exprCondition, callable $function): void {
+
+	if ($exprCondition)	{
+
 		call_user_func($function);
 	}
 }
@@ -259,12 +254,12 @@ function do_if(bool $exprCondition, callable $function): void
  * @return string - representation of the string element
  *
  */
-function _tag(string $tagName, array $attrs = [], bool $closed = false, string $data = ''): string
-{
+function _tag(string $tagName, array $attrs = [], bool $closed = false, string $data = ''): string {
+
 	$_attrs = '';
 
-	foreach ($attrs as $attr => $value)
-	{
+	foreach ($attrs as $attr => $value) {
+
 		$_attrs .= sprintf(' %s="%s"', $attr, $value);
 	}
 
@@ -582,13 +577,13 @@ function array_item($array, ...$keys)
  * @param $text string - some text
  * @return string
  */
-function _eol(string $text = ''): void
-{
+function _eol(string $text = ''): void {
+
 	echo $text.PHP_EOL;
 }
 
-function html_phpeol(): void
-{
+function html_phpeol(): void {
+
 	echo('<br/>'.PHP_EOL);
 }
 
@@ -597,8 +592,8 @@ function html_phpeol(): void
  * @param string $data text-data
  * @return string the text-data argument
  */
-function stringCleanup(string $data): string
-{
+function stringCleanup(string $data): string {
+
 	$data = trim($data);
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
@@ -613,15 +608,15 @@ function stringCleanup(string $data): string
  * @param mixed $index the key/index of an element in the array
  * @return mixed | empty string
  */
-function _item(array &$array, $index)
-{
+function _item(array &$array, $index) {
+
 	return (isset($array[$index])? $array[$index] : '');
 }
 
-function _delete(array &$arr, string $index): bool
-{
-	if (_item($arr, $index))
-	{
+function _delete(array &$arr, string $index): bool {
+
+	if (_item($arr, $index)) {
+
 		unset($arr[$index]);
 
 		return true;
@@ -636,12 +631,12 @@ function _delete(array &$arr, string $index): bool
  * @param array $source the original array where the search will be realized
  * @return void
  */
-function array_keys_exist(array $keys, array $source): bool
-{
-	foreach ($keys as $id => $key)
-	{
-		if (!array_key_exists($key, $source))
-		{
+function array_keys_exist(array $keys, array $source): bool {
+
+	foreach ($keys as $id => $key) {
+
+		if (!array_key_exists($key, $source)) {
+
 			return false;
 		}
 	}
@@ -815,7 +810,7 @@ final class MD5Index
 
 		return $out;
 	}
-	
+
 	/**
 	 * Decodes already MD5Index-ed array back to its initial state
 	 * @param array $md5input The encoded array

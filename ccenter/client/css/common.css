@@ -1,0 +1,39 @@
+a
+{
+	text-decoration: none;
+}
+
+a, #mainmenu .w3-bar-item
+{
+	cursor: pointer;
+}
+
+#links
+{
+	overflow: hidden;
+}
+
+#links a
+{
+	display: inline-block;
+	max-width: 128px;
+	max-height: 128px;
+	width: 128px;
+	height: 128px;
+	vertical-align: top;
+	overflow: hidden;
+	text-decoration: none;
+}
+
+#links a>span
+{
+	display: block;
+	height: 100%;
+	position: relative;
+	bottom: -64px;
+	padding: 8px;
+	font-size: 20px;
+	background-color: #fffffa;
+	text-align: center;
+	overflow: visible;
+}

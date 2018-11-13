@@ -1,0 +1,20 @@
+#codeform
+{
+	background: url('../images/randnumcloud.png') bottom left no-repeat;
+}
+
+#codeform label
+{
+	display: inline-block;
+}
+
+#codeform .w3-input
+{
+	margin-bottom: 8px;
+}
+
+#codeform .w3-input,
+#codeform option
+{
+	color: orangered;
+}

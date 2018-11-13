@@ -8,6 +8,7 @@ class CustomLinkClass extends LinkClass
 	protected $action;
 	protected $pageUrl;
 	protected $indexPage;
+
 	/**
 	 * Constructor of CustomLinkClass
 	 * @param string $requestURI The URI of the current request
@@ -15,19 +16,15 @@ class CustomLinkClass extends LinkClass
 	 * @param mixed $delimiter CustomLinkClass has a delimiter option
 	 * in the URI structure by default is '/'
 	 */
-	function __construct(string $requestURI, string $indexPage, $delimiter = '/')
+	function __construct(string $requestURI, string $indexPage, string $defaultAction = '', $delimiter = '/')
 	{
 		parent::__construct($requestURI);
 
 		$this->indexPage = $indexPage;
-
 		$this->pageUrl = array_shift($this->getParams);
-
 		$_ = explode($delimiter, array_shift($this->getParams));
-
 		$this->page = ArrayClass::nonEmpty(array_shift($_), $this->indexPage);
-
-		$this->action = array_shift($_) ?? '';
+		$this->action = array_shift($_) ?? $defaultAction;
 
 		unset($_);
 	}

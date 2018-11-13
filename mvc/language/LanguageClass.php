@@ -28,7 +28,7 @@ class LanguageClass
 		while ($filename)
 		{
 			$file = array_shift($filename);
-			$file = realpath($this->filePath) . DIRECTORY_SEPARATOR . $file . '.' . $this->fileExtension;
+			$file = realpath($this->filePath).DIRECTORY_SEPARATOR.$file.'.'.$this->fileExtension;
 			$langData = require_once($file);
 			$this->dictionary->append($langData);
 		}
@@ -39,6 +39,7 @@ class LanguageClass
 	function setFilePath(string $langFileDir): LanguageClass
 	{
 		$this->filePath = $langFileDir;
+
 		return $this;
 	}
 

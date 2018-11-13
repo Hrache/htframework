@@ -1,47 +1,29 @@
-a
-{
+a {
 	text-decoration: none;
 }
 
-.w3-lime
-{
+.w3-lime {
 	color: darkgreen !important;
 	background-color: lightgreen !important;
 }
 
-#footercontent ul li
-{
+#footercontent ul li {
 	border: none;
 }
 
-.w3-bar-item
-{
+#maintabs div, a {
 	cursor: pointer;
 }
 
-#modal01 div
-{
+#modal01 div {
 	background:none;
 }
 
-#menuLinks a
-{
-	background-color: white;
-	max-width: 144px;
-	width: 144px;
-	max-height: 144px;
-	height: 144px;
-	margin: 16px;
-	display: inline-block;
-	vertical-align: middle;
-	text-align: center;
-	font-size: 200%;
+#maintabs {
+	font-size: 20px;
 }
 
-#menuLinks a:hover
-{
+#maintabs div:hover {
 	background-color: green;
-	height: 144px;
-	border-bottom: 16px #ffffff solid;
 	color:white;
 }

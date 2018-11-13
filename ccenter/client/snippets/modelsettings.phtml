@@ -1,8 +1,10 @@
-<h3 style="line-height:100%;"><?= _abc("dbconnectionparameters") ?></h3>
-<div id="progressbar"></div>
-<div class="w3-row">
-	<div class="w3-col s12 m6 l6">
-		<div id="dbdata" class="w3-row w3-margin-bottom w3-margin-right">
+<div class="w3-col l6 m10 s12">
+	<div class="w3-row-padding">
+		<div class="w3-col w3-center">
+			<h3 style="line-height:100%;"><?= _abc("dbconnectionparameters") ?></h3>
+			<div id="progressbar"></div>
+		</div>
+		<div class="w3-col s12 m6 l5" id="dbdata">
 			<label for="dbuser"><?= _abc('username')?></label>
 			<input type="text" name="<?= MySQLClass::DBUSER ?>" class="w3-input w3-border" id="dbuser" value="" alt="<?= _abc('username') ?>" />
 			<label for="dbpass"><?= _abc('password')?></label>
@@ -17,11 +19,9 @@
 			<input type="text" name="<?= MySQLClass::DBCHARSET ?>" class="w3-input w3-border w3-margin-bottom" id="dbchar" value="" alt="<?= _abc('charset') ?>" />
 			<button id="senddbconspec" class="w3-btn w3-green" onclick="sendButton();"><?= _abc("gettables") ?></button>
 		</div>
-	</div>
-	<div class="w3-col s12 m6 l6">
-		<div class="w3-row">
+		<div class="w3-col s12 m6 l5">
 			<label for="tableselect"><?= _abc('choosetable')?></label>
-			<select class="w3-select w3-border w3-margin-bottom" id='tableselect' alt="Tables of the database"></select>
+			<select class="w3-select w3-border" id='tableselect' alt="Tables of the database"></select>
 			<label for="physdir"><?= _abc('physfiledir')?></label>
 			<input type="text" class="w3-input w3-border w3-margin-bottom" name="physdir" value="" alt="<?= _abc('physfiledir')?>" id="physdir" />
 			<button id="generate_btn" class="w3-btn w3-orange" onclick="generateModelsButton();"><?= _abc('generate')?></button>

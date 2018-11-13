@@ -46,7 +46,13 @@ final class PageBase
 		$this->fileExt = $fileExt;
 		$this->homepage = $homepage;
 		$this->pagefile = ($page ?? $homepage).'.'.$fileExt;
-		$this->snippet = new SnippetsClass();
+	}
+
+	function activateSnippets(string $snippetsPath, string $defaultSnippet): PageBase
+	{
+		$this->snippet = new SnippetsClass($defaultSnippet, $snippetsPath);
+
+		return $this;
 	}
 
 	function getInstance(): PageBase
@@ -83,13 +89,6 @@ final class PageBase
 		return $this->snippetsPath;
 	}
 
-	function setSnippetsPath(string $path): PageBase
-	{
-		$this->snippet->setPath($path);
-
-		return $this;
-	}
-
 	/**
 	 * Inserts snippet into main HTML document
 	 * @param string $file The name of the file or within extension, or without extension
@@ -103,7 +102,7 @@ final class PageBase
 
 	function includePagefile(): bool
 	{
-		$filepath = $this->websiteDir . $this->pagefile;
+		$filepath = $this->websiteDir.$this->pagefile;
 
 		if (!file_exists($filepath))
 		{

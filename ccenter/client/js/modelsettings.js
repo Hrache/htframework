@@ -1,4 +1,4 @@
-progressBar = new PygerJS.UIWizardProgressBar($('#progressbar'), 2);
+progressBar = new HracheJS.UIWizardProgressBar($('#progressbar'), 2);
 tableIndex = null;
 dbconspecs = {};
 errors = [];
@@ -11,7 +11,7 @@ var sendButton = function()
 		var name = $(this).attr('name');
 		var value = $(this).val();
 		var isRequired = required.indexOf(name);
-		
+
 		if ((isRequired === 0 || isRequired > 0) && (value === ''))
 		{
 			errors[errors.length] = "<div>"+$("#dbdata [name="+name+"]").attr('alt')+": is required.</div>";
@@ -19,18 +19,14 @@ var sendButton = function()
 
 		dbconspecs[name] = value;
 	});
-	
+
 	if (errors.length)
 	{
 		var popuptext = "";
-		
-		while (i = errors.shift())
-		{
-			popuptext += i;
-		}
 
-		PygerJS.PopupMessage(popuptext);
-		
+		while (i = errors.shift()) popuptext += i;
+
+		HracheJS.PopupMessage(popuptext);
 		delete(popuptext);
 	}
 	else
@@ -43,10 +39,9 @@ var sendButton = function()
 		},
 		function(data, textStatus, jqXHR)
 		{
-			PygerJS.PopupMessage(data);
+			HracheJS.PopupMessage(data);
 
 			$('#tableselect').html(data);
-
 			progressBar.trigger(1);
 		});
 	}
@@ -56,11 +51,11 @@ var generateModelsButton = function()
 {
 	// the index of the table
 	tableIndex = $('#tableselect').val();
-	
+
 	if (!tableIndex)
 	{
 		progressBar.trigger(-1);
-		
+
 		return false;
 	}
 
@@ -72,8 +67,8 @@ var generateModelsButton = function()
 	},
 	function(data, textStatus, jqXHR)
 	{
-		PygerJS.PopupMessage(data);
-		
+		HracheJS.PopupMessage(data);
+
 		progressBar.trigger(2);
 	});
 };

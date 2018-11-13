@@ -39,7 +39,6 @@ return([
 	'progress' => 'Progress',
 	'additionalinfo' => 'Additional Info',
 	'enterformat' => 'Enter the format',
-	'generate' => 'Generate',
 	'copygendata' => 'Copy generated data.',
 	'name' => 'Name',
 	"dbconnectionparameters" => "Database connection parameters",

@@ -14,7 +14,7 @@ class FinalSettings extends SettingsClass
 			SettingsClass::PagefileExt => 'php',
 			SettingsClass::Homepage => 'home',
 			SettingsClass::HandleGlobals => true,
-			// SettingsClass::DefaultAction => '',
+			SettingsClass::DefaultAction => '',
 			SettingsClass::Timezone => 'Asia/Yerevan',
 			SettingsClass::SnippetsModule => true,
 			SettingsClass::DefaultLink => dirname($_SERVER['PHP_SELF']).'/?'.CustomLinkClass::newLink('home', 'welcome'),

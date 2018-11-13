@@ -17,6 +17,7 @@ if (CurrentAction === self::action_signin)
 elseif (CurrentAction === self::action_signout)
 {
 	__('session')->close();
+
 	header("Location: ".SiteURL);
 }
 elseif (CurrentAction === self::action_delete)

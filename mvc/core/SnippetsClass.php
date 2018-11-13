@@ -11,14 +11,20 @@ class SnippetsClass
 	 * by default .phtml
 	 */
 	private $extension;
+	
+	/**
+		* @var string $defaultSnippet The name of the default snippet
+		*/
+	private $defaultSnippet;
 
 	/*
 	 * @param $path
 	 */
-	public function __construct(string $path = '', string $extension = "phtml")
+	public function __construct(string $defaultSnippet, string $path = '', string $extension = "phtml")
 	{
 		$this->path = $path;
 		$extension = strtolower($extension);
+		$this->defaultSnippet = $defaultSnippet;
 
 		$this->setExtension($extension);
 	}
