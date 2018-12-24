@@ -63,7 +63,7 @@ abstract class SQLModelAbstract
 
 		$modelNames_ = implode(',', $modelNames_);
 		$set = '';	//	SET
-		
+
 		foreach ($fieldsValues as $key => $val)
 		{
 		    $set[] = sprintf ('%s = \'%s\'', self::_fier ($val), $key);

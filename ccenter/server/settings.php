@@ -18,7 +18,7 @@ final class FinalSettings extends SettingsClass
 			SettingsClass::Timezone => 'Asia/Yerevan',
 			SettingsClass::SnippetsModule => true,
 			SettingsClass::DatabaseModule => false,
-			SettingsClass::DefaultDatabase => self::db1,
+			// SettingsClass::DefaultDatabase => self::db1,
 			SettingsClass::PreLoad => 'preload.php',
 			SettingsClass::PostLoad => 'postload.php',
 			SettingsClass::SessionModule => new ArrayClass([

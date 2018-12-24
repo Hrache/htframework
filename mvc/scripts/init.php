@@ -10,7 +10,12 @@ $settings = new FinalSettings();
 date_default_timezone_set($settings->getSetting(SettingsClass::Timezone) ?? 'Europe/London');
 
 # Request
-$request = new RequestClass(Project, $settings->getSetting(SettingsClass::DefaultLink), $settings->getSetting(SettingsClass::Homepage), $settings->getSetting(SettingsClass::DefaultAction), $settings->getSetting(SettingsClass::PagefileExt));
+$request = new RequestClass(
+	Project,
+	$settings->getSetting(SettingsClass::DefaultLink),
+	$settings->getSetting(SettingsClass::Homepage),
+	$settings->getSetting(SettingsClass::DefaultAction),
+	$settings->getSetting(SettingsClass::PagefileExt));
 
 _d8('request', $request);
 
@@ -32,7 +37,10 @@ if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass)
 }
 
 # Page
-$page = new PageBase($request->getPage(), $settings->getSetting(SettingsClass::Homepage), $settings->getSetting(SettingsClass::PagefileExt));
+$page = new PageBase(
+	$request->getPage(),
+	$settings->getSetting(SettingsClass::Homepage),
+	$settings->getSetting(SettingsClass::PagefileExt));
 
 # Preload
 if ($settings->getSetting(SettingsClass::PreLoad))

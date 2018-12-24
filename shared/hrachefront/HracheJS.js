@@ -289,7 +289,7 @@ HracheJS =
 		hrachepopup.id = "tagel";
 		hrachepopup.innerHTML = text;
 		hrachepopup.style.filter = "drop-shadow(0px 0px 2px skyblue)";
-		popup.onclick = function()
+		hrachepopup.onclick = function()
 		{
 			this.style.display = 'none';
 

@@ -1,7 +1,10 @@
 <?php
 lib_load('validation');
+
 $errors = new ErrorClass();
+
 $login = post_('loginidentity') ?? post_('signupemail');
+
 $password = post_('loginpassword') ?? post_('signuppassword');
 
 if ($login && $password)

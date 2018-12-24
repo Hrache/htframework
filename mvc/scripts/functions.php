@@ -35,7 +35,7 @@ if (array_search('core.php', scandir($lib)))
           # file.require
 					require_once($item);
 
-          continue;
+					continue;
 				}
 
 				set_include_path(get_include_path().PATH_SEPARATOR.$item);

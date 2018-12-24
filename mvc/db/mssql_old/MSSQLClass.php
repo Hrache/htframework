@@ -1,5 +1,5 @@
 <?php
-final class SQLClass
+final class MSSQLClass
 {
 	protected $mssql = null;
 	protected $result = null;
@@ -18,8 +18,9 @@ final class SQLClass
 	{
 		$this->settings = $settings;
 		$this->mssql = new PDO(
-			$this->pdo_sql_driver(
+			$this->PDOSQLDriverString(
 				$settings->item(self::DBHOST),
+				$settings->item(self::DPORT),
 				$settings->item(self::DBNAME)
 			),
 			$settings->item(self::DBUSER),
@@ -34,13 +35,14 @@ final class SQLClass
 
 	/**
 	 * Generates PDO MSSQL driver for connection within database selection
-	 * @param string $server The name of the server host
+	 * @param string $host The db server host
+	 * @param string $port The db server port
 	 * @param string $db The name of the database
 	 * @return string The driver string
 	 */
-	private function pdo_sql_driver(string $server, string $db): string
+	private function PDOSQLDriverString(string $host, int $port = null, string $db): string
 	{
-		return(sprintf('sqlsrv:Server=%s;Database=%s;', $server, $db));
+		return(sprintf('sqlsrv:Server=%s%s;Database=%s;', $host, $port? ','.$port: '', $db));
 	}
 	
 	/**
@@ -75,7 +77,7 @@ final class SQLClass
 		return ($object)? $arr : $arr->input;
 	}
 	
-	function query(string $queryString): SQLClass
+	function query(string $queryString): MSSQLClass
 	{
 		$this->result = $this->mysql->query($queryString);
 

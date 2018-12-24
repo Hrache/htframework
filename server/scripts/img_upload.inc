@@ -7,6 +7,7 @@ if (isset(__('images')[0]) && isset(__('images')[1]))
 	if (is_array($imgs))
 	{
 		$slide = $images = '';
+
 		echo ('<div class="imageslider" id="imageslider">');
 
 		foreach ($imgs['names'] as $key => $name)

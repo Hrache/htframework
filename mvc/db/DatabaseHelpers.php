@@ -4,4 +4,5 @@
  *
  * @author Max Pyger
  */
-class DatabaseHelpers {}
+class DatabaseHelpers
+{}

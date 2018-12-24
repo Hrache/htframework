@@ -20,8 +20,7 @@ class FinalSettings extends SettingsClass
 			SettingsClass::DefaultLink => dirname($_SERVER['PHP_SELF']).'/?'.CustomLinkClass::newLink('home', 'welcome'),
 			SettingsClass::PreLoad => 'preload.php',
 			SettingsClass::PostLoad => 'postload.php',
-			SettingsClass::SessionModule => new ArrayClass(
-			[
+			SettingsClass::SessionModule => new ArrayClass([
 				// 'id' => md5 ('HracheToomasyan'),
 				'start_options' => ['cookie_lifetime' => 7200]
 			]),
@@ -32,20 +31,18 @@ class FinalSettings extends SettingsClass
 		];
 		$settings = new ArrayClass($settings);
 
-		$settings->add(SettingsClass::DatabaseModule, new ArrayClass(
-		[
-			// Uncomment if you're database using in your project
-			self::db1 => new ArrayClass(
-			[
-				MySQLClass::DBUSER => 'acs_limited_user',
-				MySQLClass::DBPASSWORD => 'j1HIXERipiW2',
-				MySQLClass::DBHOST => '127.0.0.1',
-				MySQLClass::DBPORT => '3306',
-				MySQLClass::DBNAME => 'acs_database',
-				MySQLClass::DBCHARSET => 'UTF8',
-				DatabaseClass::DBTYPE => DatabaseClass::MYSQL,
-			])
-		]));
+		// Uncomment if you're using database in your project
+		$settings->add(
+			SettingsClass::DatabaseModule, new ArrayClass([
+				self::db1 => new ArrayClass([
+					MSSQLClass::DBUSER => 'armcarshop',
+					MSSQLClass::DBPASSWORD => '1111',
+					MSSQLClass::DBHOST => '192.168.6.133',
+					MSSQLClass::DBPORT => '52485',
+					MSSQLClass::DBNAME => 'armcarshop',
+					DatabaseClass::DBTYPE => DatabaseClass::MSSQL
+				])
+			]));
 
 		$settings->add(SettingsClass::DefaultDatabase, self::db1);
 

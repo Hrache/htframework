@@ -5,6 +5,7 @@ if (!is_dir($websiteDir))
 }
 
 $this->websiteDir = $websiteDir;
+
 $pagefiles = scandir_c(realpath($websiteDir).DIRECTORY_SEPARATOR, true, false);
 $this->pages = new ArrayClass();
 

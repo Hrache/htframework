@@ -3,7 +3,6 @@ class ErrorHandler extends Error
 {
 	const ErrorLevelDevelpement = E_ALL;
 	const ErrorLevelProduction = E_ERROR;
-
 	public $projectState;
 
 	function __construct(string $message = '', $code = null, $projectState = false)

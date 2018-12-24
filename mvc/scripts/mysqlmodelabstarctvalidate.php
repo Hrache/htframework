@@ -20,17 +20,18 @@ while (!$data->isEmpty())
 foreach ($data->input as $i => $val)
 {
 	// array of rules of individual validaton object
-  $field_rules = $rules->item($i);
-	
+	$field_rules = $rules->item($i);
+
 	// initing the error array of the observable field
-  $errors->add($template_array, $i);
-  $error = new ArrayClass();
+	$errors->add($template_array, $i);
+	$error = new ArrayClass();
 
 	// looping through field rules ( $field_rules)
-  foreach ($field_rules as $key =>$value)
+	foreach ($field_rules as $key =>$value)
 	{
-    $error = &$errors->add(null, $i);
-    switch($key)
+		$error = &$errors->add(null, $i);
+
+		switch($key)
 		{
 			case (ValidationBase::VALIDATION_NULL_MYSQL):
 			{

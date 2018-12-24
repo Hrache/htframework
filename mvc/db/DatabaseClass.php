@@ -45,10 +45,6 @@ class DatabaseClass
 	{
 		switch ($this->settings->item(self::DBTYPE))
 		{
-			case (self::MYSQLI):
-			{
-				$this->dbcon = new MySQLiClass($this->settings); break;
-			}
 			case (self::MSSQL):
 			{
 				$this->dbcon = new MSSQLClass($this->settings); break;
