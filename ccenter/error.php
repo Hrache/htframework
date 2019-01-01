@@ -9,6 +9,7 @@
 if (!ProjectState)
 {
 	printf('%s<br/>'.PHP_EOL, $e->getLine());
+
 	printf('%s<br/>'.PHP_EOL, $e->getFile());
 }
 ?>

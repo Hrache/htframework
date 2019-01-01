@@ -30,7 +30,7 @@ abstract class MySQLModelAbstract
 	{
 		foreach ($this as $prop => $val)
 		{
-			if (array_key_exists($prop, $modelsData))
+			if (isset($modelsData[$prop]))
 			{
 				$this->$prop = $modelsData[$prop];
 			}

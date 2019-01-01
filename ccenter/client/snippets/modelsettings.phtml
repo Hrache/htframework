@@ -5,18 +5,23 @@
 			<div id="progressbar"></div>
 		</div>
 		<div class="w3-col s12 m6 l5" id="dbdata">
+			<label for="dbvendor"><?= _abc('dbvendor')?></label>
+			<select id="dbvendor" name="<?= dbclass::VENDOR?>">
+				<?= dbVendorsDOMOptions()?>
+			</select>
+			<input type="text" name="" class="w3-input w3-border" id="dbvendor" value="" alt="<?= _abc('dbvendor') ?>" />
 			<label for="dbuser"><?= _abc('username')?></label>
-			<input type="text" name="<?= MySQLClass::DBUSER ?>" class="w3-input w3-border" id="dbuser" value="" alt="<?= _abc('username') ?>" />
+			<input type="text" name="<?= dbclass::DBUSER ?>" class="w3-input w3-border" id="dbuser" value="" alt="<?= _abc('username') ?>" />
 			<label for="dbpass"><?= _abc('password')?></label>
-			<input type="text" name="<?= MySQLClass::DBPASSWORD ?>" class="w3-input w3-border" id="dbpass" value="" alt="<?= _abc('password') ?>" />
+			<input type="text" name="<?= dbclass::DBPASS ?>" class="w3-input w3-border" id="dbpass" value="" alt="<?= _abc('password') ?>" />
 			<label for="dbhost"><?= _abc('host')?></label>
-			<input type="text" name="<?= MySQLClass::DBHOST ?>" class="w3-input w3-border" id="dbhost" value="" alt="<?= _abc('host') ?>" />
+			<input type="text" name="<?= dbclass::SERVER ?>" class="w3-input w3-border" id="dbhost" value="" alt="<?= _abc('host') ?>" />
 			<label for="dbname"><?= _abc('dbname')?></label>
-			<input type="text" name="<?= MySQLClass::DBNAME ?>" class="w3-input w3-border" id="dbname" value="" alt="<?= _abc('dbname') ?>" />
+			<input type="text" name="<?= dbclass::DBNAME ?>" class="w3-input w3-border" id="dbname" value="" alt="<?= _abc('dbname') ?>" />
 			<label for="dbport"><?= _abc('port')?></label>
-			<input type="text" name="<?= MySQLClass::DBPORT ?>" class="w3-input w3-border" id="dbport" value="" alt="<?= _abc('port') ?>" />
+			<input type="text" name="<?= dbclass::PORT ?>" class="w3-input w3-border" id="dbport" value="" alt="<?= _abc('port') ?>" />
 			<label for="dbchar"><?= _abc('charset')?></label>
-			<input type="text" name="<?= MySQLClass::DBCHARSET ?>" class="w3-input w3-border w3-margin-bottom" id="dbchar" value="" alt="<?= _abc('charset') ?>" />
+			<input type="text" name="<?= dbclass::CHARSET ?>" class="w3-input w3-border w3-margin-bottom" id="dbchar" value="" alt="<?= _abc('charset') ?>" />
 			<button id="senddbconspec" class="w3-btn w3-green" onclick="sendButton();"><?= _abc("gettables") ?></button>
 		</div>
 		<div class="w3-col s12 m6 l5">

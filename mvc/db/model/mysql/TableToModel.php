@@ -105,8 +105,8 @@ class TableToModel
 	
 		self::varnameDesigner($modelName);
 	
-		$extends = (boolval($extends) ? 'extends ' . $extends . ' ' : '');
-		$implements = (!boolval($extends) && boolval($implements)) ? 'implements ' . $implements : '';
+		$extends = ($extends ? 'extends ' . $extends . ' ' : '');
+		$implements = (!$extends && $implements) ? 'implements ' . $implements : '';
 		$data = sprintf('class %s %s %s', $modelName, $extends, $implements);
 	
 		return $data;
@@ -144,10 +144,13 @@ class TableToModel
 	{
 		$data = <<<EOD
 <?php
-$modelInheritance {
+$modelInheritance
+{
 	use ModelsTrait;
 	const MODEL = '$modelName';$properties
-	function __construct(array \$modelData = []) {
+
+	function __construct(array \$modelData = [])
+	{
 		parent::__construct(self::MODEL, \$modelData);
 	}
 }

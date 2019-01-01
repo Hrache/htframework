@@ -18,7 +18,7 @@ class RequestClass extends CustomLinkClass
 	{
 		require_once(realpath(__DIR__.'/../scripts').ds.'requestclass.php');
 
-		parent::__construct($_SERVER['REQUEST_URI'], $indexPage, $defaultAction);
+		parent::__construct(isset($_SERVER['REQUEST_URI'])? $_SERVER['REQUEST_URI']: '', $indexPage, $defaultAction);
 
 		# const SiteURL
 		define('SiteURL', $_SERVER['PHP_SELF']);

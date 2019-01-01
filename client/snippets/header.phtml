@@ -55,12 +55,12 @@
 __('page')->snippet->insert('payed_advs');
 __('page')->snippet->insert('modal_quick_search');
 
-if (__('session')->cookieExists('account')) {
-
+if (__('session')->cookieExists('account'))
+{
 	__('page')->snippet->insert('account_info');
 }
-else {
-
+else
+{
 	__('page')->snippet->insert('form_login_account');
 }
 ?>

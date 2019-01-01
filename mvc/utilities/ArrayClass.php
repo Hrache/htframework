@@ -1,4 +1,86 @@
 <?php
+class StaticAClass
+{
+	/*
+	 * @param mixed|array $key
+	 * @param mixed $value
+	 * @param array &$array
+	 */
+	static function add($key, $value, array &$array)
+	{
+		if (is_array($key))
+		{
+			eval(ArrayClass::keyIndexCode('array', $key).'=$value;');
+		}
+		else
+		{
+			if ($key)
+			{
+				$array[$key] = $value;
+			}
+			else
+			{
+				$array[] = $value;
+			}
+		}
+	}
+
+	/**
+	 * @param mixed|array $key
+	 * @param array &$array
+	 */
+	static function del($keys, array &$array)
+	{
+		while ($keys)
+		{
+			$k = array_shift($keys);
+
+			if (is_array($k))
+			{
+				$isset = false;
+				$code = ArrayClass::keyIndexCode('array', $k);
+
+				eval('$isset=isset('.$code.');');
+
+				if ($isset)
+				{
+					eval('unset('.$code.');');
+				}
+			}
+			elseif (isset($array[$k]))
+			{
+				unset($array[$k]);
+			}
+		}
+	}
+
+	/*
+	 * @param mixed|array $index
+	 * @param array &$array
+	 */
+	static function get($index, array &$array)
+	{
+		if (is_array($index))
+		{
+			$isset = false;
+			$code = ArrayClass::keyIndexCode('array', $index);
+
+			eval('$isset=isset('.$code.');');
+
+			if ($isset)
+			{
+				eval('$code='.$code.';');
+
+				return $code;
+			}
+		}
+		else if (isset($array[$index]))
+		{
+			return $array[$index];
+		}
+	}
+}
+
 class ArrayClass
 {
 	/**
@@ -12,9 +94,9 @@ class ArrayClass
 	 * @param array &$byRef The array that is given by the reference
 	 * @return void
 	 */
-	function __construct(array $byv = [], array &$byr = [])
+	function __construct(array $input = [])
 	{
-		$this->input = $byr? $byr: $byv;
+		$this->input = $input;
 	}
 
 	function __destruct()
@@ -23,6 +105,11 @@ class ArrayClass
 		{
 			unset($this->input);
 		}
+	}
+
+	function &getByRInput()
+	{
+		return $this->input;
 	}
 
 	/**
@@ -53,6 +140,11 @@ class ArrayClass
 		return('$' . $nameOfTheArray . $__);
 	}
 
+	function setByRInput(array &$input)
+	{
+		$this->input = $input;
+	}
+
 	/**
 	 * Returns the last element of the array
 	 * @return stdClass an instance of stdClass containing 2 properties
@@ -66,7 +158,7 @@ class ArrayClass
 	}
 
 	/**
-	 * Gets any element from the array by removing it
+	 * Gets any element from the array and removes it from
 	 * @param mixed ...$key The path to the desired element
 	 * @return mixed Null in case of absence of the desired element
 	 */
@@ -269,7 +361,7 @@ class ArrayClass
 	}
 
 	/**
-	 * Returns the length of the array or does length comparison
+	 * Returns the length of the array or does length-comparison
 	 * in between given number and the length of the array
 	 * @param int $equals user provided length to be compared with
 	 * @return int by default the length of the array, in case of
@@ -335,86 +427,6 @@ class ArrayClass
 	function iterate()
 	{
 		self::arrayDepthIterator($this->input);
-	}
-}
-
-class StaticAClass
-{
-	/*
-	 * @param mixed|array $key
-	 * @param mixed $value
-	 * @param array &$array
-	 */
-	static function add($key, $value, array &$array)
-	{
-		if (is_array($key))
-		{
-			eval(ArrayClass::keyIndexCode('array', $key).'=$value;');
-		}
-		else
-		{
-			if ($key)
-			{
-				$array[$key] = $value;
-			}
-			else
-			{
-				$array[] = $value;
-			}
-		}
-	}
-	/**
-		* @param mixed|array $key
-		* @param array &$array
-		*/
-	static function del($keys, array &$array)
-	{
-		while ($keys)
-		{
-			$k = array_shift($keys);
-
-			if (is_array($k))
-			{
-				$isset = false;
-				$code = ArrayClass::keyIndexCode('array', $k);
-
-				eval('$isset=isset('.$code.');');
-
-				if ($isset)
-				{
-					eval('unset('.$code.');');
-				}
-			}
-			elseif (isset($array[$k]))
-			{
-				unset($array[$k]);
-			}
-		}
-	}
-	/*
-	 * @param mixed|array $index
-	 * @param array &$array
-	 */
-	static function get($index, array &$array)
-	{
-		if (is_array($index))
-		{
-			$isset = false;
-			$code = ArrayClass::keyIndexCode('array', $index);
-
-			eval('$isset=isset('.$code.');');
-
-			if ($isset)
-			{
-				eval('$code='.$code.';');
-
-				return $code;
-			}
-		}
-		else if (isset($array[$index]))
-		{
-			return $array[$index];
-		}
 	}
 }
 ?>

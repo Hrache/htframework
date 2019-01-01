@@ -54,12 +54,11 @@ class MSSQLTableToModel
 			$desc = array_shift($tbl_desc);
 			$colname = $desc[MSSQLTableClass::COLUMN_NAME];
 			$desc = var_export($desc, true);
-			$columns[] = "const $colname = $desc;";
+			$_ = preg_replace("/(^\ {2})/m", "\t", "const $colname = $desc;");
+			$columns[] = preg_replace('/^/m', "\t", $_);
 		}
 
-		$columns = preg_replace("/(^\ {2}\')/m", "\t'", implode(PHP_EOL.PHP_EOL, $columns));
-
-		return ($columns).PHP_EOL;
+		return implode(PHP_EOL.PHP_EOL, $columns).PHP_EOL;
 	}
 
 	/**
@@ -111,6 +110,7 @@ class MSSQLTableToModel
 	 */
 	static function modelFinalizer(string $modelName, string $modelInheritance, string $properties): string
 	{
+
 		return <<<EOD
 <?php
 $modelInheritance
@@ -196,12 +196,4 @@ EOD;
 	 */
 	static function validationOptions() {}
 }
-
-$db_path = dirname(dirname(__DIR__));
-
-set_include_path(get_include_path().PATH_SEPARATOR.$db_path.PATH_SEPARATOR.$db_path.DIRECTORY_SEPARATOR.'mssql');
-spl_autoload_register();
-
-$sqlcon = new PDO(PDOHelpersClass::MSSQLDriver('192.168.6.133', '52485', 'armcarshop'), 'sa', '1111');
-
-new MSSQLTableToModel(__DIR__, $sqlcon);
+?>

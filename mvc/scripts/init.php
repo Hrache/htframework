@@ -1,6 +1,10 @@
 <?php
 lib_load('db', 'db\mysql');
 
+class_alias('ArrayClass', 'arrayc');
+
+class_alias('DatabaseClass', 'dbclass');
+
 require_once(Server.'settings.php');
 
 # Settings
@@ -15,7 +19,8 @@ $request = new RequestClass(
 	$settings->getSetting(SettingsClass::DefaultLink),
 	$settings->getSetting(SettingsClass::Homepage),
 	$settings->getSetting(SettingsClass::DefaultAction),
-	$settings->getSetting(SettingsClass::PagefileExt));
+	$settings->getSetting(SettingsClass::PagefileExt)
+);
 
 _d8('request', $request);
 
@@ -40,7 +45,8 @@ if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass)
 $page = new PageBase(
 	$request->getPage(),
 	$settings->getSetting(SettingsClass::Homepage),
-	$settings->getSetting(SettingsClass::PagefileExt));
+	$settings->getSetting(SettingsClass::PagefileExt)
+);
 
 # Preload
 if ($settings->getSetting(SettingsClass::PreLoad))
@@ -55,9 +61,12 @@ if ($settings->getSetting(SettingsClass::SnippetsModule))
 }
 
 # Database Module
-if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof ArrayClass)
+if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc)
 {
-	$dbroot = new DatabaseClass($settings->getSetting(SettingsClass::DatabaseModule)->item($settings->getSetting(SettingsClass::DefaultDatabase)), SettingsClass::DefaultDatabase);
+	$dbroot = new DatabaseClass(
+		$settings->getSetting(SettingsClass::DatabaseModule)->item($settings->getSetting(SettingsClass::DefaultDatabase)),
+		SettingsClass::DefaultDatabase
+	);
 }
 
 # Language Module

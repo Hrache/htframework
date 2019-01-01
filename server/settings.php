@@ -6,8 +6,7 @@ class FinalSettings extends SettingsClass
 
 	function __construct()
 	{
-		$settings =
-		[
+		$settings = [
 			self::MapKey => 'AIzaSyBlOZ_t3-7-EvtAuBGG2rPMVNmP2xeAfIw',
 			SettingsClass::TemplateFile => 'default.phtml',
 			SettingsClass::Errorpage => 'error.php',
@@ -20,7 +19,7 @@ class FinalSettings extends SettingsClass
 			SettingsClass::DefaultLink => dirname($_SERVER['PHP_SELF']).'/?'.CustomLinkClass::newLink('home', 'welcome'),
 			SettingsClass::PreLoad => 'preload.php',
 			SettingsClass::PostLoad => 'postload.php',
-			SettingsClass::SessionModule => new ArrayClass([
+			SettingsClass::SessionModule => new arrayc([
 				// 'id' => md5 ('HracheToomasyan'),
 				'start_options' => ['cookie_lifetime' => 7200]
 			]),
@@ -29,18 +28,18 @@ class FinalSettings extends SettingsClass
 			SettingsClass::DefaultLang => 'en-uk',
 			SettingsClass::LangFileExt => 'lang.php',
 		];
-		$settings = new ArrayClass($settings);
+		$settings = new arrayc($settings);
 
 		// Uncomment if you're using database in your project
 		$settings->add(
-			SettingsClass::DatabaseModule, new ArrayClass([
-				self::db1 => new ArrayClass([
-					MSSQLClass::DBUSER => 'armcarshop',
-					MSSQLClass::DBPASSWORD => '1111',
-					MSSQLClass::DBHOST => '192.168.6.133',
-					MSSQLClass::DBPORT => '52485',
-					MSSQLClass::DBNAME => 'armcarshop',
-					DatabaseClass::DBTYPE => DatabaseClass::MSSQL
+			SettingsClass::DatabaseModule, new arrayc([
+				self::db1 => new arrayc([
+					dbclass::DBUSER => 'hrache_admin',
+					dbclass::DBPASS => '1111',
+					dbclass::SERVER => '192.168.6.133',
+					dbclass::PORT => '52485',
+					dbclass::DBNAME => 'armcarshop',
+					dbclass::VENDOR => dbclass::VENDOR_MSSQL
 				])
 			]));
 

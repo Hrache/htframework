@@ -14,6 +14,7 @@ class ValidationBase {
 	const INRANGE = 'inRange';
 	const MinLength = 'minLength';
 	const ValidationOr = 'or';
+
 	const SimpleString = "/[\w]+/";
 	const NormalString = "/[\w]+/";
 	const FullString = "/[\w]+/";

@@ -1,3 +1,6 @@
 <?php
-abstract class MSSQLAbstractClass {}
+abstract class MSSQLAbstractClass
+{
+    
+}
 ?>

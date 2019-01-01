@@ -21,7 +21,7 @@ final class FinalSettings extends SettingsClass
 			// SettingsClass::DefaultDatabase => self::db1,
 			SettingsClass::PreLoad => 'preload.php',
 			SettingsClass::PostLoad => 'postload.php',
-			SettingsClass::SessionModule => new ArrayClass([
+			SettingsClass::SessionModule => new arrayc([
 				//'id' => md5(____SOME_TEXT_OR_NUMERIC_DATA____),
 				'start_options' => [
 					'cookie_lifetime' => 72000,

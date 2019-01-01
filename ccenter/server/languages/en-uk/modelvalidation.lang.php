@@ -42,6 +42,7 @@ return([
 	'copygendata' => 'Copy generated data.',
 	'name' => 'Name',
 	"dbconnectionparameters" => "Database connection parameters",
+	"dbvendor" => "Database vendor",
 	"dbname" => "Database name",
 	"username" => "Username",
 	"port" => "Port",

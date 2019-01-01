@@ -18,9 +18,9 @@ final class GlobalInit
 		define('Snippets', Client.'snippets'.ds);
 
 		/**
-			* Is used when async request have been made
-			* @var async
-			*/
+		 * Is used when async request have been made
+		 * @var async
+		 */
 		define('Async', 'async');
 
 		try

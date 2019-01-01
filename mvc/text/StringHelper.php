@@ -9,6 +9,7 @@ final class StringHelper
 	public static function lastSignSlash (string &$path): void
 	{
 		$lastsign = $path [strlen ($path) - 1];
+
 		if ($lastsign != '/' || $lastsign != '\\')
 		{
 			$path .= DIRECTORY_SEPARATOR;
@@ -28,6 +29,7 @@ final class StringHelper
 	{
 		$id = "";
 		$chars = str_shuffle ("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
 		for ($i = 0; $i < $length; $i++)
 		{
 			$id .= $chars [rand (0, strlen ($chars) - 1)];
@@ -72,6 +74,7 @@ final class StringHelper
 		$data = trim ($data);
 		$data = stripslashes ($data);
 		$data = htmlspecialchars ($data);
+
 		return $data;
 	}
 }

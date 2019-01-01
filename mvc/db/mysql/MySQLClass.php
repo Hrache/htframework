@@ -118,16 +118,17 @@ final class MySQLClass
 	function fetch(string $query = '', bool $all = true, bool $object = true)
 	{
 		$this->query($query);
-		
+
 		$fetched = null;
-		
+
 		if ($all)
 		{
 			$fetched = $this->result->fetchAll();
 			if ($object) $fetched = new ArrayClass($fetched);
 		}
-		
+
 		$resultArray = ($all) ? $fetched: $this->result->fetch();
+
 		unset($fetched);
 
 		if (!$resultArray)
@@ -156,7 +157,7 @@ final class MySQLClass
 
 		return $resultArray;
 	}
-	
+
 	function boolQuery(string $query): bool
 	{
 		return boolval($this->mysql->exec($query));

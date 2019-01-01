@@ -9,22 +9,20 @@ define('ValidationCode', 'validationcode');
 # Model classes
 $tablename = '';
 
-if (post_(Async)) {
-
+if (post_(Async))
+{
 	# Generate's the list of tables of the selected database
-	if (CurrentAction === ListOfTables && post_('dbinfo')) {
-
+	if (CurrentAction === ListOfTables && post_('dbinfo'))
+	{
 		$conspcs = post_('dbinfo');
-
-		$con = new ArrayClass(
-		[
-			DatabaseClass::DBTYPE => DatabaseClass::MYSQL,
-			MySQLClass::DBUSER => $conspcs[MySQLClass::DBUSER],
-			MySQLClass::DBPASSWORD => $conspcs[MySQLClass::DBPASSWORD],
-			MySQLClass::DBHOST => $conspcs[MySQLClass::DBHOST],
-			MySQLClass::DBPORT => $conspcs[MySQLClass::DBPORT],
-			MySQLClass::DBNAME => $conspcs[MySQLClass::DBNAME],
-			MySQLClass::DBCHARSET => $conspcs[MySQLClass::DBCHARSET]
+		$con = new ArrayClass([
+			DatabaseClass::VENDOR => DatabaseClass::VENDOR_MSSQL,
+			PDOHelpersClass::DBUSER => $conspcs[MySQLClass::DBUSER],
+			PDOHelpersClass::DBPASS => $conspcs[MySQLClass::DBPASSWORD],
+			PDOHelpersClass::DBHOST => $conspcs[MySQLClass::DBHOST],
+			PDOHelpersClass::PORT => $conspcs[MySQLClass::DBPORT],
+			PDOHelpersClass::DBNAME => $conspcs[MySQLClass::DBNAME],
+			PDOHelpersClass::CHARSET => $conspcs[MySQLClass::DBCHARSET]
 		]);
 
 		__('session')->add('dbconsettings', $con);
@@ -53,8 +51,8 @@ if (post_(Async)) {
 	}
 
 	# Generate's model-files of the chosen table
-	if (CurrentAction === GenerateModels && post_('tableindex')) {
-
+	if (CurrentAction === GenerateModels && post_('tableindex'))
+	{
 		$dir = post_("physdir") ?? Models;
 		$con = __('session')->get('dbconsettings');
 		$con = new DatabaseClass($con);
@@ -62,12 +60,12 @@ if (post_(Async)) {
 
 		lib_load('db/model/mysql', 'validation');
 
-		if (strtolower(post_('tableindex')) == 'all') {
-
+		if (strtolower(post_('tableindex')) == 'all')
+		{
 			new TableToModel($dir, $con);
 		}
-		else {
-
+		else
+		{
 			$tables = __('session')->get('md5keys')[post_('tableindex')][MD5Index::Source];
 
 			new TableToModel($dir, $con, $tables);
@@ -81,8 +79,8 @@ if (post_(Async)) {
 	}
 
 	# Generate's PHP validation code
-	if (CurrentAction === ValidationCode && post_('codedata')) {
-
+	if (CurrentAction === ValidationCode && post_('codedata'))
+	{
 		# Names of the form inputs
 		$clientinputs = ['varname', 'form_filters', 'form_regexp', 'enum', 'minlength', 'maxlength'];
 
@@ -92,16 +90,15 @@ if (post_(Async)) {
 		# Keeps the response text: the generated code
 		$_code_ = '';
 
-		while ($codedata) {
-
+		while ($codedata)
+		{
 			$field = array_shift($codedata);
 
-			if ($field['value'] && in_array($field['name'], $clientinputs)) {
-
-				if ($field['name'] === 'varname') {
-
+			if ($field['value'] && in_array($field['name'], $clientinputs))
+			{
+				if ($field['name'] === 'varname')
+				{
 					$_code_ .= '$'.$field['value'].' = ';
-
 				}
 
 				$_code_ .= '';

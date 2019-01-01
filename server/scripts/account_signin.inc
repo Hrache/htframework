@@ -2,9 +2,7 @@
 lib_load('validation');
 
 $errors = new ErrorClass();
-
 $login = post_('loginidentity') ?? post_('signupemail');
-
 $password = post_('loginpassword') ?? post_('signuppassword');
 
 if ($login && $password)
@@ -20,6 +18,7 @@ if ($login && $password)
 	if (!array_search(true, $errorsList))
 	{
 		unset($errorsList, $validator, $errors);
+
 		$qry = Accounts::getAccountByLoginPassword($login, $password);
 		$data = __('database')->PDOFetchArray($qry, 1)->item(0);
 
@@ -32,6 +31,7 @@ if ($login && $password)
 		if ($data)
 		{
 			_di('account', $data);
+
 			unset($login, $password, $data);
 
 			if (isset(__('account')->id))

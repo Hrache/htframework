@@ -32,7 +32,7 @@ if (array_search('core.php', scandir($lib)))
 						}
 					}
 
-          # file.require
+          			# file.require
 					require_once($item);
 
 					continue;

@@ -60,6 +60,7 @@ function DOMOptions_PostalInfo($selected = false, $_empty = '', array $fields = 
 	else
 	{
 		lib_load('html');
+
 		$_data = '';
 	}
 
@@ -73,7 +74,9 @@ function DOMOptions_PostalInfo($selected = false, $_empty = '', array $fields = 
 	}
 
 	unset($info);
+
 	lib_unload('html');
+
 	return trim($_data);
 }
 
@@ -203,6 +206,7 @@ function DOMOptions_CarBrands($selected = -1, string $_empty = ''): string
 	}
 
 	unset($brands);
+
 	return trim($_carBrands);
 }
 
@@ -357,6 +361,7 @@ function pathAndURL(string $path, string $webDir): array
 		'url' => $webDir,
 		'names' => scandir_c($path)
 	];
+
 	return $files;
 }
 /**
@@ -469,6 +474,7 @@ function advs_fueltype()
 		html_option($val, $key, ($key === post_('fueltype_'))? true : false);
 	});
 }
+
 function sch_carcondtype()
 {
 	$carcondition_ = _abc('carcondition_');

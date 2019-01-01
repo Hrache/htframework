@@ -3,7 +3,7 @@
 	* Requiring "functons.php" built-in library of functons
 	* independent functions
 	*/
-require_once(realpath(__DIR__.'/scripts/functions.php'));
+require_once(__DIR__.'\\scripts\\functions.php');
 
 /**
 	* Loading the core sub-library

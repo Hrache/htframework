@@ -12,7 +12,8 @@ if (isset(__('images')[0]) && isset(__('images')[1]))
 
 		foreach ($imgs['names'] as $key => $name)
 		{
-			$images .= _tag('img', [
+			$images .= _tag('img',
+			[
 			 'src' => $imgs['url'] . '/' . $name,
 			 'width' => ImageInfoClass::imagewidth($imgs['path'].$name),
 			 'height' => ImageInfoClass::imageheight($imgs['path'].$name)
@@ -21,7 +22,8 @@ if (isset(__('images')[0]) && isset(__('images')[1]))
 
 		foreach ($thumbs['names'] as $key => $name)
 		{
-			$thmbs .= _tag('img', [
+			$thmbs .= _tag('img',
+			[
 				'src' => $thumbs['url'] . '/' . $name,
 				'width' => ImageInfoClass::imagewidth($thumbs['path'].$name),
 				'height' => ImageInfoClass::imageheight($thumbs['path'].$name)
@@ -39,6 +41,6 @@ if (isset(__('images')[0]) && isset(__('images')[1]))
 		unset($slide, $images, $imgs, $thumbs, $thmbs);
 	}
 }
- die();
+die();
 ?>
 		</div>
