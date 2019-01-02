@@ -1,5 +1,6 @@
 <?php
-return (array (
+return (
+[
 	'pagetitle' => 'Sign In/Up',
 	'accountinfo' => 'Account info',
 	'name' => 'Name',
@@ -24,5 +25,5 @@ return (array (
 	'google' => 'Google',
 	'lastvisitupdatefailure' => 'Couldn\'t update last visit date and time.',
 	'validationerror' => 'Couldn\'t validate.',
-));
+]);
 ?>

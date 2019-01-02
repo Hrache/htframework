@@ -42,9 +42,9 @@
 	<?php else:?>
 	<div class="w3-panel"><a href="<?= SiteURL.'?account'?>"><?= _abc('account') ?></a></div>
 	<?php endif;?>
-	<div class="w3-panel" onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#headersearchform');getById('modal01').style.display='block'"><?= _abc('search')?></div>
-	<div class="w3-panel" onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#loginForm');getById('modal01').style.display='block'"><?= _abc('login')?></div>
-	<div class="w3-panel" onclick="ArmCarShopJS.w3Tabs.changeActiveTab('#languages');getById('modal01').style.display='block'"><?= _abc('language')?></div>
+	<div class="w3-panel" onclick="FrameworkNative.w3Tabs.changeActiveTab('#headersearchform');getById('modal01').style.display='block'"><?= _abc('search')?></div>
+	<div class="w3-panel" onclick="FrameworkNative.w3Tabs.changeActiveTab('#loginForm');getById('modal01').style.display='block'"><?= _abc('login')?></div>
+	<div class="w3-panel" onclick="FrameworkNative.w3Tabs.changeActiveTab('#languages');getById('modal01').style.display='block'"><?= _abc('language')?></div>
 </div>
 
 <div class="w3-container">
@@ -52,7 +52,6 @@
 </div>
 
 <?php
-__('page')->snippet->insert('payed_advs');
 __('page')->snippet->insert('modal_quick_search');
 
 if (__('session')->cookieExists('account'))

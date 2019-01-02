@@ -30,7 +30,7 @@ class DatabaseClass
 		$this->settings = $settings;
 		$this->dbSettingsIndex = $dbSettingsIndex;
 	}
-	
+
 	/**
 	 * Destructor
 	 * @return void
@@ -42,14 +42,14 @@ class DatabaseClass
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	function getSettings(): ArrayClass
 	{
 		return $this->settings;
 	}
-	
+
 	/**
 	 * Checks out connection status with database
 	 * @return bool
@@ -58,7 +58,7 @@ class DatabaseClass
 	{
 		return $this->dbcon;
 	}
-	
+
 	/**
 	 * Sets connection with various database types
 	 * @return
@@ -73,13 +73,11 @@ class DatabaseClass
 		{
 			case (self::VENDOR_MSSQL):
 			{
-				$dsn = $this->DSNMSSQL($db, $port);
-				break;
+				$dsn = $this->DSNMSSQL($db, $port); break;
 			}
 			case (self::VENDOR_MYSQL):
 			{
-				$dsn = $this->DSNMYSQL($db, $port);
-				break;
+				$dsn = $this->DSNMYSQL($db, $port); break;
 			}
 			default:
 			{
@@ -116,6 +114,19 @@ class DatabaseClass
 		);
 	}
 
+	/*
+	 * @param string $sql SQL query code
+	 * @param int $pdo_fetch_type PDO class predefined constant for fetching
+	 * @return mixed An array or other variable
+	 */
+	public function fetch(string $sql, int $pdo_fetch_type)
+	{
+		$res = $this->dbcon->query($sql);
+		$res = $res->fetchAll($pdo_fetch_type);
+
+		return $res;
+	}
+
 	/**
 	 * Returns the list of supported vendors
 	 * @return array The list of supported vendors
@@ -136,7 +147,8 @@ class DatabaseClass
 			}
 		}
 
-		unset($keys_, $vendor_keys); return $consts;
+		unset($keys_, $vendor_keys);
+		return $consts;
 	}
 
 	/**
@@ -155,7 +167,8 @@ class DatabaseClass
 	 */
 	function setSettings(ArrayClass $settings): DatabaseClass
 	{
-		$this->settings = $settings; return $this;
+		$this->settings = $settings;
+		return $this;
 	}
 
 	/**
@@ -163,7 +176,8 @@ class DatabaseClass
 	 */
 	function changeDatabase(ArrayClass $settings): DatabaseClass
 	{
-		$this->settings = $settings; return $this;
+		$this->settings = $settings;
+		return $this;
 	}
 
 	function getDbSettingsIndex()

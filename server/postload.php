@@ -18,7 +18,7 @@ _di('errors', $errors);
 require_once('user_functions.inc');
 
 // Language
-__('language')->append('common', 'common_carinfo', 'errors');
+__('language')->append('common', 'errors');
 
 // Setting for header search
 $settings->setSetting('useheadersearch', true);
@@ -42,7 +42,7 @@ if (__('session')->cookieExists('account'))
 		$settings->setSetting('useheadersearch', false);
 	}
 
-	$account = __('database')->PDOFetchArray(AcsAccountTblModel::getAccountByAccountId(__('session')->getCookie('account')), 1)->item(0);
+	$account = __('database')->fetch(AcsAccountTblModel::getAccountByAccountId(__('session')->getCookie('account')), PDO::FETCH_ASSOC);
 	
 	if (!$account)
 	{
