@@ -1,10 +1,7 @@
 <?php
 lib_load('db', 'db\mysql');
-
 class_alias('ArrayClass', 'arrayc');
-
 class_alias('DatabaseClass', 'dbclass');
-
 require_once(Server.'settings.php');
 
 # Settings
@@ -22,21 +19,19 @@ $request = new RequestClass(
 	$settings->getSetting(SettingsClass::PagefileExt)
 );
 
+# request
 _d8('request', $request);
 
 # Globals reset
-if ($settings->getSetting(SettingsClass::HandleGlobals))
-{
+if ($settings->getSetting(SettingsClass::HandleGlobals)) {
 	$request->handleGlobals();
 }
 
 # Session
-if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass)
-{
+if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass) {
 	$session = new SessionClass($settings->getSetting(SettingsClass::SessionModule));
 
-	if (!$session->cookieExists('lastaction') || !equal($session->get('lastaction'), CurrentAction))
-	{
+	if (!$session->cookieExists('lastaction') || !equal($session->get('lastaction'), CurrentAction)) {
 		$session->add('lastaction', CurrentAction);
 	}
 }
@@ -49,20 +44,17 @@ $page = new PageBase(
 );
 
 # Preload
-if ($settings->getSetting(SettingsClass::PreLoad))
-{
+if ($settings->getSetting(SettingsClass::PreLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PreLoad));
 }
 
 # Snippets Module
-if ($settings->getSetting(SettingsClass::SnippetsModule))
-{
+if ($settings->getSetting(SettingsClass::SnippetsModule)) {
 	$page->activateSnippets(Snippets, $settings->getSetting(SettingsClass::DefaultAction));
 }
 
 # Database Module
-if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc)
-{
+if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc) {
 	$dbroot = new DatabaseClass(
 		$settings->getSetting(SettingsClass::DatabaseModule)->item($settings->getSetting(SettingsClass::DefaultDatabase)),
 		SettingsClass::DefaultDatabase
@@ -70,8 +62,7 @@ if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc)
 }
 
 # Language Module
-if ($settings->getSetting(SettingsClass::LanguageModule))
-{
+if ($settings->getSetting(SettingsClass::LanguageModule)) {
 	lib_load('language');
 
 	# Predefined constant "Lang"
@@ -82,33 +73,39 @@ if ($settings->getSetting(SettingsClass::LanguageModule))
 
 	$session->setCookie('lang', Lang);
 
-	if (!$request->getExists('lang'))
-	{
+	if (!$request->getExists('lang')) {
 		$request->addGet('lang', Lang);
 	}
 
 	$language = new LanguageClass($settings->getSetting(SettingsClass::LangFileExt), LangDir);
-
 	$language->append('system');
 }
 
+# settings
 _d8('settings', $settings);
+
+# session
 _d8('session', $session);
+
+# page
 _d8('page', $page);
+
+# dbroot
 _d8('dbroot', $dbroot);
 
-if (__('dbroot') instanceof DatabaseClass)
-{
+if (__('dbroot') instanceof DatabaseClass) {
+	
+	# database - Database connection
 	_di('database', __('dbroot')->connect());
 }
 
+# language - language data
 _d8('language', $language);
 
 require_once('corefunctions.php');
 
 // core.post.load
-if ($settings->getSetting(SettingsClass::PostLoad))
-{
+if ($settings->getSetting(SettingsClass::PostLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PostLoad));
 }
 
@@ -117,18 +114,17 @@ $page->setPagesDirectory(Project)->includePagefile();
 
 $cpage = new PageClass();
 
+# cpage - current page
 _d8('cpage', $cpage);
 
 // render
-if (!$page->getTemplateFile())
-{
+if (!$page->getTemplateFile()) {
 	$page->setTemplateFile(Client.$settings->getSetting(SettingsClass::TemplateFile));
 }
 
 $page->render();
 
-if ($dbroot)
-{
-	__('database')->close();
+if ($dbroot) {
+	$dbroot->close();
 }
 ?>

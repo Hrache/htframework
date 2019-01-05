@@ -10,24 +10,18 @@ if (array_search('core.php', scandir($lib)))
 	 * @param  string ...$args
 	 * @return void
 	 */
-	function lib_load(string ...$args)
-	{
+	function lib_load(string ...$args) {
 		global $lib;
 
-		while ($args)
-		{
+		while ($args) {
 			$item = $lib.DIRECTORY_SEPARATOR.array_shift($args);
 
-			if (!stristr(get_include_path(), $item))
-			{
-				if (!is_dir($item))
-				{
-					if (!file_exists($item))
-					{
+			if (!stristr(get_include_path(), $item)) {
+				if (!is_dir($item)) {
+					if (!file_exists($item)) {
 						$item .= '.php';
 
-						if (!file_exists($item))
-						{
+						if (!file_exists($item)) {
 							continue;
 						}
 					}
@@ -48,15 +42,12 @@ if (array_search('core.php', scandir($lib)))
 	 * @param string ...$args The names of the sub-libraries or classes directly
 	 * @return void
 	 */
-	function lib_unload(string ...$args): void
-	{
+	function lib_unload(string ...$args): void {
 		$baseDir = dirname(dirname(__FILE__));
 
-		foreach ($args as $ind => $item)
-		{
+		foreach ($args as $ind => $item) {
 			// TODO: finish up
-			if (!is_dir($item) && !is_dir(dirname($item)) || is_file($item))
-			{
+			if (!is_dir($item) && !is_dir(dirname($item)) || is_file($item)) {
 
 			}
 
@@ -68,12 +59,10 @@ if (array_search('core.php', scandir($lib)))
 		}
 	}
 
-	function lastSignSlash(string &$path): void
-	{
+	function lastSignSlash(string &$path): void {
 		$lastsign = $path[strlen($path) - 1];
 
-		if ($lastsign != '/' && $lastsign != '\\')
-		{
+		if ($lastsign != '/' && $lastsign != '\\') {
 			$path .= DIRECTORY_SEPARATOR;
 		}
 
@@ -83,8 +72,7 @@ if (array_search('core.php', scandir($lib)))
 	lib_load('utilities');
 
 	# Global variable only around the project
-	if (class_exists('ArrayClass'))
-	{
+	if (class_exists('ArrayClass')) {
 		/**
 		 * Almost the same as PHPs "scandir()" except it doesn't
 		 * return first two elements
@@ -92,8 +80,7 @@ if (array_search('core.php', scandir($lib)))
 		 * @param bool $object The type of the returned data
 		 * @return mixed ArrayClass | array
 		 */
-		function scandir_c(string $path, bool $filesOnly = true, bool $object = true)
-		{
+		function scandir_c(string $path, bool $filesOnly = true, bool $object = true) {
 			$path = (is_file($path))? dirname($path) : $path;
 
 			lastSignSlash($path);
@@ -104,12 +91,10 @@ if (array_search('core.php', scandir($lib)))
 
 			$return = new ArrayClass();
 
-			while (!$data->isEmpty())
-			{
+			while (!$data->isEmpty()) {
 				$i = $data->pull();
 
-				if ($filesOnly && !is_dir($path . ($i->value)))
-				{
+				if ($filesOnly && !is_dir($path . ($i->value))) {
 					$return->add(null, $i->value);
 				}
 			}
@@ -125,31 +110,24 @@ if (array_search('core.php', scandir($lib)))
 		 * @param array|ArrayClass $attrs Attributes of the DOM select
 		 * in case if its null only options will be returned
 		 */
-		function arrayToDDown($data, $attrs = [], string $empty = ''): string
-		{
-			if (!($attrs instanceof ArrayClass) && boolval($attrs) && !is_array($attrs))
-			{
+		function arrayToDDown($data, $attrs = [], string $empty = ''): string {
+			if (!($attrs instanceof ArrayClass) && boolval($attrs) && !is_array($attrs)) {
 				die(__FUNCTION__." expects second parameter to be array or ArrayClass.".gettype($attrs));
 			}
-			elseif (!is_array($data))
-			{
+			elseif (!is_array($data)) {
 				return $data;
 			}
-			elseif (is_array($data))
-			{
+			elseif (is_array($data)) {
 				$options = ($empty || ($empty === '')) ? '<option value="">' . $empty . '</option>' . PHP_EOL : '';
 
-				if ($attrs)
-				{
-					if (is_array($attrs))
-					{
+				if ($attrs) {
+					if (is_array($attrs)) {
 						$attrs = new ArrayClass($attrs);
 					}
 
 					$attr = new ArrayClass();
 
-					while (!$attrs->isEmpty())
-					{
+					while (!$attrs->isEmpty()) {
 						$i = $attrs->pull();
 
 						$attr->add(null, sprintf('%s="%s"', $i->key, $i->value));
@@ -160,8 +138,7 @@ if (array_search('core.php', scandir($lib)))
 
 				$data = new ArrayClass($data);
 
-				while (!$data->isEmpty())
-				{
+				while (!$data->isEmpty()) {
 					$d = $data->pull();
 					$options .= sprintf('<option value="%s">%s</option>' . PHP_EOL, $d->key, $d->value);
 				}
@@ -175,46 +152,39 @@ if (array_search('core.php', scandir($lib)))
 		$data = new ArrayClass();
 
 		function __($key) {
-
 			global $data;
 			return $data->item($key);
 		}
 
 		function _di($key, $val) {
-
 			global $data;
 			$data->add($key, $val);
 		}
 
 		function _d8($key, &$val) {
-
 			global $data;
 			$data->add($key, $val);
 		}
 
 		function _dx($key) {
-
 			global $data;
 			$data->del($key);
 		}
 
 		function _db($key) {
-
 			global $data;
 			return boolval($data->item($key));
 		}
 	}
 }
 else {
-
 	die('Error: System file is missing.');
 }
 
 /**
  * Echos html option
  */
-function html_option($text, $value, $selected = false)
-{
+function html_option($text, $value, $selected = false) {
 	printf('<option value="%s" %s>%s</option>'.PHP_EOL, $value, (!$selected)? '': 'selected="selected"', htmlspecialchars($text));
 }
 
@@ -226,7 +196,6 @@ function html_option($text, $value, $selected = false)
  *	@return bool
  */
 function is($op1, $op2, bool $strict = false): bool {
-
 	return(($strict)? $op1 === $op2: $op1 == $op2);
 }
 
@@ -237,9 +206,7 @@ function is($op1, $op2, bool $strict = false): bool {
  * @return void
  */
 function do_if(bool $exprCondition, callable $function): void {
-
 	if ($exprCondition)	{
-
 		call_user_func($function);
 	}
 }
@@ -255,11 +222,9 @@ function do_if(bool $exprCondition, callable $function): void {
  *
  */
 function _tag(string $tagName, array $attrs = [], bool $closed = false, string $data = ''): string {
-
 	$_attrs = '';
 
 	foreach ($attrs as $attr => $value) {
-
 		$_attrs .= sprintf(' %s="%s"', $attr, $value);
 	}
 
@@ -273,8 +238,7 @@ function _tag(string $tagName, array $attrs = [], bool $closed = false, string $
  * @param array $filepath name of the file or full path of the file
  * @return string name of the file without extension
  */
-function filenamenoext(string $filepath): string
-{
+function filenamenoext(string $filepath): string {
 	return pathinfo($filepath, PATHINFO_FILENAME);
 }
 
@@ -284,19 +248,16 @@ function filenamenoext(string $filepath): string
  * @param array $data_items list elements
  * @return void prints the list
  */
-function html_list(array $attrs = [], array $data_items)
-{
+function html_list(array $attrs = [], array $data_items) {
 	$_attr = '';
 
-	foreach ($attrs as $name => $val)
-	{
+	foreach ($attrs as $name => $val) {
 		$_attr .= sprintf(' %s="%s"', $name, $val);
 	}
 
 	$_data = '';
 
-	foreach ($data_items as $i => $item)
-	{
+	foreach ($data_items as $i => $item) {
 		$_data .= sprintf('<li>%s</li>' . PHP_EOL, $item);
 	}
 

@@ -1,11 +1,9 @@
 <?php
-class FinalSettings extends SettingsClass
-{
+class FinalSettings extends SettingsClass {
 	const MapKey = 'googlemapkey';
 	const db1 = 'db1';
 
-	function __construct()
-	{
+	function __construct() {
 		$settings = [
 			self::MapKey => 'AIzaSyBlOZ_t3-7-EvtAuBGG2rPMVNmP2xeAfIw',
 			SettingsClass::TemplateFile => 'default.phtml',
@@ -34,12 +32,12 @@ class FinalSettings extends SettingsClass
 		$settings->add(
 			SettingsClass::DatabaseModule, new arrayc([
 				self::db1 => new arrayc([
-					dbclass::DBUSER => 'hrache_admin',
-					dbclass::DBPASS => '1111',
-					dbclass::SERVER => '192.168.6.133',
-					dbclass::PORT => '52485',
-					dbclass::DBNAME => 'armcarshop',
-					dbclass::VENDOR => dbclass::VENDOR_MSSQL
+					DatabaseClass::DBUSER => 'hrache_admin',
+					DatabaseClass::DBPASS => '1111',
+					DatabaseClass::SERVER => '192.168.6.133',
+					DatabaseClass::PORT => '52485',
+					DatabaseClass::DATABASE => 'hrache_framework',
+					DatabaseClass::VENDOR => DatabaseClass::VENDOR_MSSQL
 				])
 			]));
 
@@ -49,9 +47,7 @@ class FinalSettings extends SettingsClass
 		parent::__construct($settings);
 
 		error_reporting(E_ALL);
-
 		ini_set('max_file_uploads', 7);
-
 		ini_set('upload_max_filesize', '420K');
 	}
 }

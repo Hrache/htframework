@@ -1,6 +1,5 @@
 <?php
-return
-[
+return [
 	'default' => 'home',
 	'home' => 'home',
 	'account' => 'account',

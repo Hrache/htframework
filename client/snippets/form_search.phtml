@@ -9,42 +9,10 @@ __('language')->append('searchform');
 <form class="w3-panel w3-padding w3-white w3-round" name="headersearchform" id="headersearchform" style="display:none;">
 	<div class="w3-row">
 		<div class="w3-col l6 s12 m6 w3-padding">
-			<select name="carbrand" id="carbrand" class="w3-select w3-margin-top">
-				<option value=""><?= _abc("brand") ?></option>
-			</select>
-			<select name="carmodel" id="carmodel" style="display:none;" class="w3-select w3-margin-top">
-				<option value=""><?= _abc("model") ?></option>
-				<?= DOMOptions_CarModelsByCarBrand((intval(get_('carbrand')) ?? -1), (intval(get_('carmodel')) ?? -1)) ?>
-			</select>
-			<select name="caryearfrom" id="caryearfrom" class="w3-select w3-margin-top">
-				<option value=""><?= _abc("age") ?></option>
-			</select>
-			<select name="caryearto" id="caryearto" class="w3-select w3-margin-top"></select>
+			
 		</div>
 		<div class="w3-col l6 s12 m6 w3-padding">
-			<select name="bodytype" class="w3-select w3-margin-top">
-				<option value=""><?= _abc("bodytype") ?></option>
-				<?php advs_bodytype()?>
-			</select>
-			<select name="carcondition" id="carcondition" class="w3-select w3-margin-top">
-				<option value=""><?= _abc('condition') ?></option>
-				<?php sch_carcondtype();?>
-			</select>
-			<select name="carprice" class="w3-select w3-margin-top">
-				<option value=""><?= _abc("price") ?></option>
-				<option value="l">50 - 1000</option>
-				<option value="ml">1000 - 5000</option>
-				<option value="hl">5000 - 10000</option>
-				<option value="lm">10000 - 15000</option>
-				<option value="m">15000 - 20000</option>
-				<option value="hm">20000 - 50000</option>
-				<option value="lh">50000 - 80000</option>
-				<option value="mh">80000 - 120000</option>
-				<option value="h">120000 - 300000</option>
-				<option value="vh">300000 - 500000</option>
-				<option value="xxl">500000 - 700000</option>
-				<option value="xxxl">700000 <?= _abc("andhigher") ?></option>
-			</select>
+			
 		</div>
 	</div>
 	<div class="w3-btn w3-blue w3-margin-top" id="headersearch_btn"><?= _abc('search')?></div>

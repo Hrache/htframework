@@ -1,6 +1,5 @@
 <?php
-class DatabaseClass
-{
+class DatabaseClass {
 	const CLASS_MYSQL = "MySQLClass";
 	const VENDOR = 0x114;
 
@@ -13,20 +12,20 @@ class DatabaseClass
 	const CHARSET = 'charset';
 	const DATABASE = 'Database';
 
-	const NOT_SUPPORTED_DATABASE_VENDOR_ERROR = 0x115;
+	const NOT_SUPPORTED_DATABASE_VENDOR_ERROR = 0x126;
 
-	const VENDOR_MYSQL =  0x116;
-	const VENDOR_SQLITE = 0x117;
-	const VENDOR_MYSQLI = 0x118;
-	const VENDOR_MSSQL = 0x119;
-	const VENDOR_ORACLE = 0x120;
+	const VENDOR_MYSQL =  0x120;
+	const VENDOR_SQLITE = 0x121;
+	const VENDOR_MYSQLI = 0x122;
+	const VENDOR_MSSQL = 0x123;
+	const VENDOR_ORACLE = 0x124;
+	const VENDOR_DBLIB = 0x125;
 
 	protected $settings = null;
 	protected $dbcon = null;
 	protected $dbSettingsIndex = null;
 
-	function __construct(ArrayClass $settings = null, $dbSettingsIndex = null)
-	{
+	function __construct(ArrayClass $settings = null, $dbSettingsIndex = null) {
 		$this->settings = $settings;
 		$this->dbSettingsIndex = $dbSettingsIndex;
 	}
@@ -35,83 +34,72 @@ class DatabaseClass
 	 * Destructor
 	 * @return void
 	 */
-	function __destruct()
-	{
+	function __destruct() {
 		$this->settings = null;
 		$this->dbcon = null;
 	}
 
 	/**
 	 *
-	 * @return
+	 * @return ArrayClass
 	 */
-	function getSettings(): ArrayClass
-	{
+	function getSettings(): ArrayClass {
 		return $this->settings;
 	}
-
+	
+	
 	/**
 	 * Checks out connection status with database
 	 * @return bool
 	 */
-	function connected()
-	{
+	function connected() {
 		return $this->dbcon;
+	}
+	
+	function close() {
+		$this->dbcon = null;
+	}
+
+	private function DSNMSSQL(string $db = '', string $port = ''): string {
+		return sprintf('sqlsrv:'.self::SERVER.'=%s%s%s', $this->settings->item(self::SERVER), $port? ','.$port: '', $db? ';'.self::DATABASE.'='.$db: '');
+	}
+
+	private function DSNDBLIB(string $host, string $db, string $charset = ''): string {
+		return sprintf("dblib:host=${host};dbname=${db}%s", $charset? ';charset='.$charset: '');
+	}
+
+	private function DSNMYSQL(string $db = '', string $port = ''): string {
+		$charset = $this->settings->item(self::CHARSET);
+		return sprintf('mysql:'.self::DBHOST.'=%s;%s%s%s', $this->settings->item(self::DBHOST), $port? self::PORT.'='.$port.';': '', $db? self::DBNAME.'='.$db.';': '', $charset? 'charset='.$charset: '');
 	}
 
 	/**
 	 * Sets connection with various database types
 	 * @return
 	 */
-	function &connect()
-	{
+	function &connect() {
 		$dsn = '';
-		$db = $this->settings->item(self::DBNAME);
+		$db = $this->settings->item(self::DBNAME) ?? $this->settings->item(self::DATABASE);
 		$port = $this->settings->item(self::PORT);
+		$charset = $this->settings->item(self::CHARSET) ?? '';
 
-		switch ($this->settings->item(self::VENDOR))
-		{
-			case (self::VENDOR_MSSQL):
-			{
-				$dsn = $this->DSNMSSQL($db, $port); break;
+		switch ($this->settings->item(self::VENDOR)) {
+			case (self::VENDOR_MSSQL): {
+				$dsn = $this->DSNMSSQL($db, $port);
+				break;
 			}
-			case (self::VENDOR_MYSQL):
-			{
-				$dsn = $this->DSNMYSQL($db, $port); break;
+			case (self::VENDOR_MYSQL): {
+				$dsn = $this->DSNMYSQL($db, $port);
+				break;
 			}
-			default:
-			{
+			default: {
 				throw new ErrorException('', self::NOT_SUPPORTED_DATABASE_VENDOR_ERROR);
 			}
 		}
 
-		$this->dbcon = new PDO($dsn,
-			$this->settings->item(self::DBUSER),
-			$this->settings->item(self::DBPASS)
-		);
+		$this->dbcon = new PDO($dsn, $this->settings->item(self::DBUSER), $this->settings->item(self::DBPASS));
 
 		return $this->dbcon;
-	}
-
-	private function DSNMSSQL(string $db = '', string $port = ''): string
-	{
-		return sprintf('sqlsrv:'.self::SERVER.'=%s%s;%s',
-			$this->settings->item(self::SERVER),
-			$port? ','.$port: '',
-			$db? self::DATABASE.'='.$db: ''
-		);
-	}
-
-	private function DSNMYSQL(string $db = '', string $port = ''): string
-	{
-		$charset = $this->settings->item(self::CHARSET);
-
-		return sprintf('mysql:'.self::DBHOST.'=%s;%s%s%s',
-			$this->settings->item(self::DBHOST),
-			$port? self::PORT.'='.$port.';': '',
-			$db? self::DBNAME.'='.$db.';': '',
-			$charset? 'charset='.$charset: ''
-		);
 	}
 
 	/*
@@ -119,8 +107,7 @@ class DatabaseClass
 	 * @param int $pdo_fetch_type PDO class predefined constant for fetching
 	 * @return mixed An array or other variable
 	 */
-	public function fetch(string $sql, int $pdo_fetch_type)
-	{
+	public function fetch(string $sql, int $pdo_fetch_type) {
 		$res = $this->dbcon->query($sql);
 		$res = $res->fetchAll($pdo_fetch_type);
 
@@ -131,18 +118,15 @@ class DatabaseClass
 	 * Returns the list of supported vendors
 	 * @return array The list of supported vendors
 	 */
-	static function DatabaseVendorsList(): array
-	{
+	static function DatabaseVendorsList(): array {
 		$consts = (new ReflectionClass('DatabaseClass'))->getConstants();
 		$vendor_keys = array_merge(preg_grep('/VENDOR_/m', array_keys($consts)), []);
 		$keys_ = array_keys($consts);
 
-		while ($keys_)
-		{
+		while ($keys_) {
 			$_ = array_shift($keys_);
 
-			if (!in_array($_, $vendor_keys))
-			{
+			if (!in_array($_, $vendor_keys)) {
 				unset($consts[$_]);
 			}
 		}
@@ -155,8 +139,7 @@ class DatabaseClass
 	 * Returns the current connection to the database
 	 * @return mixed
 	 */
-	function &getConn()
-	{
+	function &getConn() {
 		return $this->dbcon;
 	}
 
@@ -165,8 +148,7 @@ class DatabaseClass
 	 * @param ArrayClass $settings Settings of the new database connection
 	 * @return DatabaseClass
 	 */
-	function setSettings(ArrayClass $settings): DatabaseClass
-	{
+	function setSettings(ArrayClass $settings): DatabaseClass {
 		$this->settings = $settings;
 		return $this;
 	}
@@ -174,14 +156,12 @@ class DatabaseClass
 	/**
 	 * Alias for self::setSettings
 	 */
-	function changeDatabase(ArrayClass $settings): DatabaseClass
-	{
+	function changeDatabase(ArrayClass $settings): DatabaseClass {
 		$this->settings = $settings;
 		return $this;
 	}
 
-	function getDbSettingsIndex()
-	{
+	function getDbSettingsIndex() {
 		return $this->dbSettingsIndex;
 	}
 }

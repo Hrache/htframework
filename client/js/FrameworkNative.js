@@ -1,17 +1,12 @@
-ArmCarShopJS =
-{
-	w3Tabs:
-	{
+FrameworkNative = {
+	w3Tabs:	{
 		activeTab: '',
-		changeActiveTab: function(idSelector)
-		{
-			if (ArmCarShopJS.w3Tabs.activeTab)
-			{
-				w3.hide(ArmCarShopJS.w3Tabs.activeTab);
+		changeActiveTab: function(idSelector) {
+			if (FrameworkNative.w3Tabs.activeTab) {
+				w3.hide(FrameworkNative.w3Tabs.activeTab);
 			}
 
-			ArmCarShopJS.w3Tabs.activeTab = idSelector;
-
+			FrameworkNative.w3Tabs.activeTab = idSelector;
 			w3.show(idSelector);
 		},
 	},
@@ -24,26 +19,19 @@ ArmCarShopJS =
 	* @param function complete The function that will be called at the stage of completion
 	* @return void | boolean
 	*/
-	BrandForModel: function(brandId, modelId, url, complete)
-	{
-		$("#"+brandId).change(function()
-		{
+	BrandForModel: function(brandId, modelId, url, complete) {
+		$("#"+brandId).change(function() {
 			carBrand = parseInt($(this).val());
 
-			if (!carBrand)
-			{
+			if (!carBrand) {
 				$('#'+modelId).html("").hide();
 			}
-			else
-			{
-				$.post(url,
-				{
+			else {
+				$.post(url, {
 					'brand': carBrand
 				},
-				function(data, textStatus, jqXHR)
-				{
+				function(data, textStatus, jqXHR) {
 					$('#'+modelId).html(data);
-
 					complete();
 				}, 'text');
 			}

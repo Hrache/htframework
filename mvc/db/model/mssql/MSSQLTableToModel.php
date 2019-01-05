@@ -145,48 +145,7 @@ EOD;
 	 */
 	static function fieldType(string $id = '')
 	{
-		$mssqlType = [
-			'real',
-			'tinyint',
-			'smallint',
-			'mediumint',
-			'int',
-			'bigint',
-			'bit',
-			'float',
-			'double',
-			'decimal',
-			'char',
-			'varchar',
-			'nvarchar',
-			'tinychar',
-			'text',
-			'mediumtext',
-			'tinytext',
-			'longtext',
-			'json',
-			'binary',
-			'varbinary',
-			'tinyblob',
-			'blob',
-			'mediumblob',
-			'longblob',
-			'point',
-			'linestring',
-			'polygon',
-			'geometry',
-			'multipoint',
-			'multilinestring',
-			'multipolygon',
-			'geometrycollaction',
-			'date',
-			'time',
-			'year',
-			'datetime',
-			'timestamp',
-			'enum',
-			'set'
-		];
+		$mssqlType = [];
 
 		return ($id && isset($mssqlType[$id]))? $mssqlType[$id]: $mssqlType;
 	}

@@ -1,24 +1,24 @@
 <?php
 class SettingsClass
 {
-	const DatabaseModule = 0x101;
-	const DefaultDatabase = 0x1011;
-	const SnippetsModule = 0x102;
-	const LanguageModule = 0x103;
-	const SessionModule = 0x107;
-	const TemplateFile = 0x100;
-	const LangFileExt = 0x104;
-	const PagefileExt = 0x105;
-	const DefaultLang = 0x106;
-	const Timezone = 0x108;
-	const Homepage = 0x1090;
-	const DefaultAction = 0x1091;
-	const Errorpage = 0x110;
-	const HandleGlobals = 0x111;
-	const PreLoad = 0x112;
-	const PostLoad = 0x113;
-	const LinkClass = 0x115;
-	const DefaultLink = 0x117;
+	const DatabaseModule = 0x001;
+	const DefaultDatabase = 0x002;
+	const SnippetsModule = 0x003;
+	const LanguageModule = 0x004;
+	const SessionModule = 0x005;
+	const TemplateFile = 0x006;
+	const LangFileExt = 0x007;
+	const PagefileExt = 0x008;
+	const DefaultLang = 0x009;
+	const Timezone = 0x110;
+	const Homepage = 0x112;
+	const DefaultAction = 0x113;
+	const Errorpage = 0x114;
+	const HandleGlobals = 0x115;
+	const PreLoad = 0x116;
+	const PostLoad = 0x117;
+	const LinkClass = 0x118;
+	const DefaultLink = 0x119;
 	protected $settings;
 
 	/**

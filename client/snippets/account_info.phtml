@@ -1,20 +1,17 @@
 <h2><?= _abc('accountinfo') ?></h2>
 <span class="account-info">
 <?php
-if (!_db('account'))
-{
+if (!_db('account')) {
 	return false;
 }
 
-function infoItem(string $title, string $text): void
-{
+function infoItem(string $title, string $text): void {
 	printf('<span><span>%s</span>%s</span>', $title, $text);
 }
 
 $account = __('account');
 
-$titles =
-[
+$titles = [
 	Accounts::name => _abc('name'),
 	Accounts::surname => _abc('surname'),
 	Accounts::birthday => _abc('birthday'),
@@ -26,24 +23,19 @@ $titles =
 	Accounts::lastvisit => _abc('lastvisit'),
 ];
 
-foreach ($titles as $i => $val)
-{
+foreach ($titles as $i => $val) {
 	$iAccount = $account->$i;
 
-	if (!$account->$i)
-	{
+	if (!$account->$i) {
 		continue;
 	}
-	elseif ($account->$i === 'm')
-	{
+	elseif ($account->$i === 'm') {
 		$iAccount = _abc('man');
 	}
-	elseif ($account->$i === 'w')
-	{
+	elseif ($account->$i === 'w') {
 		$iAccount = _abc('woman');
 	}
-	elseif ($i == Accounts::phonecodeid)
-	{
+	elseif ($i == Accounts::phonecodeid) {
 		$account->$i = PostalInfoCustom(intval($account->$i))->item(0);
 		$country = AcsCountryinfoTblModel::nicename;
 		$phonecode = AcsCountryinfoTblModel::phonecode;
@@ -56,10 +48,9 @@ foreach ($titles as $i => $val)
 }
 
 $personal_add = json_decode($account->personal_additional);
-foreach ($personal_add as $title => $info)
-{
-	if (!boolval($info))
-	{
+
+foreach ($personal_add as $title => $info) {
+	if (!$info) {
 		continue;
 	}
 

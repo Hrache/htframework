@@ -23,8 +23,7 @@ __('language')->append('pages');
 		<script type="text/javascript">
 		SiteURL = "<?= SiteURL?>";
 
-		$(document).ready(function()
-		{
+		$(document).ready(function() {
 			<?php require_once(Client.'js'.DIRECTORY_SEPARATOR.'common.inc.js');?>
 			<?php __('cpage')->jqueryready(); ?>
 		});

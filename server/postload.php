@@ -23,29 +23,24 @@ __('language')->append('common', 'errors');
 // Setting for header search
 $settings->setSetting('useheadersearch', true);
 
-if (CurrentPage === 'account' || __('session')->cookieExists('account'))
-{
+if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
 	/**
-		* @var pre_res resources from preload.php file
-		* created for default template file
-		*/
+	 *  @var pre_res resources from preload.php file created for default template file
+	 */
 	_di('pre_res', implode(PHP_EOL, [HTMLHelpers::CSSLink("client/css/account.css")]));
 
 	$language->append('signup', 'date', 'account');
 }
 
 // Account session restoration
-if (__('session')->cookieExists('account'))
-{
-	if (CurrentPage === 'advertisements')
-	{
+if (__('session')->cookieExists('account')) {
+	if (CurrentPage === 'advertisements') {
 		$settings->setSetting('useheadersearch', false);
 	}
 
 	$account = __('database')->fetch(AcsAccountTblModel::getAccountByAccountId(__('session')->getCookie('account')), PDO::FETCH_ASSOC);
 	
-	if (!$account)
-	{
+	if (!$account) {
 		throw new Error(_abc('sessionrestoreerror1'));
 	}
 
@@ -54,13 +49,11 @@ if (__('session')->cookieExists('account'))
 	$page->setTitle(__('account')->name.' '.__('account')->surname);
 
 	// Updating the last visit date
-	if (!__('database')->boolQuery(AcsAccountTblModel::updateLastVisit(__('account')->id)))
-	{
+	if (!__('database')->boolQuery(AcsAccountTblModel::updateLastVisit(__('account')->id)))	{
 		throw new Error(_abc('backenderror1'));
 	}
 }
 
-if (!__('account') && in_array(CurrentPage, ['advertisements']))
-{
+if (!__('account') && in_array(CurrentPage, ['advertisements'])) {
     throw new Error(_abc('onlinepageerror'));
 }
