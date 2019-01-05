@@ -4,8 +4,7 @@
 		<meta charset="UTF-8">
 		<title>ERROR Page</title>
 		<style type="text/css">
-		.message
-		{
+		.message {
 			color: #c60000;
 			font-size: 14pt;
 			font-family: "Times New Roman", Georgia, Serif;

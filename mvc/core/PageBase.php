@@ -1,6 +1,5 @@
 <?php
-final class PageBase
-{
+final class PageBase {
 	/**
 	 * @var string The HTML title of the web-page
 	 */
@@ -41,51 +40,40 @@ final class PageBase
 	 */
 	public $snippet;
 
-	function __construct(string $page, string $homepage, string $fileExt = 'php')
-	{
+	function __construct(string $page, string $homepage, string $fileExt = 'php') {
 		$this->fileExt = $fileExt;
 		$this->homepage = $homepage;
 		$this->pagefile = ($page ?? $homepage).'.'.$fileExt;
 	}
 
-	function activateSnippets(string $snippetsPath, string $defaultSnippet): PageBase
-	{
+	function activateSnippets(string $snippetsPath, string $defaultSnippet): PageBase {
 		$this->snippet = new SnippetsClass($defaultSnippet, $snippetsPath);
-
 		return $this;
 	}
 
-	function getInstance(): PageBase
-	{
+	function getInstance(): PageBase {
 		return $this;
 	}
 
-	function getTemplateFile(): string
-	{
+	function getTemplateFile(): string {
 		return $this->pageTemplateFile;
 	}
 
-	function setTemplateFile(string $templateFile): PageBase
-	{
+	function setTemplateFile(string $templateFile): PageBase {
 		$this->pageTemplateFile = $templateFile;
-		
 		return $this;
 	}
 
-	function getPagefile(): string
-	{
+	function getPagefile(): string {
 		return $this->pagefile;
 	}
 
-	function setPagefile(string $pagefile): PageBase
-	{
+	function setPagefile(string $pagefile): PageBase {
 		$this->pagefile = $pagefile;
-		
 		return $this;
 	}
 
-	function getSnippetsPath(): string
-	{
+	function getSnippetsPath(): string {
 		return $this->snippetsPath;
 	}
 
@@ -95,21 +83,17 @@ final class PageBase
 	 * @param array $params Array of data that must be processed in the snippet
 	 * @return bool true in case of success, false on opposite case
 	 */
-	function insertSnippet(string $file, array $params = []): bool
-	{
+	function insertSnippet(string $file, array $params = []): bool {
 		return($this->snippet->insert($file, $params));
 	}
 
-	function includePagefile(): bool
-	{
+	function includePagefile(): bool {
 		$filepath = $this->websiteDir.$this->pagefile;
 
-		if (!file_exists($filepath))
-		{
+		if (!file_exists($filepath)) {
 			$filepath = $this->websiteDir . $this->homepage . '.' . $this->fileExt;
 
-			if (!file_exists($filepath))
-			{
+			if (!file_exists($filepath)) {
 				throw new Error('No such file found.');
 			}
 		}
@@ -117,63 +101,48 @@ final class PageBase
 		return(boolval(require_once($filepath)));
 	}
 
-	function getTitle(): string
-	{
+	function getTitle(): string	{
 		return $this->title;
 	}
 
-	function setTitle(string $pageTitle): PageBase
-	{
+	function setTitle(string $pageTitle): PageBase {
 		$this->title = $pageTitle;
-
 		return $this;
 	}
 
-	function setPagesDirectory(string $websiteDir): PageBase
-	{
+	function setPagesDirectory(string $websiteDir): PageBase {
 		$this->websiteDir = $websiteDir;
-
 		return $this;
 	}
 
-	function render(): bool
-	{
+	function render(): bool {
 		return boolval(require_once($this->getTemplateFile()));
 	}
 
-	function getPageTemplateFile()
-	{
+	function getPageTemplateFile() {
 		return $this->pageTemplateFile;
 	}
 
-	function getPagesDir()
-	{
+	function getPagesDir() {
 		return $this->pagesDir;
 	}
 
-	function getFileExt()
-	{
+	function getFileExt() {
 		return $this->fileExt;
 	}
 
-	function setPageTemplateFile($pageTemplateFile): PageBase
-	{
+	function setPageTemplateFile($pageTemplateFile): PageBase {
 		$this->pageTemplateFile = $pageTemplateFile;
-
 		return $this;
 	}
 
-	function setPagesDir($websiteDir): PageBase
-	{
+	function setPagesDir($websiteDir): PageBase {
 		$this->pagesDir = $websiteDir;
-
 		return $this;
 	}
 
-	function setFileExt($fileExt): PageBase
-	{
+	function setFileExt($fileExt): PageBase {
 		$this->fileExt = $fileExt;
-
 		return $this;
 	}
 }

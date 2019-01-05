@@ -4,8 +4,7 @@
  * @param string|int Index of the word in vocabulary
  * @return string
  */
-function _abc($index)
-{
+function _abc($index) {
 	return (is_numeric($index)) ? $index : __('language')->getWord($index) ?? '';
 }
 
@@ -14,8 +13,7 @@ function _abc($index)
  * @param string or int - index of the POST data
  * @return mixed
  */
-function post_($index)
-{
+function post_($index) {
 	return __('request')->postItem($index);
 }
 
@@ -24,27 +22,20 @@ function post_($index)
  * @param string or int - index of the GET data
  * @return mixed
  */
-function get_($index)
-{
+function get_($index) {
 	return __('request')->getItem($index);
 }
 
-function setDatabaseConnection(ArrayClass $dbsettings)
-{
+function setDatabaseConnection(ArrayClass $dbsettings) {
 	$dbclass = new DatabaseClass($dbsettings);
-
 	_di('dbroot', $dbclass);
-
-	$dbclass = $dbclass->connect();
-
-	_di('database', $dbclass);
+	_di('database', $dbclass->connect());
 }
 
 /**
  * Returns the last action from session
  */
-function lastAction()
-{
+function lastAction() {
 	return(__('session')->cookie('lastaction'));
 }
 ?>

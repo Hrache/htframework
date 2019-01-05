@@ -1,10 +1,8 @@
 <?php
 $lib = dirname(__DIR__);
-
 spl_autoload_register();
 
-if (array_search('core.php', scandir($lib)))
-{
+if (array_search('core.php', scandir($lib))) {
 	/**
 	 * The paths as arguments will be added to the include directories
 	 * @param  string ...$args
@@ -47,14 +45,10 @@ if (array_search('core.php', scandir($lib)))
 
 		foreach ($args as $ind => $item) {
 			// TODO: finish up
-			if (!is_dir($item) && !is_dir(dirname($item)) || is_file($item)) {
-
-			}
+			if (!is_dir($item) && !is_dir(dirname($item)) || is_file($item)) {}
 
 			$item = PATH_SEPARATOR . __DIR__ . DIRECTORY_SEPARATOR . $item;
-
 			str_replace($item, '', get_include_path());
-
 			unset($args [$ind]);
 		}
 	}
@@ -82,13 +76,9 @@ if (array_search('core.php', scandir($lib)))
 		 */
 		function scandir_c(string $path, bool $filesOnly = true, bool $object = true) {
 			$path = (is_file($path))? dirname($path) : $path;
-
 			lastSignSlash($path);
-
 			$data = new ArrayClass(scandir($path));
-
 			$data->del(0, 1);
-
 			$return = new ArrayClass();
 
 			while (!$data->isEmpty()) {
@@ -100,7 +90,6 @@ if (array_search('core.php', scandir($lib)))
 			}
 
 			unset($path, $data);
-
 			return(($object)? (new ArrayClass(array_values($return->input))) : $return->input);
 		}
 
@@ -129,7 +118,6 @@ if (array_search('core.php', scandir($lib)))
 
 					while (!$attrs->isEmpty()) {
 						$i = $attrs->pull();
-
 						$attr->add(null, sprintf('%s="%s"', $i->key, $i->value));
 					}
 
@@ -144,7 +132,6 @@ if (array_search('core.php', scandir($lib)))
 				}
 
 				$options = trim($options);
-
 				return ($attrs)? sprintf('<select%s>'.PHP_EOL.'%s</select>', ' '.$attr, $options) : $options;
 			}
 		}
@@ -305,27 +292,21 @@ function _phpeol()
 }
 
 // Encodes array elements and/or single string values into UTF8
-function utf8_encode_deep(&$input)
-{
-	if (is_string($input))
-	{
+function utf8_encode_deep(&$input) {
+	if (is_string($input)) {
 		$input = utf8_encode(trim($input));
 	}
-	elseif (is_array($input))
-	{
-		foreach ($input as &$value)
-    {
+	elseif (is_array($input)) {
+		foreach ($input as &$value) {
 			utf8_encode_deep($value);
-    }
+		}
 
 		unset($value);
 	}
-	elseif (is_object($input))
-	{
+	elseif (is_object($input)) {
 		$vars = array_keys(get_object_vars($input));
 
-		foreach ($vars as $var)
-		{
+		foreach ($vars as $var) {
 			utf8_encode_deep($input->$var);
 		}
 	}
@@ -335,8 +316,7 @@ function utf8_encode_deep(&$input)
  * Alternate algorithm for php.ucfirst() function
  * capitalization of the text/string
  */
-function firstLetterToUpper(string $strvar): string
-{
+function firstLetterToUpper(string $strvar): string {
 	return strtoupper($strvar [0]) . substr($strvar, 1, strlen($strvar) - 1);
 }
 
@@ -345,13 +325,11 @@ function firstLetterToUpper(string $strvar): string
  * @param int $length The desired length of the string
  * @return string
  */
-function randomString(int $length = 25): string
-{
+function randomString(int $length = 25): string {
 	$id = "";
 	$chars = str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 
-	for ($i = 0; $i < $length; $i++)
-	{
+	for ($i = 0; $i < $length; $i++) {
 		$id .= $chars [rand(0, strlen($chars) - 1)];
 	}
 
@@ -364,16 +342,13 @@ function randomString(int $length = 25): string
  * @param string $fileorpath
  * @retrun void
  */
-function logf($data, string $fileorpath = '')
-{
+function logf($data, string $fileorpath = '') {
 	$defaultFilename = 'logfile.txt';
 
-	if (is_dir($fileorpath))
-	{
+	if (is_dir($fileorpath)) {
 		$file = $fileorpath . DIRECTORY_SEPARATOR . $defaultFilename;
 	}
-	elseif (!file_exists($fileorpath))
-	{
+	elseif (!file_exists($fileorpath)) {
 		$file = dirname(__DIR__).DIRECTORY_SEPARATOR.$defaultFilename;
 	}
 
@@ -381,8 +356,7 @@ function logf($data, string $fileorpath = '')
 }
 
 # Checks wheather two values are equal or no
-function isEqual($var1, $var2): bool
-{
+function isEqual($var1, $var2): bool {
 	return (($var1 == $var2) ? true : false);
 }
 
@@ -391,15 +365,12 @@ function isEqual($var1, $var2): bool
  * @param bool $seleced
  * @return void
  * */
-function DOMRangeOptions(int $start, int $end, $selected = false, int $step): string
-{
+function DOMRangeOptions(int $start, int $end, $selected = false, int $step): string {
 	$digits = range($start, $end, 1);
 	$items = '';
-
 	lib_load('html');
 
-	foreach ($digits as $i => $data)
-	{
+	foreach ($digits as $i => $data) {
 		$_selected = ($selected === $data) ? true : false;
 		$items .= HTMLHelpers::DOMOption($data, $data, $_selected);
 	}
@@ -408,8 +379,7 @@ function DOMRangeOptions(int $start, int $end, $selected = false, int $step): st
 	return $items;
 }
 
-function belongsTo(int $val, int $from, int $to): bool
-{
+function belongsTo(int $val, int $from, int $to): bool {
 	return (($val >= $from && $val <= $to) ? true : false);
 }
 
@@ -418,8 +388,7 @@ function belongsTo(int $val, int $from, int $to): bool
  * @param string - path
  * @return string - same path platformalized
  */
-function _urls(string $path)
-{
+function _urls(string $path) {
 	return str_replace("\\", '/', $path);
 }
 
@@ -428,10 +397,8 @@ function _urls(string $path)
  * @param string The input path-string
  * @return string Modified path
  */
-function _ds(string $path): string
-{
+function _ds(string $path): string {
 	$path = (is_file($path))? dirname($path): $path;
-
 	return str_replace((DIRECTORY_SEPARATOR == "\\")? "/" : "\\", DIRECTORY_SEPARATOR, $path).DIRECTORY_SEPARATOR;
 }
 
@@ -440,19 +407,15 @@ function _ds(string $path): string
  * @param string $dir The directory whichj contains the $folder
  * @return string The full path of the folder
  */
-function _cdir(string $dir, string $folder): string
-{
+function _cdir(string $dir, string $folder): string {
 	$dir = _ds($dir);
 	$dir = explode(DIRECTORY_SEPARATOR, $dir);
 
-	for ($i = count($dir) - 1; $i >= 0; $i--)
-	{
-		if ($dir[$i] != $folder)
-		{
+	for ($i = count($dir) - 1; $i >= 0; $i--) {
+		if ($dir[$i] != $folder) {
 			unset($dir[$i]);
 		}
-		else
-		{
+		else {
 			break;
 		}
 	}
@@ -466,8 +429,7 @@ function _cdir(string $dir, string $folder): string
  * @param string $char character that is looked for
  * @return bool true in case if the $char is the last, false in opposite case
  */
-function lastCharacterIs(string $subject, string $char): bool
-{
+function lastCharacterIs(string $subject, string $char): bool {
 	return ((($subject[strlen($subject) - 1]) == $char) ? true : false);
 }
 
@@ -477,8 +439,7 @@ function lastCharacterIs(string $subject, string $char): bool
  * @param $file string The filename and the extension
  * @return Array Empty if file does not exists or wasn't found
  */
-function getArrayFromFile(string $path = '', string $file, $index = null): Array
-{
+function getArrayFromFile(string $path = '', string $file, $index = null): Array {
 	return file_exists($path . $file) ? require_once($path . $file) : [];
 }
 
@@ -489,10 +450,8 @@ function getArrayFromFile(string $path = '', string $file, $index = null): Array
  * @param int $c range end
  * @return bool TRUE If in given range else FALSE
  */
-function is_inrange(int $a, int $b, int $c): bool
-{
-	if ((($a >= $b) && ($a < $c)) || (($a > $b) && ($a <= $c)))
-	{
+function is_inrange(int $a, int $b, int $c): bool {
+	if ((($a >= $b) && ($a < $c)) || (($a > $b) && ($a <= $c))) {
 		return true;
 	}
 
@@ -504,8 +463,7 @@ function is_inrange(int $a, int $b, int $c): bool
  * @param &$php_array array
  * @return mixed
  */
-function array_last(array &$php_array)
-{
+function array_last(array &$php_array) {
 	return ($php_array[count($php_array) - 1]);
 }
 
@@ -514,18 +472,14 @@ function array_last(array &$php_array)
  * @return mixed false in case if no element by the given
  * path, the element on the other opposite case
  */
-function array_item($array, ...$keys)
-{
-	while ($keys)
-	{
+function array_item($array, ...$keys) {
+	while ($keys) {
 		$key = array_shift($keys);
 
-		if (isset($array[$key]))
-		{
+		if (isset($array[$key])) {
 			$array = $array[$key];
 
-			if (!is_array($array))
-			{
+			if (!is_array($array)) {
 				return $array;
 			}
 		}
@@ -539,12 +493,10 @@ function array_item($array, ...$keys)
  * @return string
  */
 function _eol(string $text = ''): void {
-
 	echo $text.PHP_EOL;
 }
 
 function html_phpeol(): void {
-
 	echo('<br/>'.PHP_EOL);
 }
 
@@ -554,12 +506,10 @@ function html_phpeol(): void {
  * @return string the text-data argument
  */
 function stringCleanup(string $data): string {
-
 	$data = trim($data);
 	$data = stripslashes($data);
 	$data = htmlspecialchars($data);
 	$data = strip_tags($data);
-
 	return $data;
 }
 
@@ -570,16 +520,12 @@ function stringCleanup(string $data): string {
  * @return mixed | empty string
  */
 function _item(array &$array, $index) {
-
 	return (isset($array[$index])? $array[$index] : '');
 }
 
 function _delete(array &$arr, string $index): bool {
-
 	if (_item($arr, $index)) {
-
 		unset($arr[$index]);
-
 		return true;
 	}
 
@@ -593,11 +539,8 @@ function _delete(array &$arr, string $index): bool {
  * @return void
  */
 function array_keys_exist(array $keys, array $source): bool {
-
 	foreach ($keys as $id => $key) {
-
 		if (!array_key_exists($key, $source)) {
-
 			return false;
 		}
 	}
@@ -611,12 +554,10 @@ function array_keys_exist(array $keys, array $source): bool {
  * @param mixed [$params] Data to pass into
  * @return void
  */
-function get_file(string $path, $params = null)
-{
-	if (file_exists($path))
-	{
+function get_file(string $path, $params = null) {
+	if (file_exists($path))	{
 		require_once($path);
-  }
+	}
 }
 
 /*
@@ -624,8 +565,7 @@ function get_file(string $path, $params = null)
  * @param ...$args mixed arguments for comparison
  * @return bool Tru in case of equality, false on opposite case
  */
-function equal(...$args): bool
-{
+function equal(...$args): bool {
 	return(count(array_unique($args)) === 1);
 }
 
@@ -634,12 +574,9 @@ function equal(...$args): bool
  * @param ArrayClass $paths The object within list of paths
  * @return void
  */
-function multipleIncludes(ArrayClass $paths)
-{
-	while (!$paths->isEmpty())
-	{
+function multipleIncludes(ArrayClass $paths) {
+	while (!$paths->isEmpty()) {
 		$path = $paths->pull();
-
 		require_once($path->value);
 	}
 }
@@ -649,12 +586,10 @@ function multipleIncludes(ArrayClass $paths)
  * @param
  * @return string The textual data of the given files
  */
-function multipleInsert(ArrayClass $paths): string
-{
+function multipleInsert(ArrayClass $paths): string {
 	$data = '';
 
-	while (!$paths->isEmpty())
-  {
+	while (!$paths->isEmpty()) {
 		$path = $paths->pull();
 		$data .= file_get_contents($path->value);
 	}
@@ -667,20 +602,16 @@ function multipleInsert(ArrayClass $paths): string
  * @param string $input The input explode-able text
  * @return string Capitalized text
  */
-function sliceAndGlue(string $input, $delimiter = '_'): string
-{
+function sliceAndGlue(string $input, $delimiter = '_'): string {
 	$pieces = explode($delimiter, $input);
 
-	array_walk($pieces, function(&$val, $key)
-  {
-		if (!is_array($val))
-		{
-      $val = ucfirst($val);
-    }
+	array_walk($pieces, function(&$val, $key) {
+		if (!is_array($val)) {
+			$val = ucfirst($val);
+		}
 	});
 
 	$pieces = implode('', $pieces);
-
 	return $pieces;
 }
 
@@ -689,24 +620,19 @@ function sliceAndGlue(string $input, $delimiter = '_'): string
 	* @param string $appdir The physical directory where the application is stored
 	* @return string Returns url for the new project
 	*/
-function createurl(bool $httpors = false, string $appdir): string
-{
+function createurl(bool $httpors = false, string $appdir): string {
 	$scheme = $_SERVER['REQUEST_SCHEME'].(($httpors)? 's': '').'://';
 	$appdir = implode('/', explode(DIRECTORY_SEPARATOR, $appdir));
-
 	return $scheme.str_replace($_SERVER['DOCUMENT_ROOT'], $_SERVER['SERVER_NAME'], $appdir);
 }
 
 #
-final class JSSerializedArray
-{
+final class JSSerializedArray {
 	const Name = 'name';
 	const Value = 'value';
 
-	static function decode(array &$input)
-  {
+	static function decode(array &$input) {
 		$_ = array_shift($input);
-
 		return(($_)? [$_[self::Name], $_[self::Value]]: false);
 	}
 
@@ -717,18 +643,15 @@ final class JSSerializedArray
 	*
 	* @return array Decoded array
 	*/
-	static function decodeAll(array &$input, string $arraykey): array
-  {
+	static function decodeAll(array &$input, string $arraykey): array {
 		$a_ = [];
 
-		while ($input)
-    {
+		while ($input) {
 			$_ = array_shift($input);
 
-			if ($_[self::Value])
-			{
-        $a_[$arraykey][self::Name] = $_[self::Value];
-      }
+			if ($_[self::Value]) {
+				$a_[$arraykey][self::Name] = $_[self::Value];
+			}
 		}
 
 		return $a_;
@@ -736,8 +659,7 @@ final class JSSerializedArray
 }
 
 #
-final class MD5Index
-{
+final class MD5Index {
 	const Source = 'src';
 	const Alias = 'alias';
 
@@ -753,17 +675,14 @@ final class MD5Index
 	 * ]
 	 * each element of the input array
 	 */
-	static function encode(array $input): array
-  {
+	static function encode(array $input): array {
 		$out;
 		$input = array_values($input);
 
-		while ($input)
-    {
+		while ($input) {
 			$_ = array_shift($input);
 			$md5 = md5($_);
-			$out[$md5] =
-      [
+			$out[$md5] = [
 				self::Alias => sliceAndGlue($_),
 				self::Source => $_
 			];
@@ -777,12 +696,10 @@ final class MD5Index
 	 * @param array $md5input The encoded array
 	 * @return array The decoded array
 	 */
-	static function decode(array $md5input): array
-  {
+	static function decode(array $md5input): array {
 		$out;
 
-		while($md5input)
-    {
+		while($md5input) {
 			$_ = array_shift($md5input);
 			$out[] = $_[self::Source];
 		}
@@ -795,19 +712,15 @@ final class MD5Index
  * Something similar to the JSON
  * encode, decode into by using static methods
  */
-class JSONic
-{
+class JSONic {
 	/**
 	 * ex. encode([a => 1, b => 2], ',')
 	 */
-	static function encode(array $pairs, $deliemiter = ','): string
-	{
+	static function encode(array $pairs, $deliemiter = ','): string {
 		$result = null;
 
-		array_walk_recursive($pairs, function(&$val, $key)
-		{
+		array_walk_recursive($pairs, function(&$val, $key) {
 			global $result;
-
 			$result[] = self::pairEncode($key, $val);
 		});
 
@@ -818,26 +731,22 @@ class JSONic
 	 * ex. decode(['a=1','a=2'], ',')
 	 * @param mixed $pairs
 	 */
-	static function decode($pairs, $delimiter = ','): array
-	{
+	static function decode($pairs, $delimiter = ','): array	{
 		$pairs = explode($delimiter, $pairs);
 		$decoded = null;
 
-		while ($pairs)
-		{
+		while ($pairs) {
 			$decoded[] = self::pairDecode(array_shift($pairs));
 		}
 
 		return $decoded;
 	}
 
-	static function pairEncode($key, $value): string
-	{
+	static function pairEncode($key, $value): string {
 		return sprintf('%s=%s', $key, $value);
 	}
 
-	static function pairDecode(string $pair): array
-	{
+	static function pairDecode(string $pair): array {
 		return explode('=', $pair);
 	}
 }

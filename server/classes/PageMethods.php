@@ -3,8 +3,7 @@
  *
  * @author Max Pyger
  */
-abstract class PageMethods
-{
+abstract class PageMethods {
 	/**
 	 *
 	 */

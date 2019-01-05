@@ -5,8 +5,7 @@
  *
  * @return void
  */
-function _redStar()
-{
+function _redStar() {
 	echo ("<b class='red-star'>*</b>");
 }
 
@@ -16,8 +15,7 @@ function _redStar()
  * @param bool $condition should function print checked or no
  * @return string
  */
-function checkedRadio(bool $condition): string
-{
+function checkedRadio(bool $condition): string {
 	return (($condition) ? ' checked="checked"' : '');
 }
 
@@ -27,13 +25,11 @@ function checkedRadio(bool $condition): string
  * @param index string - key of the posted data
  * @return string
  */
-function checkedPost(string $index): string
-{
+function checkedPost(string $index): string {
 	return (post_($index)) ? 'checked="checked" ' : '';
 }
 
-function errorCondition(string $errorIndex): bool
-{
+function errorCondition(string $errorIndex): bool {
 	return (__('errors') && __('errors')->getSingleError($errorIndex));
 }
 
@@ -41,43 +37,41 @@ function errorCondition(string $errorIndex): bool
  * Description of formDataNames
  * @return string $requestArray
  */
-function formDataNames(Array $requestArray): string
-{
+function formDataNames(Array $requestArray): string {
 	$keyList = '';
 
-	foreach ($requestArray as $key => $val)
-	{
+	foreach ($requestArray as $key => $val) {
 		$keyList .= $key . PHP_EOL;
 	}
 
 	return $keyList;
 }
+
 /**
  * Description of html_nl
  * return html tag of the new line
  * @return string
  */
-function html_nl(): string
-{
+function html_nl(): string {
 	return '<br/>';
 }
+
 /**
  * Description of dynPageTitle
  *
  *
  * */
-function acs_PageTitle(string $text): void
-{
+function acs_PageTitle(string $text): void {
 	__('page')->setTitle($text . ': ' . __('page')->getTitle());
 }
 
 /**
  * Creates main of a kind menu around current project
  * @param array $menulinks ['pageindex' => [
- *		string			[getdata] get data for page,
- *		int|string	[content] text-content of the anchor
- *		bool				[display] display the item or not
- *		string			[url] unique url in case of exception
+ *		string [getdata] get data for page,
+ *		int|string [content] text-content of the anchor
+ *		bool [display] display the item or not
+ *		string [url] unique url in case of exception
  * ]]
  * @param array $attr [
  *  string [menu] menu wrapper class
@@ -89,54 +83,43 @@ function acs_PageTitle(string $text): void
  *  bool [vertical] decides weather menu is vertical ( true) or horizontal ( false)
  * ]
  */
-function createmenu(array $menulinks, array $attr)
-{
-	if (!isset($attr["menu"]))
-	{
+function createmenu(array $menulinks, array $attr) {
+	if (!isset($attr["menu"])) {
 		$attr["menu"] = "";
 	}
 
-	if (!isset($attr["id"]))
-	{
+	if (!isset($attr["id"])) {
 		$attr["id"] = "";
 	}
 
 	$items = '';
 
-	foreach ($menulinks as $page => $link)
-	{
-		if (isset($link['display']) && !$link ['display'])
-		{
+	foreach ($menulinks as $page => $link) {
+		if (isset($link['display']) && !$link ['display']) {
 			continue;
 		}
-		if (!isset($attr["menu-item"]))
-		{
+		if (!isset($attr["menu-item"])) {
 			$attr ["menu-item"] = '';
 		}
 
 		$itemClass = $attr["menu-item"];
 
-		if (isset($attr['page']) && $page == $attr['page'])
-		{
+		if (isset($attr['page']) && $page == $attr['page']) {
 			$itemClass .= (isset($attr['active'])? ' '.$attr['active'] : '');
 		}
 
-		if (!isset($link["getdata"]))
-		{
+		if (!isset($link["getdata"])) {
 			$link["getdata"] = "";
 		}
-		else
-		{
+		else {
 			$link["getdata"] = '&' . $link["getdata"];
 		}
 
-		if (!isset($attr["menu-item"]))
-		{
+		if (!isset($attr["menu-item"])) {
 			$attr["menu-item"] = "";
 		}
 
-		if (!isset($link["text"]))
-		{
+		if (!isset($link["text"])) {
 			$link["text"] = '';
 		}
 
@@ -145,6 +128,7 @@ function createmenu(array $menulinks, array $attr)
 
 	printf(PHP_EOL.'<span%s>%s</span>', $attr["menu"]? ' class="'.$attr["menu"].'"' : '', $items);
 }
+
 /**
  * The pathAndURL returns the array of file-system filepaths
  * and URLs of files of the given paths
@@ -153,10 +137,8 @@ function createmenu(array $menulinks, array $attr)
  * @return array file-system file-paths and URLs of the files in the directory
  * (use 'path', 'names' and 'url' to access corresponding information)
  */
-function pathAndURL(string $path, string $webDir): array
-{
-	$files =
-	[
+function pathAndURL(string $path, string $webDir): array {
+	$files = [
 		'path' => $path,
 		'url' => $webDir,
 		'names' => scandir_c($path)
@@ -164,27 +146,24 @@ function pathAndURL(string $path, string $webDir): array
 
 	return $files;
 }
+
 /**
  * Generates HTML code within text for form fields that need description
  * @param ArrayClass $keyVal Some array of key-val pairs that will be returned
  * @param string $desclang The translation of the word 'Description'
  * @return string
  */
-function ffDesc(ArrayClass $keyVal, string $desclang = 'Description'): string
-{
-	$divcss = implode(';',
-	[
+function ffDesc(ArrayClass $keyVal, string $desclang = 'Description'): string {
+	$divcss = implode(';', [
 		'padding: 1px 4px 4px 4px', 'max-width: 90%',
 		'font-size: 12px'
 	]);
 	$desctext = [];
 
-	while (!$keyVal->isEmpty())
-	{
+	while (!$keyVal->isEmpty()) {
 		$i = $keyVal->pull();
 
-		if (is_array($i->value))
-		{
+		if (is_array($i->value)) {
 			$i->value = implode(', ', $i->value);
 		}
 
@@ -199,8 +178,7 @@ function ffDesc(ArrayClass $keyVal, string $desclang = 'Description'): string
  * Checks whether the user is online or is guest
  * @return bool
  * */
-function is_online(): bool
-{
+function is_online(): bool {
 	return boolval(__('session')->getCookie('account'));
 }
 ?>

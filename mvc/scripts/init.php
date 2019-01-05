@@ -109,7 +109,7 @@ if ($settings->getSetting(SettingsClass::PostLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PostLoad));
 }
 
-// pagefile
+// Calling the pagefile
 $page->setPagesDirectory(Project)->includePagefile();
 
 $cpage = new PageClass();
