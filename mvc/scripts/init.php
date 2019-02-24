@@ -1,16 +1,22 @@
 <?php
 lib_load('db', 'db\mysql');
+
+// Alias for class ArrayClass
 class_alias('ArrayClass', 'arrayc');
+
+// Alias for class Database class
 class_alias('DatabaseClass', 'dbclass');
+
+// Requiring "settings.php" file from projects "server" directory
 require_once(Server.'settings.php');
 
-# Settings
+// Settings
 $settings = new FinalSettings();
 
-# Timezone
+// Timezone
 date_default_timezone_set($settings->getSetting(SettingsClass::Timezone) ?? 'Europe/London');
 
-# Request
+// Request
 $request = new RequestClass(
 	Project,
 	$settings->getSetting(SettingsClass::DefaultLink),
@@ -19,15 +25,15 @@ $request = new RequestClass(
 	$settings->getSetting(SettingsClass::PagefileExt)
 );
 
-# request
+// request
 _d8('request', $request);
 
-# Globals reset
+// Globals reset
 if ($settings->getSetting(SettingsClass::HandleGlobals)) {
 	$request->handleGlobals();
 }
 
-# Session
+// Session
 if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass) {
 	$session = new SessionClass($settings->getSetting(SettingsClass::SessionModule));
 
@@ -36,7 +42,7 @@ if ($settings->getSetting(SettingsClass::SessionModule) instanceof ArrayClass) {
 	}
 }
 
-# Page
+// Page
 $page = new PageBase(
 	$request->getPage(),
 	$settings->getSetting(SettingsClass::Homepage),
@@ -93,9 +99,8 @@ _d8('page', $page);
 # dbroot
 _d8('dbroot', $dbroot);
 
+# database - Database connection
 if (__('dbroot') instanceof DatabaseClass) {
-	
-	# database - Database connection
 	_di('database', __('dbroot')->connect());
 }
 
@@ -104,12 +109,12 @@ _d8('language', $language);
 
 require_once('corefunctions.php');
 
-// core.post.load
+# core.post.load
 if ($settings->getSetting(SettingsClass::PostLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PostLoad));
 }
 
-// Calling the pagefile
+# Calling the pagefile
 $page->setPagesDirectory(Project)->includePagefile();
 
 $cpage = new PageClass();

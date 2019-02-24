@@ -1,6 +1,5 @@
 <?php
-class MySQLDataType
-{
+class MySQLDataType {
 	const SMALLINT     = 'smallint';
 	const TINYINT      = 'tinyint';
 	const MEDIUMINT    = 'mediumint';

@@ -1,6 +1,5 @@
 <?php
-class MSSQLTableToModel
-{
+class MSSQLTableToModel {
 	/**
 	 * Constructor for TableToModel class
 	 * @param string $filePath Path where file/s will be created
@@ -8,22 +7,24 @@ class MSSQLTableToModel
 	 * @param mixed $tables The list of the names of the desired tables
 	 * for model class creation
 	 */
-	public function __construct(string $filePath, PDO $sqlcon, ...$tables)
-	{
+	public function __construct(string $filePath, PDO $sqlcon, ...$tables) {
 		// SHOW ALL TABLES
 		$tables_qr = $sqlcon->query("SELECT [TABLE_NAME] FROM [armcarshop].[INFORMATION_SCHEMA].[TABLES] WHERE [TABLE_NAME]<>'sysdiagrams';");
 		$tables_qr = $tables_qr->fetchAll(PDO::FETCH_ASSOC);
 
-		while ($tables_qr)
-		{
+		while ($tables_qr) {
 			$name = array_shift($tables_qr)['TABLE_NAME'];
 
-			if ($tables && !in_array($name, $tables)) continue;
+			if ($tables && !in_array($name, $tables)) {
+				continue;
+			}
 
 			$desc_qr = $sqlcon->query(sprintf("SELECT [COLUMN_NAME], [IS_NULLABLE], [DATA_TYPE], [CHARACTER_MAXIMUM_LENGTH], [COLUMN_DEFAULT], [CHARACTER_SET_NAME] FROM [armcarshop].[INFORMATION_SCHEMA].[COLUMNS] where [TABLE_NAME]='%s';", $name));
 			$desc_qr = $desc_qr->fetchAll(PDO::FETCH_ASSOC);
 
-			if (!is_array($desc_qr)) continue;
+			if (!is_array($desc_qr)) {
+				continue;
+			}
 
 			$modelInheritance = self::modelInheritance(ucfirst($name));
 			$properties = self::createProperties($desc_qr);
@@ -44,13 +45,11 @@ class MSSQLTableToModel
 	 * @param array $tbl_desc The result of 'describe' mssql-command for individual mssql table
 	 * @return string
 	 */
-	static function createProperties(array $tbl_desc): string
-	{
+	static function createProperties(array $tbl_desc): string {
 		$tableColumns = (new ReflectionClass('MSSQLTableClass'))->getConstants();
 		$columns = [];
 
-		while ($tbl_desc)
-		{
+		while ($tbl_desc) {
 			$desc = array_shift($tbl_desc);
 			$colname = $desc[MSSQLTableClass::COLUMN_NAME];
 			$desc = var_export($desc, true);
@@ -68,8 +67,7 @@ class MSSQLTableToModel
 	 * @param string $implements If will be iterface then the name of interface
 	 * @return string
 	 */
-	static function modelInheritance(string $nameOfTheTable, string $extends = '', string $implements = ''): string
-	{
+	static function modelInheritance(string $nameOfTheTable, string $extends = '', string $implements = ''): string {
 		$nameOfTheTable .= 'Model';
 
 		self::varnameDesigner($nameOfTheTable);
@@ -87,12 +85,10 @@ class MSSQLTableToModel
 	 * @param string $varName Desired name of the model
 	 * @return void works with argument given by reference
 	 */
-	static function varnameDesigner(string &$varName): void
-	{
+	static function varnameDesigner(string &$varName): void {
 		$varName = explode('_', $varName);
 
-		array_walk($varName, function (&$val, $key)
-		{
+		array_walk($varName, function (&$val, $key) {
 			$val = ucfirst($val);
 		});
 
@@ -108,13 +104,11 @@ class MSSQLTableToModel
 	 * @param string $properties
 	 * @return string The text of the model class file
 	 */
-	static function modelFinalizer(string $modelName, string $modelInheritance, string $properties): string
-	{
+	static function modelFinalizer(string $modelName, string $modelInheritance, string $properties): string {
 
 		return <<<EOD
 <?php
-$modelInheritance
-{
+$modelInheritance {
 	const MODEL = '$modelName';
 
 $properties
@@ -129,12 +123,10 @@ EOD;
 	 * @param mixed $content The code-text of the model
 	 * @return void
 	 */
-	static function renderModelFile(string $path, $content = ''): void
-	{
+	static function renderModelFile(string $path, $content = ''): void {
 		$fres = fopen($path, 'w', false);
 
-		if (fclose($fres))
-		{
+		if (fclose($fres)) {
 			file_put_contents($path, $content);
 		}
 	}
@@ -143,8 +135,7 @@ EOD;
 	 * @param string $id by default null
 	 * @return string if $id is not null, by default array of MSSQL datatypes for v.10.1.16-MariaDB
 	 */
-	static function fieldType(string $id = '')
-	{
+	static function fieldType(string $id = '') {
 		$mssqlType = [];
 
 		return ($id && isset($mssqlType[$id]))? $mssqlType[$id]: $mssqlType;

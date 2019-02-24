@@ -1,6 +1,5 @@
 <?php
-class MySQLField extends ObjectClass
-{
+class MySQLField extends ObjectClass {
 	const tbl_field = 'Field';
 	const tbl_type = 'Type';
 	const tbl_default = 'Default';

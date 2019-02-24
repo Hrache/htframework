@@ -1,6 +1,5 @@
 <?php
-return (
-[
+return ([
 	'pagetitle' => 'Sign In/Up',
 	'accountinfo' => 'Account info',
 	'name' => 'Name',

@@ -2,7 +2,6 @@
 class DatabaseClass {
 	const CLASS_MYSQL = "MySQLClass";
 	const VENDOR = 0x114;
-
 	const DBUSER = 'dbuser';
 	const DBPASS = 'dbpass';
 	const DBNAME = 'dbname';
@@ -11,16 +10,13 @@ class DatabaseClass {
 	const SERVER = 'Server';
 	const CHARSET = 'charset';
 	const DATABASE = 'Database';
-
 	const NOT_SUPPORTED_DATABASE_VENDOR_ERROR = 0x126;
-
 	const VENDOR_MYSQL =  0x120;
 	const VENDOR_SQLITE = 0x121;
 	const VENDOR_MYSQLI = 0x122;
 	const VENDOR_MSSQL = 0x123;
 	const VENDOR_ORACLE = 0x124;
 	const VENDOR_DBLIB = 0x125;
-
 	protected $settings = null;
 	protected $dbcon = null;
 	protected $dbSettingsIndex = null;
@@ -46,8 +42,7 @@ class DatabaseClass {
 	function getSettings(): ArrayClass {
 		return $this->settings;
 	}
-	
-	
+
 	/**
 	 * Checks out connection status with database
 	 * @return bool
@@ -55,7 +50,7 @@ class DatabaseClass {
 	function connected() {
 		return $this->dbcon;
 	}
-	
+
 	function close() {
 		$this->dbcon = null;
 	}
@@ -110,7 +105,6 @@ class DatabaseClass {
 	public function fetch(string $sql, int $pdo_fetch_type) {
 		$res = $this->dbcon->query($sql);
 		$res = $res->fetchAll($pdo_fetch_type);
-
 		return $res;
 	}
 

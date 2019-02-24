@@ -1,15 +1,8 @@
 <?php
 return [
-	'default' => 'home',
+	'about', 'account', 'ajax',	'contacts', 'privacy', 'search', 'support', 'termsofuse',
 	'home' => 'home',
-	'account' => 'account',
-	'about' => 'about',
-	'advertisements' => 'advertisements',
-	'contacts' => 'contacts',
+	'default' => 'home',
 	'error' => 'error',
-	'privacy' => 'privacy',
-	'search' => 'search',
-	'support' => 'support',
-	'termsofuse' => 'termsofuse',
 ];
 ?>

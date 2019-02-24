@@ -1,5 +1,3 @@
 <?php
-class ModuleLoader
-{
-
-}
+class ModuleLoader {}
+?>

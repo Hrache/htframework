@@ -16,5 +16,6 @@ return([
 	'rules' => 'Rules',
 	'reqedorwrong' => 'Field is missing or wrong',
 	'emailconferror' => 'Email confirmation failure',
+	'phonenumber' => 'Phonenumber'
 ]);
 ?>

@@ -4,32 +4,26 @@
  * Description of ModelToHTMLClass
  * @author Max Pyger
  * */
-class TableToHTML
-{
+class TableToHTML {
 	const SMALL_TEXT = [
 		'min' => 1,
 		'max' => 3700,
 	];
-
 	const MEDIUM_TEXT = [
 		'min' => 3701,
 		'max' => 10000,
 	];
-
 	const LARGE_TEXT = [
 		'min' => 10001,
 	];
-
 	const SMALL_NUM = [
 		'min' => 1,
 		'max' => 7,
 	];
-
 	const MEDIUM_NUM = [
 		'min' => 8,
 		'max' => 15,
 	];
-
 	const LARGE_NUM = [
 		'min' => 16,
 		'max' => 20,
@@ -40,10 +34,8 @@ class TableToHTML
 
 	private $tables;
 
-	public function __construct(string $modelsDir, string ...$models)
-	{
+	public function __construct(string $modelsDir, string ...$models) {
 		lib_load('utilities', 'text');
-
 		set_include_path(get_include_path().PATH_SEPARATOR.$modelsDir);
 
 		// array of names of files of model-classes
@@ -51,12 +43,9 @@ class TableToHTML
 
 		StringHelper::lastSignSlash($modelsDir);
 
-		foreach ($models as $i => $model)
-		{
-			if (!class_exists($model))
-			{
+		foreach ($models as $i => $model) {
+			if (!class_exists($model)) {
 				_delete($models, $i);
-
 				continue;
 			}
 
@@ -69,10 +58,8 @@ class TableToHTML
 			// array of rules of the current model
 			$rModelRules = $rModel->getConstant('rules');
 
-			foreach ($rModelConstants as $i => $const)
-			{
-				if (in_array($i, ['rules', 'MODEL']))
-				{
+			foreach ($rModelConstants as $i => $const) {
+				if (in_array($i, ['rules', 'MODEL'])) {
 					continue;
 				}
 
@@ -84,18 +71,15 @@ class TableToHTML
 		unset($modelsList);
 	}
 
-	public static function typeToTag(MSSQLField $field)
-	{
+	public static function typeToTag(MSSQLField $field) {
 		lib_load('html');
 	}
 
-	public function __get($name)
-	{
+	public function __get($name) {
 		return $this->$name;
 	}
 
-	public function __set($name, $value)
-	{
+	public function __set($name, $value) {
 		$this->$name = $value;
 	}
 }

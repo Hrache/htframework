@@ -1,6 +1,5 @@
 <?php
-class LanguageClass
-{
+class LanguageClass {
 	private $dictionary = null;
 	private $filePath = null;
 	private $fileExtension = null;
@@ -11,22 +10,18 @@ class LanguageClass
 	 * @param string $filePath The path where language files are stored
 	 * @return void
 	 */
-	function __construct(string $fileExtension, string $filePath)
-	{
+	function __construct(string $fileExtension, string $filePath) {
 		$this->fileExtension = $fileExtension;
 		$this->filePath = $filePath;
 		$this->dictionary = new ArrayClass();
 	}
 
-	function getLangFileExtension()
-	{
+	function getLangFileExtension() {
 		return $this->settings->item(SettingsClass::LangFileExt);
 	}
 
-	function append(string ...$filename): LanguageClass
-	{
-		while ($filename)
-		{
+	function append(string ...$filename): LanguageClass {
+		while ($filename) {
 			$file = array_shift($filename);
 			$file = realpath($this->filePath).DIRECTORY_SEPARATOR.$file.'.'.$this->fileExtension;
 			$langData = require_once($file);
@@ -36,25 +31,20 @@ class LanguageClass
 		return $this;
 	}
 
-	function setFilePath(string $langFileDir): LanguageClass
-	{
+	function setFilePath(string $langFileDir): LanguageClass {
 		$this->filePath = $langFileDir;
-
 		return $this;
 	}
 
-	function getWord($key)
-	{
+	function getWord($key) {
 		return $this->dictionary->item($key);
 	}
 
-	function setWord($key, $value)
-	{
+	function setWord($key, $value) {
 		$this->dictionary->add($key, $value);
 	}
 
-	function getDictionary(): ArrayClass
-	{
+	function getDictionary(): ArrayClass {
 		return $this->dictionary;
 	}
 }

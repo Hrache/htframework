@@ -53,9 +53,9 @@ class ImageInfoClass extends FileInfoClass {
 	 * @return bool true if is image, false - isn't
 	 **/
 	static function is_image ( string $filepath): bool {
-  if ( is_file ( $filepath)) {
+		if (is_file($filepath)) {
 			$imageinfo = in_array ( FileInfoClass::fileextension ( $filepath), ImageTypeClass::extensionVsMime ( 'ext'));
-   return boolval ( $imageinfo);
+			return boolval ( $imageinfo);
 		}
 
 		return false;

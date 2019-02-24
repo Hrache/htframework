@@ -2,36 +2,29 @@
 /**
  * @author Max Pyger
  */
-trait ModelsTrait
-{
+trait ModelsTrait {
 	/**
 	 * Returns the min-length of the field by the given name
 	 * @param string $field The name of the field of the model
 	 * @return int
 	 */
-	static function getMaxLengthRule(string $field)
-	{
+	static function getMaxLengthRule(string $field) {
 		return intval(self::rules[$field][ValidationClass::VALIDATION_LENGTH_MYSQL]);
 	}
 }
 
-abstract class MySQLModelAbstract
-{
+abstract class MySQLModelAbstract {
 	protected $model;
 	protected $modelData;
 
-	function __construct(string $model, array $modelsData = [])
-	{
+	function __construct(string $model, array $modelsData = []) {
 		$this->model = self::_fier($model);
 		$this->modelData = $modelsData;
 	}
 
-	protected function initProperties(array $modelsData)
-	{
-		foreach ($this as $prop => $val)
-		{
-			if (isset($modelsData[$prop]))
-			{
+	protected function initProperties(array $modelsData) {
+		foreach ($this as $prop => $val) {
+			if (isset($modelsData[$prop])) {
 				$this->$prop = $modelsData[$prop];
 			}
 		}
@@ -41,8 +34,7 @@ abstract class MySQLModelAbstract
 	 * @param Array $id
 	 * @return Array Empty or full
 	 */
-	static function getByColumn(string $column, $value, string $model): string
-	{
+	static function getByColumn(string $column, $value, string $model): string {
 		return "SELECT * FROM ".self::_fier($model)." WHERE ".self::_fier($column)."='".$value."';";
 	}
 
@@ -51,34 +43,29 @@ abstract class MySQLModelAbstract
 	* @param array $fieldValue
 	* @param string $modelName
 	**/
-	static function updateQuery(array $modelNames, array $fieldsValues, array $where = []): string
-	{
+	static function updateQuery(array $modelNames, array $fieldsValues, array $where = []): string {
 		// TABLE NAMES
 		$modelNames_ = '';
 
-		foreach ($modelNames as $i => $val)
-		{
+		foreach ($modelNames as $i => $val) {
 		    $modelNames_[] = self::_fier($val);
 		}
 
 		$modelNames_ = implode(',', $modelNames_);
 		$set = '';	//	SET
 		
-		foreach ($fieldsValues as $key => $val)
-		{
+		foreach ($fieldsValues as $key => $val) {
 		    $set[] = sprintf ('%s = \'%s\'', self::_fier ($val), $key);
 		}
 
 		$set = implode (',', $set);
 		$where = '';	//	WHERE
 
-		foreach ($where as $key => $val)
-		{
+		foreach ($where as $key => $val) {
 		    $where[] = sprintf('%s = \'%s\'', self::_fier($val), $key);
 		}
 
 		$where = 'WHERE ' . implode(',', $where);
-
 		return sprintf('UPDATE %s SET %s %s;', $modelNames_, $set, $where);
 	}
 
@@ -86,8 +73,7 @@ abstract class MySQLModelAbstract
 	 * @param string $model Get all data from database
 	 * @return Array Empty or full
 	 */
-	static function getAll(string $model): string
-	{
+	static function getAll(string $model): string {
 		return "SELECT * FROM ". self::_fier($model) .";";
 	}
 
@@ -97,17 +83,14 @@ abstract class MySQLModelAbstract
 	* @param String $model The name of the model
 	* @return Array Empty or full
 	*/
-	static function getByFields(ArrayClass $fields, string $model): string
-	{
+	static function getByFields(ArrayClass $fields, string $model): string {
 		self::_fier8($model);
 
-		if ($fields->isEmpty() OR !$model)
-		{
+		if ($fields->isEmpty() OR !$model) {
 			return '';
 		}
 
-		$fields->eachItem(function(&$v, $k)
-		{
+		$fields->eachItem(function(&$v, $k) {
 			self::_fier($v);
 		});
 
@@ -117,8 +100,7 @@ abstract class MySQLModelAbstract
 	/**
 	 * Deletes data from table/model by the given columns
 	 */
-	static function deleteByColumn(string $column, $value, string $model)
-	{
+	static function deleteByColumn(string $column, $value, string $model) {
 		return sprinf('DELETE FROM %s WHERE %s = \'%s\';', self::_fier($model), self::_fier($column), $value);
 	}
 	
@@ -128,17 +110,14 @@ abstract class MySQLModelAbstract
 	 * @param string $model
 	 * @return Array Empty or full
 	 **/
-	static function getColumnsBy(Array $fields, Array $_by, string $model): string
-	{
+	static function getColumnsBy(Array $fields, Array $_by, string $model): string {
 		self::_fier8($model);
 
-		array_walk($fields, function(&$v, $k)
-		{
+		array_walk($fields, function(&$v, $k) {
 			self::_fier8($v);
 		});
 
-		array_walk($_by, function(&$v, $k)
-		{
+		array_walk($_by, function(&$v, $k) {
 			$v = self::_fier($k) . '=' . $v;
 		});
 
@@ -151,13 +130,11 @@ abstract class MySQLModelAbstract
 	* @param  array $insertValues The data for field of the validation model/mysql table
 	* @return array Array of errors for each
 	*/
-	static function validate(ArrayClass $rules, ArrayClass $data): ArrayClass
-	{
+	static function validate(ArrayClass $rules, ArrayClass $data): ArrayClass {
 		require_once(realpath(__DIR__.'/../../scripts/mysqlmodelabstarctvalidate.php'));
 	}
 	
-	static function getTypeGroup($type): int
-	{
+	static function getTypeGroup($type): int {
 		require_once(realpath(__DIR__.'/scripts/mysqlmodelabstractgettypegroup.php'));
 	}
 
@@ -166,24 +143,21 @@ abstract class MySQLModelAbstract
 	 * @param array $data associative array of insertion data
 	 * @return string string representation of MySQL query or empty string in case of negative flow
 	 */
-	static function insertByMap(array $data, string $model): string
-	{
+	static function insertByMap(array $data, string $model): string {
 		self::_fier8($model);
 
-		if (!$data)
-		{
+		if (!$data) {
 			return '';
 		}
 
-		array_walk($data, function(&$v, $k)
-		{
+		array_walk($data, function(&$v, $k) {
 			self::_fier8($v);
 		});
+
 		return sprintf("INSERT INTO $model (%s) VALUES (%s);", implode(',', array_keys($data)), implode(',', array_values($data)));
 	}
 
-	static function _fier($text): string
-	{
+	static function _fier($text): string {
 		return '`' . $text . '`';
 	}
 
@@ -191,8 +165,7 @@ abstract class MySQLModelAbstract
 	 * The same as _fier but as argument is used reference of the
 	 * variable of input data
 	 */
-	static function _fier8(&$text): void
-	{
+	static function _fier8(&$text): void {
 		$text = self::_fier($text);
 	}
 }

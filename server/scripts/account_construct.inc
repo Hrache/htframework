@@ -1,6 +1,8 @@
 <?php
-require_once(Scripts.'account_signup.inc');
+// require_once(Scripts.'account_signup.inc');
+
 __('language')->append('formvalidation');
+
 lib_load('text');
 
 if (CurrentAction === self::action_signin) {

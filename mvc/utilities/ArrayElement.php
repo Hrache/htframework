@@ -1,27 +1,22 @@
 <?php
-final class ArrayElement
-{
+final class ArrayElement {
 	public $key;
 	public $value;
 
-	function __construct ($key = null, $value = null, &$byR = null)
-	{
+	function __construct ($key = null, $value = null, &$byR = null) {
 		$this->key = $key;
 		$this->value = $value ?? $byR;
 	}
 
-	function toArray(): array
-	{
+	function toArray(): array {
 		return (array) $this;
 	}
 
-	function getKey()
-	{
+	function getKey() {
 		return $this->key;
 	}
 
-	function getValue()
-	{
+	function getValue() {
 		return $this->value;
 	}
 }

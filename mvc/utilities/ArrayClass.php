@@ -1,25 +1,19 @@
 <?php
-class StaticAClass
-{
+class StaticAClass {
 	/*
 	 * @param mixed|array $key
 	 * @param mixed $value
 	 * @param array &$array
 	 */
-	static function add($key, $value, array &$array)
-	{
-		if (is_array($key))
-		{
+	static function add($key, $value, array &$array) {
+		if (is_array($key)) {
 			eval(ArrayClass::keyIndexCode('array', $key).'=$value;');
 		}
-		else
-		{
-			if ($key)
-			{
+		else {
+			if ($key) {
 				$array[$key] = $value;
 			}
-			else
-			{
+			else {
 				$array[] = $value;
 			}
 		}
@@ -29,26 +23,21 @@ class StaticAClass
 	 * @param mixed|array $key
 	 * @param array &$array
 	 */
-	static function del($keys, array &$array)
-	{
-		while ($keys)
-		{
+	static function del($keys, array &$array) {
+		while ($keys) {
 			$k = array_shift($keys);
 
-			if (is_array($k))
-			{
+			if (is_array($k)) {
 				$isset = false;
 				$code = ArrayClass::keyIndexCode('array', $k);
 
 				eval('$isset=isset('.$code.');');
 
-				if ($isset)
-				{
+				if ($isset) {
 					eval('unset('.$code.');');
 				}
 			}
-			elseif (isset($array[$k]))
-			{
+			elseif (isset($array[$k])) {
 				unset($array[$k]);
 			}
 		}
@@ -58,31 +47,26 @@ class StaticAClass
 	 * @param mixed|array $index
 	 * @param array &$array
 	 */
-	static function get($index, array &$array)
-	{
-		if (is_array($index))
-		{
+	static function get($index, array &$array) {
+		if (is_array($index)) {
 			$isset = false;
 			$code = ArrayClass::keyIndexCode('array', $index);
 
 			eval('$isset=isset('.$code.');');
 
-			if ($isset)
-			{
+			if ($isset) {
 				eval('$code='.$code.';');
 
 				return $code;
 			}
 		}
-		else if (isset($array[$index]))
-		{
+		elseif (isset($array[$index])) {
 			return $array[$index];
 		}
 	}
 }
 
-class ArrayClass
-{
+class ArrayClass {
 	/**
 	 * @var mixed The input array
 	 */
@@ -94,21 +78,17 @@ class ArrayClass
 	 * @param array &$byRef The array that is given by the reference
 	 * @return void
 	 */
-	function __construct(array $input = [])
-	{
+	function __construct(array $input = []) {
 		$this->input = $input;
 	}
 
-	function __destruct()
-	{
-		if ($this->length(0))
-		{
+	function __destruct() {
+		if ($this->length(0)) {
 			unset($this->input);
 		}
 	}
 
-	function &getByRInput()
-	{
+	function &getByRInput() {
 		return $this->input;
 	}
 
@@ -117,21 +97,17 @@ class ArrayClass
 		* @param array $key The array of the keys that is the path to the desired element
 		* @return string The text of the desired array element for evaluation
 		*/
-	static function keyIndexCode(string $nameOfTheArray, array $key): string
-	{
+	static function keyIndexCode(string $nameOfTheArray, array $key): string {
 		$__ = '';
 
-		while($key)
-		{
+		while($key) {
 			$k = array_shift($key);
 
-			if (is_array($k))
-			{
+			if (is_array($k)) {
 				$key = $k;
 				$__ = '';
 			}
-			else
-			{
+			else {
 				$k = is_string($k)? '\''.$k.'\'': $k;
 				$__ .= "[$k]";
 			}
@@ -140,8 +116,7 @@ class ArrayClass
 		return('$' . $nameOfTheArray . $__);
 	}
 
-	function setByRInput(array &$input)
-	{
+	function setByRInput(array &$input) {
 		$this->input = $input;
 	}
 
@@ -150,8 +125,7 @@ class ArrayClass
 	 * @return stdClass an instance of stdClass containing 2 properties
 	 * key and value ([$obj]->key, [$obj]->value)
 	 */
-	function pop(): ArrayElement
-	{
+	function pop(): ArrayElement {
 		$key = array_pop(array_keys($this->input));
 
 		return new ArrayElement($key, array_pop($this->input));
@@ -162,15 +136,13 @@ class ArrayClass
 	 * @param mixed ...$key The path to the desired element
 	 * @return mixed Null in case of absence of the desired element
 	 */
-	function grab(...$key): ArrayElement
-	{
+	function grab(...$key): ArrayElement {
 		$isset = false;
 		$code = $this->keyIndexCode('this->input', $key);
 
 		eval('$isset = isset('.$code.');');
 
-		if ($isset)
-		{
+		if ($isset) {
 			eval('$code='.$code.';');
 
 			$aCopy = new ArrayElement(null, $code);
@@ -179,8 +151,7 @@ class ArrayClass
 
 			return $aCopy;
 		}
-		else
-		{
+		else {
 			return null;
 		}
 	}
@@ -191,8 +162,7 @@ class ArrayClass
 	 * or an array that consists of a single key/value pair
 	 * @return mixed An instance of ArrayElement or an array
 	 */
-	function pull(bool $obj = true)
-	{
+	function pull(bool $obj = true) {
 		$i = array_keys($this->input);
 		$key = array_shift($i);
 
@@ -201,10 +171,8 @@ class ArrayClass
 		return($obj? new ArrayElement($key, array_shift($this->input)): [$key => array_shift($this->input)]);
 	}
 
-	function append(array ...$arrays): ArrayClass
-	{
-		while ($arrays)
-		{
+	function append(array ...$arrays): ArrayClass {
+		while ($arrays) {
 			$arr = array_shift($arrays);
 			$this->input = array_merge($this->input, $arr);
 		}
@@ -221,16 +189,12 @@ class ArrayClass
 		* which are separate elemets in the main array
 		* @return mixed the desired value, null if no such element
 		*/
-	function item(...$index)
-	{
-		if ($index)
-		{
+	function item(...$index) {
+		if ($index) {
 			$len = 0;
 
-			while ($len < count($index))
-			{
-				if (is_array($index[$len]))
-				{
+			while ($len < count($index)) {
+				if (is_array($index[$len])) {
 					$index = $index[$len];
 				}
 
@@ -245,8 +209,7 @@ class ArrayClass
 
 		eval('$isset=isset('.$code.');');
 
-		if ($isset)
-		{
+		if ($isset) {
 			eval('$code='.$code.';');
 
 			return $code;

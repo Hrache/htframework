@@ -4,8 +4,7 @@
 * Validation entry object
 * @author Max Pyger
 */
-class ValidationEntry
-{
+class ValidationEntry {
 	/**
 	* @var integer Email
 	*/
@@ -128,8 +127,7 @@ class ValidationEntry
 	* @param mixed $dataSource The source of data for being processed for the value
 	* @return void
 	*/
-	function __construct(string $name, $value, $dataSource = null)
-	{
+	function __construct(string $name, $value, $dataSource = null) {
 		$this->name = $name;
 		$this->value = $value;
 		$this->dataSource = $dataSource;
@@ -143,8 +141,7 @@ class ValidationEntry
 	* @return ValidationClass The same instance of the current
 	* object for a chaining
 	*/
-	function addRule($type, $rule = null): ValidationEntry
-	{
+	function addRule($type, $rule = null): ValidationEntry {
 		$this->rules->add($type, $rule);
 		
 		return $this;
@@ -155,54 +152,45 @@ class ValidationEntry
 	* @return bool Returns TRUE in case of success,
 	* false on the opposite case
 	*/
-	function validate(): bool
-	{
+	function validate(): bool {
 		// TODO: write validation code
 	}
 
-	public function getRules(): ArrayClass
-	{
+	public function getRules(): ArrayClass {
 		return $this->rules;
 	}
 
-	public function getName(): string
-	{
+	public function getName(): string {
 		return $this->name;
 	}
 
-	public function setRules(ArrayClass $rules): ValidationEntry
-	{
+	public function setRules(ArrayClass $rules): ValidationEntry {
 		$this->rules = $rules;
 
 		return $this;
 	}
 
-	public function setName($name): ValidationEntry
-	{
+	public function setName($name): ValidationEntry {
 		$this->name = $name;
 		
 		return $this;
 	}
 
-	public function getData()
-	{
+	public function getData() {
 		return $this->data;
 	}
 
-	public function getDataSource()
-	{
+	public function getDataSource() {
 		return $this->dataSource;
 	}
 
-	public function setData($data): ValidationEntry
-	{
+	public function setData($data): ValidationEntry {
 		$this->data = $data;
 		
 		return $this;
 	}
 
-	public function addDataSource($dataSource): ValidationEntry
-	{
+	public function addDataSource($dataSource): ValidationEntry {
 		$this->dataSource = $dataSource;
 		
 		return $this;

@@ -25,8 +25,7 @@ class SettingsClass
 	 * Constructor of the SettingsClass
 	 * @param ArrayClass $settings The instance of ArrayClass within settings
 	 */
-	function __construct(ArrayClass $settings)
-	{
+	function __construct(ArrayClass $settings) {
 		$this->settings = $settings;
 	}
 
@@ -35,25 +34,20 @@ class SettingsClass
 	 * @param mixed $key The index of the setting in the list of settings
 	 * @return mixed Returns mixed data
 	 */
-	function getSetting(...$key)
-	{
+	function getSetting(...$key) {
 		return $this->settings->item($key);
 	}
 
 	/**
 	 * Sets value
 	 */
-	function setSetting($key, $value): SettingsClass
-	{
+	function setSetting($key, $value): SettingsClass {
 		$this->settings->add($key, $value);
-
 		return $this;
 	}
 
-	function appendSettings(Array $settings): SettingsClass
-	{
+	function appendSettings(Array $settings): SettingsClass {
 		$this->settings->append($settings);
-
 		return $this;
 	}
 
@@ -63,10 +57,8 @@ class SettingsClass
 	 * @param int $constSetting The class constant of SettingsClass
 	 * @return SettingsClass The instance of the current object
 	 */
-	public function triggerModule(int $constSetting): SettingsClass
-	{
+	public function triggerModule(int $constSetting): SettingsClass {
 		$this->settings->add($constSetting, true);
-
 		return $this;
 	}
 
@@ -76,10 +68,8 @@ class SettingsClass
 	 * from an application
 	 * @return SettingsClass
 	 */
-	public function setDefaultDatabase($defaultDatabase): SettingsClass
-	{
+	public function setDefaultDatabase($defaultDatabase): SettingsClass {
 		$this->settings->add(self::DefaultDatabase, $defaultDatabase);
-
 		return $this;
 	}
 }

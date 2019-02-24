@@ -2,8 +2,7 @@
 /**
  * @author Max Pyger
  */
-class CustomLinkClass extends LinkClass
-{
+class CustomLinkClass extends LinkClass {
 	protected $page;
 	protected $action;
 	protected $pageUrl;
@@ -16,8 +15,7 @@ class CustomLinkClass extends LinkClass
 	 * @param mixed $delimiter CustomLinkClass has a delimiter option
 	 * in the URI structure by default is '/'
 	 */
-	function __construct(string $requestURI, string $indexPage, string $defaultAction = '', $delimiter = '/')
-	{
+	function __construct(string $requestURI, string $indexPage, string $defaultAction = '', $delimiter = '/') {
 		parent::__construct($requestURI);
 
 		$this->indexPage = $indexPage;
@@ -29,10 +27,8 @@ class CustomLinkClass extends LinkClass
 		unset($_);
 	}
 
-	function linkString(string $domain, string $indexFile = 'index.php', string $page, $action='', bool $secure = false, ArrayClass $params = null): string
-	{
-		if ($params)
-		{
+	function linkString(string $domain, string $indexFile = 'index.php', string $page, $action='', bool $secure = false, ArrayClass $params = null): string	{
+		if ($params) {
 			$params = self::queryString($params->input);
 		}
 
@@ -45,49 +41,40 @@ class CustomLinkClass extends LinkClass
 	 * @param mixed $queryData The array of GET query data or ready string
 	 * @return string The desired link string
 	 */
-	static function newLink(string $page, $action='', $queryData = ''): string
-	{
+	static function newLink(string $page, $action='', $queryData = ''): string {
 		return sprintf('%s%s%s', $page, ($action)? '/' . $action: '', (is_array($queryData))? self::queryString($queryData): $queryData);
 	}
 
-	function actionIs(string $action): bool
-	{
+	function actionIs(string $action): bool {
 		return ($this->action === $action);
 	}
 
-	function getPage(): string
-	{
+	function getPage(): string {
 		return $this->page;
 	}
 
-	function pageIs(string $page): bool
-	{
+	function pageIs(string $page): bool {
 		return ($this->page == $page);
 	}
 
-	function getAction(): string
-	{
+	function getAction(): string {
 		return $this->action;
 	}
 
-	function setPage($page): CustomLinkClass
-	{
+	function setPage($page): CustomLinkClass {
 		$this->page = $page;
 		return $this;
 	}
 
-	function setAction($action)
-	{
+	function setAction($action) {
 		$this->action = $action;
 	}
 
-	function getPageUrl()
-	{
+	function getPageUrl() {
 		return $this->pageUrl;
 	}
 
-	function setPageUrl($pageUrl)
-	{
+	function setPageUrl($pageUrl) {
 		$this->pageUrl = $pageUrl;
 	}
 }

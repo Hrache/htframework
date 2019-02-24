@@ -19,7 +19,9 @@ class FinalSettings extends SettingsClass {
 			SettingsClass::PostLoad => 'postload.php',
 			SettingsClass::SessionModule => new arrayc([
 				// 'id' => md5 ('HracheToomasyan'),
-				'start_options' => ['cookie_lifetime' => 7200]
+				'start_options' => [
+					'cookie_lifetime' => 7200
+				]
 			]),
 			SettingsClass::LanguageModule => true,
 			SettingsClass::DatabaseModule => false,
@@ -32,7 +34,7 @@ class FinalSettings extends SettingsClass {
 		$settings->add(
 			SettingsClass::DatabaseModule, new arrayc([
 				self::db1 => new arrayc([
-					DatabaseClass::DBUSER => 'hrache_admin',
+					DatabaseClass::DBUSER => 'sa',
 					DatabaseClass::DBPASS => '1111',
 					DatabaseClass::SERVER => '192.168.6.133',
 					DatabaseClass::PORT => '52485',

@@ -1,60 +1,12 @@
 <h2><?= _abc('accountinfo') ?></h2>
 <span class="account-info">
 <?php
-if (!_db('account')) {
-	return false;
-}
-
-function infoItem(string $title, string $text): void {
-	printf('<span><span>%s</span>%s</span>', $title, $text);
-}
-
-$account = __('account');
-
-$titles = [
-	Accounts::name => _abc('name'),
-	Accounts::surname => _abc('surname'),
-	Accounts::birthday => _abc('birthday'),
-	Accounts::gender => _abc('gender'),
-	Accounts::phonecodeid => _abc('phonecode'),
-	Accounts::phonenumber => _abc('phonenumber'),
-	Accounts::email => _abc('email'),
-	Accounts::signupdate => _abc('signupdate'),
-	Accounts::lastvisit => _abc('lastvisit'),
-];
-
-foreach ($titles as $i => $val) {
-	$iAccount = $account->$i;
-
-	if (!$account->$i) {
-		continue;
-	}
-	elseif ($account->$i === 'm') {
-		$iAccount = _abc('man');
-	}
-	elseif ($account->$i === 'w') {
-		$iAccount = _abc('woman');
-	}
-	elseif ($i == Accounts::phonecodeid) {
-		$account->$i = PostalInfoCustom(intval($account->$i))->item(0);
-		$country = AcsCountryinfoTblModel::nicename;
-		$phonecode = AcsCountryinfoTblModel::phonecode;
-		$iAccount = $account->$i->$country . ' - ' . $account->$i->$phonecode;
-
-		unset($country, $phonecode);
-	}
-
-	infoItem(ucfirst($val), $iAccount);
-}
-
-$personal_add = json_decode($account->personal_additional);
-
-foreach ($personal_add as $title => $info) {
-	if (!$info) {
-		continue;
-	}
-
-	infoItem(_abc($title), $info);
-}
+/*
+ * 1.
+ *	if is logged in
+ *		(show the account info main page ?? links quantity should be optimaized/organzied)
+ *	else
+ *		show sign-in and sign-up forms next to each other
+*/
 ?>
 </span>

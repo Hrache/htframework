@@ -1,6 +1,5 @@
 <?php
-class SnippetsClass
-{
+class SnippetsClass {
 	/**
 	 * @var string $path The path where snippets are stored
 	 */
@@ -20,12 +19,10 @@ class SnippetsClass
 	/*
 	 * @param $path
 	 */
-	public function __construct(string $defaultSnippet, string $path = '', string $extension = "phtml")
-	{
+	public function __construct(string $defaultSnippet, string $path = '', string $extension = "phtml") {
 		$this->path = $path;
 		$extension = strtolower($extension);
 		$this->defaultSnippet = $defaultSnippet;
-
 		$this->setExtension($extension);
 	}
 
@@ -35,10 +32,8 @@ class SnippetsClass
 	 * @param array $params Data for being passed into the snippet
 	 * @return bool On success true, failure: false
 	 */
-	function insert(string $name, array $params = []): bool
-	{
+	function insert(string $name, array $params = []): bool {
 		$_ = realpath($this->path).DIRECTORY_SEPARATOR.$name.$this->extension;
-
 		return(require_once($_));
 	}
 
@@ -47,10 +42,8 @@ class SnippetsClass
 	 * @param string $path The desired path to the snippets
 	 * @return SnippetsClass
 	 */
-	public function setPath(string $path): SnippetsClass
-	{
+	public function setPath(string $path): SnippetsClass {
 		$this->path = $path;
-
 		return $this;
 	}
 
@@ -59,15 +52,12 @@ class SnippetsClass
 	 * @param string $extension The desired extension of the snippet file
 	 * @return SnippetsClass
 	 */
-	function setExtension($extension): SnippetsClass
-	{
-		if ($extension[0] !== ".")
-		{
+	function setExtension($extension): SnippetsClass {
+		if ($extension[0] !== ".") {
 			$extension=".".$extension;
 		}
 
 		$this->extension = $extension;
-
 		return $this;
 	}
 }

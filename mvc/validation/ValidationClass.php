@@ -5,8 +5,7 @@
  * for data validation. The idea of it is to prepare all validatible
  * data into an array and at the final stage validate the whole list.
  */
-final class ValidationClass
-{
+final class ValidationClass {
 	// @var string The enumaration content of the table's field
 	const VALIDATION_ENUM_MYSQL = 'enum';
 
@@ -57,8 +56,7 @@ final class ValidationClass
      */
 	private $entries;
 
-	function __construct()
-    {
+	function __construct() {
 		$this->еntries = new ArrayClass();
 	}
 
@@ -67,10 +65,8 @@ final class ValidationClass
 	 * @param ValidationEntry $entry An instance of ValidationEntry class
 	 * @return ValidationClass
 	 */
-	function addEntry(ValidationEntry $entry): ValidationClass
-    {
+	function addEntry(ValidationEntry $entry): ValidationClass {
 		$this->entries->add($entry->getName(), $entry);
-
 		return $this;
 	}
 
@@ -81,14 +77,10 @@ final class ValidationClass
 	 * @param mixed $cofirmValue Data for confirmation
 	 * @return ValidationClass
 	 */
-	function addEmail(string $domname, $value, $cofirmValue): ValidationClass
-    {
+	function addEmail(string $domname, $value, $cofirmValue): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::Email2);
-
 		$entry->addRule(ValidationEntry::TypeConfirm, $confirmValue);
-
 		return $this->addEntry($domname, $entry);
 	}
 
@@ -99,10 +91,8 @@ final class ValidationClass
 	 * @param mixed $cofirmValue Data for confirmation
 	 * @return ValidationClass
 	 */
-	function addPassword(string $domname, $value, $cofirmValue): ValidationClass
-    {
+	function addPassword(string $domname, $value, $cofirmValue): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::TypeConfirm, $confirmValue);
 
 		return $this->addEntry($domname, $entry);
@@ -114,8 +104,7 @@ final class ValidationClass
 	* @param mixed $value The data for being validated
 	* @return ValidationClass
 	*/
-	function addRadio(string $domname, $value): ValidationClass
-    {
+	function addRadio(string $domname, $value): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
 
 		// TODO: Radios are for comparison with the data-source data
@@ -128,10 +117,8 @@ final class ValidationClass
 	* @param string $domname The index of the element (identifier)
 	* @return ValidationClass
 	*/
-	function addUrl(string $domname, $value): ValidationClass
-    {
+	function addUrl(string $domname, $value): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::URL);
 
 		return $this->addEntry($domname, $entry);
@@ -143,8 +130,7 @@ final class ValidationClass
 	* @param mixed $value The value of the entry for being validated
 	* @return ValidationClass
 	*/
-	function addSelect(string $domname, $value): ValidationClass
-    {
+	function addSelect(string $domname, $value): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
 
 		// TODO: expects data-source solution
@@ -159,12 +145,9 @@ final class ValidationClass
 	* @param int $maxLength The maximum length of the value
 	* @return ValidationClass
 	*/
-	function addNumeric(string $domname, $value, int $minLength = 0, int $maxLength = 0): ValidationClass
-    {
+	function addNumeric(string $domname, $value, int $minLength = 0, int $maxLength = 0): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::Digits);
-
 		$entry->addRule(ValidationEntry::RuleRange, [$minLength, $maxLength]);
 
 		return $this->addEntry($entry);
@@ -179,12 +162,9 @@ final class ValidationClass
 	* @param int $maxLength The maximum length of the value
 	* @return ValidationClass
 	*/
-	function addSimpleString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass
-    {
+	function addSimpleString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::SimpleString);
-
 		$entry->addRule(ValidationEntry::RuleRange, [$minLength, $maxLength]);
 
 		return $this->addEntry($entry);
@@ -198,12 +178,9 @@ final class ValidationClass
 	 * @param int $maxLength The maximum length of the value
 	 * @return ValidationClass
 	 */
-	function addNormalString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass
-    {
+	function addNormalString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::NormalString);
-
 		$entry->addRule(ValidationEntry::RuleRange, [$minLength, $maxLength]);
 
 		return $this->addEntry($entry);
@@ -219,12 +196,9 @@ final class ValidationClass
 	 * @param int $maxLength The maximum length of the value
 	 * @return ValidationClass
 	 */
-	function addFullString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass
-    {
+	function addFullString(string $domname, string $value, int $minLength = 0, int $maxLength = 0): ValidationClass {
 		$entry = new ValidationEntry($domname, $value);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, ValidationBase::FullString);
-
 		$entry->addRule(ValidationEntry::RuleRange, [$minLength, $maxLength]);
 
 		return $this->addEntry($entry);
@@ -236,8 +210,7 @@ final class ValidationClass
 	 * @param mixed $result The result of the operation
 	 * @return ValidationClass
 	 */
-	function addDataSource($domname, $result): ValidationClass
-    {
+	function addDataSource($domname, $result): ValidationClass {
 		return $this->entries->item($domname)->add(ValidationEntry::DataSource, $result);
 	}
 
@@ -247,10 +220,8 @@ final class ValidationClass
 	 * @param mixed $result The result of the operation
 	 * @return ValidationClass
 	 */
-	function addDate($domname, string $format, string $date): ValidationClass
-    {
+	function addDate($domname, string $format, string $date): ValidationClass {
 		$entry = new ValidationEntry($domname, $date);
-
 		$entry->addRule(ValidationEntry::RuleRegEx, $format);
 
 		return $this->addEntry($domname, $entry);
@@ -261,8 +232,7 @@ final class ValidationClass
 	 * @param mixed $value The value of the entry
 	 * @return ValidationClass
 	 */
-	function addValue($domname, $value): ValidationClass
-    {
+	function addValue($domname, $value): ValidationClass {
 		return $this->entries->item($domname)->add(ValidationEntry::EntryValue, $value);
 	}
 
@@ -271,30 +241,24 @@ final class ValidationClass
 	 * @return bool Returns true if validation passed ok, false
 	 * on opposite case
 	 */
-	function validate(): bool
-    {
+	function validate(): bool {
 	// TODO: validation algorithm
 	}
 
 	// Name
-	static function isName(string $name): bool
-    {
-		if (preg_match(ValidationBase::NAME, $name))
-		{
+	static function isName(string $name): bool {
+		if (preg_match(ValidationBase::NAME, $name)) {
 			return true;
 		}
 
 		return false;
 	}
 	// E-Mail
-	static function isEmail(string $email): bool
-    {
-		if (filter_var($email, FILTER_VALIDATE_EMAIL))
-		{
+	static function isEmail(string $email): bool {
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			return true;
 		}
-		elseif (preg_match(ValidationBase::EMAIL2, $email))
-        {
+		elseif (preg_match(ValidationBase::EMAIL2, $email)) {
 			return true;
 		}
 
@@ -307,16 +271,13 @@ final class ValidationClass
 	* @param string $int - string digits
 	* @return bool true in case of success, false in opposite case
 	*/
-	static function isNumeric(string $int): bool
-    {
+	static function isNumeric(string $int): bool {
 		return (preg_match('/\D+/', $int) ? false : true);
 	}
 
 	// Confirmation
-	static function isConfirmed(string $field1, string $field2): bool
-    {
-		if ($field1 === $field2)
-		{
+	static function isConfirmed(string $field1, string $field2): bool {
+		if ($field1 === $field2) {
 			return true;
 		}
 
@@ -324,27 +285,21 @@ final class ValidationClass
 	}
 
 	// E-Nickname
-	static function isNickname(string $nickname): bool
-    {
-		if (strlen($nickname) > 25 || strlen($nickname) < 4)
-		{
+	static function isNickname(string $nickname): bool {
+		if (strlen($nickname) > 25 || strlen($nickname) < 4) {
 			return false;
 		}
-		elseif (preg_match(ValidationBase::NICKNAME, $nickname))
-        {
+		elseif (preg_match(ValidationBase::NICKNAME, $nickname)) {
 			return false;
 		}
 	}
 
 	// Password
-	static function isPassword(string $password, int $min_length = 8, int $max_length = 16): bool
-    {
-		if (strlen($password) > $max_length || strlen($password) < $min_length)
-		{
+	static function isPassword(string $password, int $min_length = 8, int $max_length = 16): bool {
+		if (strlen($password) > $max_length || strlen($password) < $min_length) {
 			return false;
 		}
-		elseif (!preg_match(ValidationBase::PASSWORDCHARS, $password))
-        {
+		elseif (!preg_match(ValidationBase::PASSWORDCHARS, $password)) {
 			return false;
 		}
 
@@ -352,10 +307,8 @@ final class ValidationClass
 	}
 
 	// Mobile
-	static function isArmMobile(string $armMobileNumber): bool
-    {
-		if (preg_match('/[0-9]{6}/', $armMobileNumber))
-		{
+	static function isArmMobile(string $armMobileNumber): bool {
+		if (preg_match('/[0-9]{6}/', $armMobileNumber)) {
 			return true;
 		}
 
@@ -368,10 +321,8 @@ final class ValidationClass
 	* @param string $data Data that is going to be checked
 	* @return bool <b>TRUE</b> if is, <b>FALSE</b> on the opposite case
 	*/
-	static function isTitle(string $data): bool
-    {
-		if (preg_match(ValidationBase::TITLE, $data))
-		{
+	static function isTitle(string $data): bool {
+		if (preg_match(ValidationBase::TITLE, $data)) {
 			return true;
 		}
 
@@ -389,10 +340,8 @@ final class ValidationClass
 	* @return bool <b>TRUE</b> if os address, <b>FALSE</b> if not
 	*
 	*/
-	static function isAddress(string $data): bool
-    {
-		if (preg_match(ValidationBase::ADDRESS, $data))
-		{
+	static function isAddress(string $data): bool {
+		if (preg_match(ValidationBase::ADDRESS, $data)) {
 			return true;
 		}
 
@@ -400,10 +349,8 @@ final class ValidationClass
 	}
 
 	// Mobile phonenumber
-	static function isPhoneNumber(string $phoneNumber, int $minLength = 6, int $maxLength = 30): bool
-    {
-		if (preg_match(sprintf('/[0-9]{%s,%s}/', $minLength, $maxLength), $phoneNumber))
-		{
+	static function isPhoneNumber(string $phoneNumber, int $minLength = 6, int $maxLength = 30): bool {
+		if (preg_match(sprintf('/[0-9]{%s,%s}/', $minLength, $maxLength), $phoneNumber)) {
 			return false;
 		}
 
@@ -411,14 +358,12 @@ final class ValidationClass
 	}
 
 	// Amount of characters
-	static function amountOfCharacters(string $subject, int $_from, int $_to): bool
-    {
+	static function amountOfCharacters(string $subject, int $_from, int $_to): bool {
 		return boolval(preg_match("/.{" . $_from . "," . $_to . "}/s", $subject));
 	}
 
 	// Regex pattern based data checkout
-	static function isValid($data, $pattern): bool
-    {
+	static function isValid($data, $pattern): bool {
 		return (boolval(preg_match($pattern, $data))) ? true : false;
 	}
 
@@ -429,8 +374,7 @@ final class ValidationClass
 	* @param int $to End of the haystack
 	* @return bool if in the haystack true, otherwise false
 	*/
-	static function inRange(int $val, int $from, int $to): bool
-    {
+	static function inRange(int $val, int $from, int $to): bool {
 		return in_array($val, [$from, $to]);
 	}
 }

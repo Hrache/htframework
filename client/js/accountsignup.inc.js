@@ -15,14 +15,11 @@ if ($('#country_id') && $('#country_id').find('option').length <= 1)
 $('#byear').append(HracheJS.NumberRangeOptions(1940, (new Date()).getFullYear()));
 
 // New account submit
-$('#createaccount').click(function()
-{
-	$.post(SiteURL+'?account/signup',
-	{
+$('#createaccount').click(function() {
+	$.post(SiteURL+'?account/signup', {
 		signupform: $('#signupform').serializeArray()
 	},
-	function(d,ts,xhr)
-	{
+	function(d,ts,xhr) {
 		$('#modalcontent').html(d);
 
 		getById('modalwindow').style.display = 'block';
@@ -38,8 +35,7 @@ $('#createaccount').click(function()
  * @param string hiddenidu	The id of the DOM hidden tag
  * @return
  */
-function FormDate(dayidu, monthidu, yearidu, hiddenidu)
-{
+function FormDate(dayidu, monthidu, yearidu, hiddenidu) {
 	this.dayid = dayidu;
 	this.monthid = monthidu;
 	this.yearid = yearidu;
@@ -58,17 +54,13 @@ function FormDate(dayidu, monthidu, yearidu, hiddenidu)
 	var day = null;
 	var month = null;
 
-	function hiddenValue()
-	{
-		switch (format)
-		{
-			case (0):
-			{
+	function hiddenValue() {
+		switch (format) {
+			case (0): {
 				date = year +delimiter+ month +delimiter+ day;
 				break;
 			}
-			case (1):
-			{
+			case (1): {
 				date = day +delimiter+ month +delimiter+ year;
 				break;
 			}
@@ -82,10 +74,8 @@ function FormDate(dayidu, monthidu, yearidu, hiddenidu)
 		$('#'+this.hiddenid).val(date);
 	}
 
-	function setFormat(format)
-	{
-		if ('012'.search(parseInt(format)))
-		{
+	function setFormat(format) {
+		if ('012'.search(parseInt(format))) {
 			format = format;
 		}
 
@@ -109,19 +99,16 @@ function FormDate(dayidu, monthidu, yearidu, hiddenidu)
 	};
 }
 
-var fdate = new FormDate('bday', 'bmonth', 'byear', '<?= Accounts::birthday ?>');
+var fdate = new FormDate('bday', 'bmonth', 'byear', '<?= Accounts::birthday?>');
 
-$('#'+fdate.dayid).change(function()
-{
+$('#'+fdate.dayid).change(function() {
 	fdate.newDate();
 });
 
-$('#'+fdate.monthid).change(function()
-{
+$('#'+fdate.monthid).change(function() {
 	fdate.newDate();
 });
 
-$('#'+fdate.yearid).change(function()
-{
+$('#'+fdate.yearid).change(function() {
 	fdate.newDate();
 });

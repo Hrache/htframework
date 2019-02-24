@@ -1,6 +1,5 @@
 <?php
-final class MSSQLTableClass
-{
+final class MSSQLTableClass {
 	const TABLE_CATALOG = 'TABLE_CATALOG';
 	const TABLE_SCHEMA = 'TABLE_SCHEMA';
 	const TABLE_NAME = 'TABLE_NAME';

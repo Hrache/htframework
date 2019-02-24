@@ -98,6 +98,7 @@ function createmenu(array $menulinks, array $attr) {
 		if (isset($link['display']) && !$link ['display']) {
 			continue;
 		}
+
 		if (!isset($attr["menu-item"])) {
 			$attr ["menu-item"] = '';
 		}

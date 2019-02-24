@@ -1,6 +1,5 @@
 <?php
-class MySQLTable
-{
+class MySQLTable {
 	// @property string $name - name of the table
 	private $name;
 
@@ -12,14 +11,11 @@ class MySQLTable
 	* @param string $name  name of the table
 	* @param array $fields array of stdClass elements within field info
 	**/
-	function __construct(string $name, array $fields)
-	{
+	function __construct(string $name, array $fields) {
 		$this->name = $name;
 
-		foreach($fields as $i => $field)
-		{
-			if (!is_object($field))
-			{
+		foreach($fields as $i => $field) {
+			if (!is_object($field)) {
 				continue;
 			}
 
@@ -27,18 +23,15 @@ class MySQLTable
 		}
 	}
 
-	public function __get($name)
-	{
+	public function __get($name) {
 		return $this->$name;
 	}
 
-	public function __set($name, $value)
-	{
+	public function __set($name, $value) {
 		$this->$name = $value;
 	}
 
-	public function field(string $name): stdClass
-	{
+	public function field(string $name): stdClass {
 		return (isset($this->fields[$name])? $this->fields[$name] : new stdClass());
 	}
 }

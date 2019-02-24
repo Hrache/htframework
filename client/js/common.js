@@ -1,33 +1,34 @@
 /**
-	* Function creates HTML Option DOM element and returns it
-	* @param value
-	* @param content
-	* @return DOM Object
-	*/
-function html_option(value, content)
-{
+ * Function creates HTML Option DOM element and returns it
+ * @param value
+ * @param content
+ * @return DOM Object
+ */
+function html_option(value, content) {
 	return $('<option value="'+value+'">'+content+'</option>');
 }
 
-function randtext(selector, length)
-{
+/**
+ * Generates random text
+ * @param {string} jQuery selector
+ * @param {int} length The length of the random text
+ * @returns {void} Writes data into the given element/s by the given selector
+ */
+function randtext(selector, length) {
 	length = (length < 1)? 25 : length;
 
-	$(selector).each(function()
-	{
+	$(selector).each(function()	{
 		$(this).val(rword(Math.round(Math.random() * length)));
 	});
 }
 
 /**
- * Description of responsive_parameters
- * automatically adopted the dimensions of the DOM block element to the screen
+ * Automatically adopted the dimensions of the DOM block element to the screen
  * @param bool margin affects the left margin of the block object
  * @param bool width  affects the width of the block object
  * @returns array | string both margin & width | separately
  */
-_responsive = function(margin, width)
-{
+_responsive = function(margin, width) {
 	var screenWidth = parseInt($('body').width());
 
 	var result =
@@ -39,27 +40,22 @@ _responsive = function(margin, width)
 	result ['width'] = '';
 	result ['margin-left'] = '';
 
-	if (screenWidth > 1280)
-	{
+	if (screenWidth > 1280)	{
 		result ['width'] = '960px';
 		result ['margin-left'] = ((screenWidth - 1024) / 2) + 'px';
 	}
-	else if (screenWidth > 1024)
-	{
+	else if (screenWidth > 1024) {
 		result ['width'] = '800px';
 		result ['margin-left'] = ((screenWidth - 800) / 2) + 'px';
 	}
 
-	if (width && margin)
-	{
+	if (width && margin) {
 		return (result);
 	}
-	else if (width)
-	{
+	else if (width)	{
 		return result['width'];
 	}
-	else if (margin)
-	{
+	else if (margin) {
 		return result['margin-left'];
 	}
 };
@@ -69,25 +65,19 @@ _responsive = function(margin, width)
  * @param string selector Wrapper of the button
  * @return void
  */
-hiddenToButton = function(selector)
-{
-	$(selector+'>span').each(function()
-	{
-		$(this).hover(function()
-		{
+hiddenToButton = function(selector) {
+	$(selector+'>span').each(function() {
+		$(this).hover(function() {
 			$(this).css('text-decoration', 'underline');
-		}, function()
-		{
+		},
+		function() {
 			$(this).css('text-decoration', 'none');
 		})
-		.click(function()
-		{
+		.click(function() {
 			var valOfHidden = $(this).children(':input[type="hidden"]:first').val();
 
-			switch (valOfHidden)
-			{
-				case ("0"):
-				{
+			switch (valOfHidden) {
+				case ("0"): {
 					$(this).css(
 					{
 						'background-color': 'brown',

@@ -1,8 +1,6 @@
 <?php
-final class GlobalInit
-{
-	function __construct()
-	{
+final class GlobalInit {
+	function __construct() {
 		define('ds', DIRECTORY_SEPARATOR);
 		define('ps', PATH_SEPARATOR);
 
@@ -23,16 +21,13 @@ final class GlobalInit
 		 */
 		define('Async', 'async');
 
-		try
-		{
+		try {
 			require_once(realpath(MVC.'/scripts/init.php'));
 		}
-		catch (Exception $e)
-		{
+		catch (Exception $e) {
 			require_once(Project.'error.php');
 		}
-		catch (ErrorHandler $e)
-		{
+		catch (ErrorHandler $e) {
 			require_once(Project.'error.php');
 		}
 	}

@@ -138,26 +138,31 @@ if (array_search('core.php', scandir($lib))) {
 
 		$data = new ArrayClass();
 
+		// access/return by the given key
 		function __($key) {
 			global $data;
 			return $data->item($key);
 		}
 
+		// add by value
 		function _di($key, $val) {
 			global $data;
 			$data->add($key, $val);
 		}
 
+		// add by reference
 		function _d8($key, &$val) {
 			global $data;
 			$data->add($key, $val);
 		}
 
+		// remove by the given key
 		function _dx($key) {
 			global $data;
 			$data->del($key);
 		}
 
+		// check existance
 		function _db($key) {
 			global $data;
 			return boolval($data->item($key));
@@ -262,12 +267,10 @@ function html_list(array $attrs = [], array $data_items) {
  * @return string text data which consists of HTML options within value and text
  *
  */
-function html_dropdown_items(array $data, int $offsetOfSelected): string
-{
+function html_dropdown_items(array $data, int $offsetOfSelected): string {
 	$_options = '';
 
-	for ($i = 1; $i <= count($data); $i++)
-	{
+	for ($i = 1; $i <= count($data); $i++) {
 		$_options .= html_option($data[$i-1], $i, ($i == intval($offsetOfSelected)) ? true : false);
 	}
 
@@ -279,15 +282,13 @@ function html_dropdown_items(array $data, int $offsetOfSelected): string
  * @param mixed ...$args Any type or quantity of data
  * @return void Prints out the arguments
  */
-function oog(...$args)
-{
+function oog(...$args) {
 	printf('<div class="w3-alert">%s<br/>%s</div>', date("h:m:s  d D M Y"), print_r($args, true));
 
 	exit();
 }
 
-function _phpeol()
-{
+function _phpeol() {
 	echo PHP_EOL;
 }
 
