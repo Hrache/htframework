@@ -42,6 +42,6 @@ abstract class PageMethods {
 	/**
 		*
 		*/
-	public function jqueryready()	{}
+	public function jqueryready() {}
 }
 ?>

@@ -1,6 +1,5 @@
 <?php
-class DOMFormElementClass extends DOMElementClass
-{
+class DOMFormElementClass extends DOMElementClass {
 	const input_text = 'text';
 	const input_password = 'password';
 	const input_file = 'file';
@@ -15,27 +14,23 @@ class DOMFormElementClass extends DOMElementClass
 	private $caption = '';
 	private $desc = '';
 	private $specs = '';
+	function __construct(string $type, string $name, string $value, string $error = '', string $caption = '', string $desc = '', string $specs = '') {
+		switch ($type) {
+			case (parent::form_select): {
+				$this->setClosed(true);
 
-	function __construct(string $type, string $name, string $value, string $error = '', string $caption = '', string $desc = '', string $specs = '')
-	{
-		switch ($type)
-		{
-			case (parent::form_select):
-			{
-				$this->setClosed(true);
 				$this->setTag(parent::form_select);
+
 				break;
 			}
-			case (parent::form_textarea):
-			{
+			case (parent::form_textarea): {
 				$this->setTag(parent::form_textarea);
+
 				$this->setClosed(true);
+
 				break;
 			}
-			default:
-			{
-				$this->setTag(parent::form_input);
-			}
+			default:  $this->setTag(parent::form_input);
 		}
 
 		$this->type = $type;
@@ -50,53 +45,43 @@ class DOMFormElementClass extends DOMElementClass
 		parent::__construct($this->getTag (), '', $this->getClosed());
 	}
 
-	function getAttributes()
-	{
+	function getAttributes() {
 		return $this->attributes;
 	}
 
-	function getError()
-	{
+	function getError() {
 		return $this->error;
 	}
 
-	function getCaption()
-	{
+	function getCaption() {
 		return $this->caption;
 	}
 
-	function getDesc()
-	{
+	function getDesc() {
 		return $this->desc;
 	}
 
-	function getSpecs()
-	{
+	function getSpecs() {
 		return $this->specs;
 	}
 
-	function setAttributes($attributes)
-	{
+	function setAttributes($attributes) {
 		$this->attributes = $attributes;
 	}
 
-	function setError($error)
-	{
+	function setError($error) {
 		$this->error = $error;
 	}
 
-	function setCaption($caption)
-	{
+	function setCaption($caption) {
 		$this->caption = $caption;
 	}
 
-	function setDesc($desc)
-	{
+	function setDesc($desc) {
 		$this->desc = $desc;
 	}
 
-	function setSpecs($specs)
-	{
+	function setSpecs($specs) {
 		$this->specs = $specs;
 	}
 }

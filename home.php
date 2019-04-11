@@ -2,6 +2,7 @@
 class PageClass extends PageMethods {
 	function __construct() {
 		__('language')->append('home');
+
 		__('page')->setTitle(_abc('commonpagetitle'));
 	}
 

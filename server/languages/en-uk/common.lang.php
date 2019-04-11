@@ -1,6 +1,7 @@
 <?php
 return ([
-	'commonpagetitle' => 'Armcarshop',
+	// There will be english variant of the name of the website
+	'commonpagetitle' => 'Hrache Framework',
 	'home' => 'Home',
 	'search' => 'Search',
 	'account' => 'Account',

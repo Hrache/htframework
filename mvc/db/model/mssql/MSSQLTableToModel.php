@@ -11,26 +11,19 @@ class MSSQLTableToModel {
 		// SHOW ALL TABLES
 		$tables_qr = $sqlcon->query("SELECT [TABLE_NAME] FROM [armcarshop].[INFORMATION_SCHEMA].[TABLES] WHERE [TABLE_NAME]<>'sysdiagrams';");
 		$tables_qr = $tables_qr->fetchAll(PDO::FETCH_ASSOC);
-
 		while ($tables_qr) {
 			$name = array_shift($tables_qr)['TABLE_NAME'];
-
-			if ($tables && !in_array($name, $tables)) {
-				continue;
-			}
+			if ($tables && !in_array($name, $tables))continue;
 
 			$desc_qr = $sqlcon->query(sprintf("SELECT [COLUMN_NAME], [IS_NULLABLE], [DATA_TYPE], [CHARACTER_MAXIMUM_LENGTH], [COLUMN_DEFAULT], [CHARACTER_SET_NAME] FROM [armcarshop].[INFORMATION_SCHEMA].[COLUMNS] where [TABLE_NAME]='%s';", $name));
 			$desc_qr = $desc_qr->fetchAll(PDO::FETCH_ASSOC);
-
-			if (!is_array($desc_qr)) {
-				continue;
-			}
+			if (!is_array($desc_qr)) continue;
 
 			$modelInheritance = self::modelInheritance(ucfirst($name));
 			$properties = self::createProperties($desc_qr);
 			$content = self::modelFinalizer($name, $modelInheritance, $properties);
-
 			self::varnameDesigner($name);
+
 			self::renderModelFile($filePath . DIRECTORY_SEPARATOR . $name . 'Model.php', $content);
 		}
 
@@ -48,7 +41,6 @@ class MSSQLTableToModel {
 	static function createProperties(array $tbl_desc): string {
 		$tableColumns = (new ReflectionClass('MSSQLTableClass'))->getConstants();
 		$columns = [];
-
 		while ($tbl_desc) {
 			$desc = array_shift($tbl_desc);
 			$colname = $desc[MSSQLTableClass::COLUMN_NAME];
@@ -69,12 +61,10 @@ class MSSQLTableToModel {
 	 */
 	static function modelInheritance(string $nameOfTheTable, string $extends = '', string $implements = ''): string {
 		$nameOfTheTable .= 'Model';
-
 		self::varnameDesigner($nameOfTheTable);
 
 		$extends = $extends ? 'extends ' . $extends : '';
 		$implements = (!$extends && $implements) ? ' implements ' . $implements : ' ';
-
 		return sprintf('class %s%s%s', $nameOfTheTable, $extends, $implements);
 	}
 
@@ -87,7 +77,6 @@ class MSSQLTableToModel {
 	 */
 	static function varnameDesigner(string &$varName): void {
 		$varName = explode('_', $varName);
-
 		array_walk($varName, function (&$val, $key) {
 			$val = ucfirst($val);
 		});
@@ -125,10 +114,7 @@ EOD;
 	 */
 	static function renderModelFile(string $path, $content = ''): void {
 		$fres = fopen($path, 'w', false);
-
-		if (fclose($fres)) {
-			file_put_contents($path, $content);
-		}
+		if (fclose($fres)) file_put_contents($path, $content);
 	}
 
 	/**
@@ -137,7 +123,6 @@ EOD;
 	 */
 	static function fieldType(string $id = '') {
 		$mssqlType = [];
-
 		return ($id && isset($mssqlType[$id]))? $mssqlType[$id]: $mssqlType;
 	}
 

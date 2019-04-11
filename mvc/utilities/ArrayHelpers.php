@@ -13,11 +13,8 @@ class ArrayHelpers {
 	 * @param int | string any quantity of indexes that are desired to be removed
 	 **/
 	function deleteByIds(...$ids): ArrayHelpers {
-		foreach ($ids as $item) {
-			if (isset($this->_array[$item])) {
-				unset($this->_array[$item]);
-			}
-		}
+		foreach ($ids as $item)
+			if (isset($this->_array[$item])) unset($this->_array[$item]);
 
 		return $this;
 	}
@@ -43,12 +40,8 @@ class ArrayHelpers {
 	}
 
 	function append($index = null, $value): ArrayHelpers {
-		if (is_null($index)) {
-			$this->_array[] = $value;
-		}
-		else {
-			$this->_array[$index] = $value;
-		}
+		if (is_null($index)) $this->_array[] = $value;
+		else $this->_array[$index] = $value;
 
 		return $this;
 	}
@@ -73,14 +66,9 @@ class ArrayHelpers {
 	 **/
 	static function isLast(array $ar, $keyOrValue): bool {
 		$arrayLength = count($ar);
+		if (intval($keyOrValue) === $arrayLength - 1) return true;
 
-		if (intval($keyOrValue) === $arrayLength - 1) {
-			return true;
-		}
-
-		if ($ar[$arrayLength - 1] === $keyOrValue) {
-			return true;
-		}
+		if ($ar[$arrayLength - 1] === $keyOrValue) return true;
 
 		return false;
 	}

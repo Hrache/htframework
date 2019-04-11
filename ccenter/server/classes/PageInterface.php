@@ -3,8 +3,7 @@
  * Interface for pages
  * @author Max Pyger
  */
-interface PageInterface
-{
+interface PageInterface {
 	function meta();
 
 	function resources();

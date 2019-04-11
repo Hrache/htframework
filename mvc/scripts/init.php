@@ -49,17 +49,17 @@ $page = new PageBase(
 	$settings->getSetting(SettingsClass::PagefileExt)
 );
 
-# Preload
+// Preload
 if ($settings->getSetting(SettingsClass::PreLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PreLoad));
 }
 
-# Snippets Module
+// Snippets Module
 if ($settings->getSetting(SettingsClass::SnippetsModule)) {
 	$page->activateSnippets(Snippets, $settings->getSetting(SettingsClass::DefaultAction));
 }
 
-# Database Module
+// Database Module
 if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc) {
 	$dbroot = new DatabaseClass(
 		$settings->getSetting(SettingsClass::DatabaseModule)->item($settings->getSetting(SettingsClass::DefaultDatabase)),
@@ -67,14 +67,14 @@ if ($settings->getSetting(SettingsClass::DatabaseModule) instanceof arrayc) {
 	);
 }
 
-# Language Module
+// Language Module
 if ($settings->getSetting(SettingsClass::LanguageModule)) {
 	lib_load('language');
 
-	# Predefined constant "Lang"
+	// Predefined constant "Lang"
 	define('Lang', ArrayClass::nonEmpty($request->getItem('lang'), $session->getCookie('lang'), $settings->getSetting(SettingsClass::DefaultLang)));
 
-	# Predefined constant "LangDir"
+	// Predefined constant "LangDir"
 	define('LangDir', Languages.Lang.DIRECTORY_SEPARATOR);
 
 	$session->setCookie('lang', Lang);
@@ -87,19 +87,19 @@ if ($settings->getSetting(SettingsClass::LanguageModule)) {
 	$language->append('system');
 }
 
-# settings
+// settings
 _d8('settings', $settings);
 
-# session
+// session
 _d8('session', $session);
 
-# page
+// page
 _d8('page', $page);
 
-# dbroot
+// dbroot
 _d8('dbroot', $dbroot);
 
-# database - Database connection
+// database - Database connection
 if (__('dbroot') instanceof DatabaseClass) {
 	_di('database', __('dbroot')->connect());
 }
@@ -114,12 +114,12 @@ if ($settings->getSetting(SettingsClass::PostLoad)) {
 	require_once(Server.$settings->getSetting(SettingsClass::PostLoad));
 }
 
-# Calling the pagefile
+// Calling the pagefile
 $page->setPagesDirectory(Project)->includePagefile();
 
 $cpage = new PageClass();
 
-# cpage - current page
+// cpage - current page
 _d8('cpage', $cpage);
 
 // render

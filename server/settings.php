@@ -18,7 +18,6 @@ class FinalSettings extends SettingsClass {
 			SettingsClass::PreLoad => 'preload.php',
 			SettingsClass::PostLoad => 'postload.php',
 			SettingsClass::SessionModule => new arrayc([
-				// 'id' => md5 ('HracheToomasyan'),
 				'start_options' => [
 					'cookie_lifetime' => 7200
 				]

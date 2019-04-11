@@ -6,16 +6,10 @@ class StaticAClass {
 	 * @param array &$array
 	 */
 	static function add($key, $value, array &$array) {
-		if (is_array($key)) {
-			eval(ArrayClass::keyIndexCode('array', $key).'=$value;');
-		}
+		if (is_array($key)) eval(ArrayClass::keyIndexCode('array', $key).'=$value;');
 		else {
-			if ($key) {
-				$array[$key] = $value;
-			}
-			else {
-				$array[] = $value;
-			}
+			if ($key) $array[$key] = $value;
+			else $array[] = $value;
 		}
 	}
 
@@ -26,20 +20,14 @@ class StaticAClass {
 	static function del($keys, array &$array) {
 		while ($keys) {
 			$k = array_shift($keys);
-
 			if (is_array($k)) {
 				$isset = false;
 				$code = ArrayClass::keyIndexCode('array', $k);
-
 				eval('$isset=isset('.$code.');');
 
-				if ($isset) {
-					eval('unset('.$code.');');
-				}
+				if ($isset) eval('unset('.$code.');');
 			}
-			elseif (isset($array[$k])) {
-				unset($array[$k]);
-			}
+			elseif (isset($array[$k])) unset($array[$k]);
 		}
 	}
 
@@ -51,7 +39,6 @@ class StaticAClass {
 		if (is_array($index)) {
 			$isset = false;
 			$code = ArrayClass::keyIndexCode('array', $index);
-
 			eval('$isset=isset('.$code.');');
 
 			if ($isset) {
@@ -60,9 +47,7 @@ class StaticAClass {
 				return $code;
 			}
 		}
-		elseif (isset($array[$index])) {
-			return $array[$index];
-		}
+		elseif (isset($array[$index])) return $array[$index];
 	}
 }
 
@@ -83,9 +68,7 @@ class ArrayClass {
 	}
 
 	function __destruct() {
-		if ($this->length(0)) {
-			unset($this->input);
-		}
+		if ($this->length(0)) unset($this->input);
 	}
 
 	function &getByRInput() {
@@ -99,10 +82,8 @@ class ArrayClass {
 		*/
 	static function keyIndexCode(string $nameOfTheArray, array $key): string {
 		$__ = '';
-
 		while($key) {
 			$k = array_shift($key);
-
 			if (is_array($k)) {
 				$key = $k;
 				$__ = '';
@@ -127,7 +108,6 @@ class ArrayClass {
 	 */
 	function pop(): ArrayElement {
 		$key = array_pop(array_keys($this->input));
-
 		return new ArrayElement($key, array_pop($this->input));
 	}
 
@@ -139,21 +119,17 @@ class ArrayClass {
 	function grab(...$key): ArrayElement {
 		$isset = false;
 		$code = $this->keyIndexCode('this->input', $key);
-
 		eval('$isset = isset('.$code.');');
 
 		if ($isset) {
 			eval('$code='.$code.';');
 
 			$aCopy = new ArrayElement(null, $code);
-
 			$this->del($key);
 
 			return $aCopy;
 		}
-		else {
-			return null;
-		}
+		else return null;
 	}
 
 	/**
@@ -165,7 +141,6 @@ class ArrayClass {
 	function pull(bool $obj = true) {
 		$i = array_keys($this->input);
 		$key = array_shift($i);
-
 		unset($i);
 
 		return($obj? new ArrayElement($key, array_shift($this->input)): [$key => array_shift($this->input)]);
@@ -192,11 +167,8 @@ class ArrayClass {
 	function item(...$index) {
 		if ($index) {
 			$len = 0;
-
 			while ($len < count($index)) {
-				if (is_array($index[$len])) {
-					$index = $index[$len];
-				}
+				if (is_array($index[$len])) $index = $index[$len];
 
 				$len++;
 			}
@@ -206,7 +178,6 @@ class ArrayClass {
 
 		$isset = false;
 		$code = $this->keyIndexCode('this->input', $index);
-
 		eval('$isset=isset('.$code.');');
 
 		if ($isset) {
@@ -226,20 +197,10 @@ class ArrayClass {
 	 * @return ArrayClass The same instance of the object for future
 	 * chaining of the methods
 	 */
-	function add($key, $value): ArrayClass
-	{
-		if (is_array($key))
-		{
-			eval($this->keyIndexCode('this->input', $key).'=$value;');
-		}
-		elseif ($key || $key === 0)
-		{
-			$this->input[$key] = $value;
-		}
-		else
-		{
-			$this->input[] = $value;
-		}
+	function add($key, $value): ArrayClass {
+		if (is_array($key)) eval($this->keyIndexCode('this->input', $key).'=$value;');
+		elseif ($key || $key === 0) $this->input[$key] = $value;
+		else $this->input[] = $value;
 
 		return $this;
 	}
@@ -254,52 +215,36 @@ class ArrayClass {
 	 * @return ArrayClass The same instance of the object for future
 	 * chaining of the methods
 	 */
-	function del(...$keys): ArrayClass
-	{
-		while ($keys)
-		{
+	function del(...$keys): ArrayClass {
+		while ($keys) {
 			$k = array_shift($keys);
-
-			if (is_array($k))
-			{
+			if (is_array($k)) {
 				$isset = false;
 				$code = $this->keyIndexCode('this->input', $k);
-
 				eval('$isset = isset('.$code.');');
 
-				if ($isset)
-				{
-					eval('unset('.$code.');');
-				}
+				if ($isset) eval('unset('.$code.');');
 			}
-			elseif (isset($this->input[$k]))
-			{
-				unset($this->input[$k]);
-			}
+			elseif (isset($this->input[$k])) unset($this->input[$k]);
 		}
 
 		return $this;
 	}
 
-	function replaceArray(array $newArray): ArrayClass
-	{
+	function replaceArray(array $newArray): ArrayClass {
 		$this->input = $newArray;
-
 		return $this;
 	}
 
-	function eachItem(callable $function = null): bool
-	{
+	function eachItem(callable $function = null): bool {
 		return array_walk_recursive($this->input, $function);
 	}
 
-	function inputArray(bool $stdClass = false)
-	{
+	function inputArray(bool $stdClass = false) {
 		return $stdClass? (object) $this->input : $this->input;
 	}
 
-	function dump(bool $exit = false): ArrayClass
-	{
+	function dump(bool $exit = false): ArrayClass {
 		printf('<pre>%s</pre>' . PHP_EOL, print_r($this->input, true));
 
 		!$exit || die();
@@ -313,11 +258,9 @@ class ArrayClass {
 	 * the element in the array
 	 * @return bool TURE if exists, FALSE if not
 	 */
-	function exists(...$keys): bool
-	{
+	function exists(...$keys): bool {
 		$code = $this->keyIndexCode('this->input', $keys);
 		$isset = false;
-
 		eval('$isset = isset('.$code.');');
 
 		return $isset;
@@ -331,18 +274,10 @@ class ArrayClass {
 	 * argument different than null, return 1 or 0 by depending on
 	 * the result of the comparison
 	 */
-	function length(int $equals = -1): int
-	{
-		switch ($equals)
-		{
-			case (-1):
-			{
-				return count($this->input);
-			}
-			default:
-			{
-				return ((count($this->input) === $equals) ? 1 : 0);
-			}
+	function length(int $equals = -1): int {
+		switch ($equals)		{
+			case (-1): return count($this->input);
+			default: return ((count($this->input) === $equals) ? 1 : 0);
 		}
 	}
 
@@ -351,18 +286,11 @@ class ArrayClass {
 	 * @param mixed user desired random arguments for being processed
 	 * @return mixed
 	 */
-	static function nonEmpty()
-	{
+	static function nonEmpty() {
 		$ar = array_unique(func_get_args());
-
-		while ($ar)
-		{
+		while ($ar) {
 			$i = array_shift($ar);
-
-			if ($i)
-			{
-				return $i;
-			}
+			if ($i) return $i;
 		}
 
 		return '';
@@ -372,8 +300,7 @@ class ArrayClass {
 	 * Returns JSON encoded variant of the input array
 	 * @return string - JSON string of the input array
 	 */
-	function json(): string
-	{
+	function json(): string {
 		return json_encode($this->input);
 	}
 
@@ -382,13 +309,11 @@ class ArrayClass {
 	 * checks whether the array is empty or no
 	 * @return bool if empty true else false
 	 */
-	function isEmpty(): bool
-	{
+	function isEmpty(): bool {
 		return boolval($this->length(0));
 	}
 
-	function iterate()
-	{
+	function iterate() {
 		self::arrayDepthIterator($this->input);
 	}
 }

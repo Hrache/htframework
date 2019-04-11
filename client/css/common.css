@@ -27,3 +27,11 @@ a {
 	background-color: green;
 	color:white;
 }
+
+.display-block {
+	display: block;
+}
+
+.display-none {
+	display: none;
+}

@@ -7,25 +7,15 @@ class ImageToolsClass {
 	private $imageInfo = null;
 	const img_scale = 0;
 	const img_convert = 1;
-
 	function __construct(string $imageStore, string $savedir = '') {
-		if (!is_dir($imageStore)) {
-			throw new ExceptionClass(get_class($this), 20);
-		}
+		if (!is_dir($imageStore)) throw new ExceptionClass(get_class($this), 20);
 
 		$this->path = $imageStore;
-
-		if (boolval($savedir)) {
-			if (!is_dir($savedir)) {
-				$this->savedir = $this->path . $savedir . DIRECTORY_SEPARATOR;
-			}
-			else {
-				$this->savedir = $savedir;
-			}
+		if ($savedir) {
+			if (!is_dir($savedir)) $this->savedir = $this->path . $savedir . DIRECTORY_SEPARATOR;
+			else $this->savedir = $savedir;
 		}
-		else {
-			$this->savedir = $this->path. 'images_'. uniqid(). DIRECTORY_SEPARATOR;
-		}
+		else $this->savedir = $this->path. 'images_'. uniqid(). DIRECTORY_SEPARATOR;
 	}
 
 	/**
@@ -41,21 +31,11 @@ class ImageToolsClass {
  
 	public static function initResourceStatic (string $filePath) {
 		switch (exif_imagetype($filePath)) {
-			case (IMAGETYPE_WBMP): {
-				return imagecreatefromwbmp($filePath);
-			}
-			case (IMAGETYPE_PNG): {
-				return imagecreatefrompng($filePath);
-			}
-			case (IMAGETYPE_GIF): {
-				return imagecreatefromgif($filePath);
-			}
-			case (IMAGETYPE_JPEG): {
-				return imagecreatefromjpeg($filePath);
-			}
-			default: {
-				return false;
-			}
+			case (IMAGETYPE_WBMP): return imagecreatefromwbmp($filePath);
+			case (IMAGETYPE_PNG): return imagecreatefrompng($filePath);
+			case (IMAGETYPE_GIF): return imagecreatefromgif($filePath);
+			case (IMAGETYPE_JPEG): return imagecreatefromjpeg($filePath);
+			default: return false;
 		}
 	}
 	/**
@@ -70,33 +50,25 @@ class ImageToolsClass {
 	public function singleResize ( int $width = 0, int $height = 0, $quality = 75, bool $overwrite = true): bool {
 		$this->imageinfo = new ImageInfoClass ( $this->path);
 		if (!$overwrite) {
-			if (!is_dir($this->savedir)) {
-				@mkdir($this->savedir);
-			}
+			if (!is_dir($this->savedir)) @mkdir($this->savedir);
 
 			$filename = $this->imageinfo->getFilename();
-			@copy ( $this->path, $this->savedir . $filename);
+			@copy($this->path, $this->savedir . $filename);
+
 			$this->path = $this->savedir . $filename;
-			unset ( $filename);
+			unset($filename);
 		}
 
 		$this->modifiedfiles[] = $this->path;
 		$this->initResource();
-		
-		if ($height == 0) {
-			$this->gdimage = imagescale($this->gdimage, $width);
-		}
-		elseif ($width == 0) {
-			$this->gdimage = imagescale($this->gdimage, 0, $height);
-		}
-		elseif ($height == 0 && $width == 0) {
-			return false;
-		}
-		else {
-			$this->gdimage = imagescale($this->gdimage, $width, $height);
-		}
+
+		if ($height == 0) $this->gdimage = imagescale($this->gdimage, $width);
+		elseif ($width == 0) $this->gdimage = imagescale($this->gdimage, 0, $height);
+		elseif ($height == 0 && $width == 0) return false;
+		else $this->gdimage = imagescale($this->gdimage, $width, $height);
 
 		$this->render();
+
 		return true;
 	}
 
@@ -111,13 +83,13 @@ class ImageToolsClass {
 	public function multipleResize ( int $width = 0, int $height = 0, $quality = null, bool $overwrite = true): ImageToolsClass {
 		$old_path = $this->path;
 		$_dir = scandir_c($this->path);
-
-		foreach ( $_dir as $ind => $name) {
+		foreach ($_dir as $ind => $name) {
 			$this->path = $old_path . $name;
-			$this->singleResize ( $width, $height, $quality, $overwrite);
+			$this->singleResize($width, $height, $quality, $overwrite);
 		}
 
 		unset($old_path, $_dir);
+
 		return $this;
 	}
 	/**
@@ -133,35 +105,20 @@ class ImageToolsClass {
 	 **/
 	public static function convertStatic ( string &$path, int $imgtype_const) {
 		$imagers = false;
-
-		if ( is_null ( $imagers = self::initResourceStatic ( $path))) {
-			return false;
-		}
+		if (is_null($imagers = self::initResourceStatic($path))) return false;
 
 		$newPath = dirname($path) . DIRECTORY_SEPARATOR . uniqid() . image_type_to_extension($imgtype_const, true);
-
 		switch ($imgtype_const) {
-	 		case (IMAGETYPE_BMP): {
-				imagebmp ($imagers, $newPath); break;
-			}
-			case (IMAGETYPE_PNG): {
-				imagepng ( $imagers, $newPath); break;
-			}
-			case ( IMAGETYPE_GIF): {
-				imagegif ( $imagers, $newPath); break;
-			}
-			case (IMAGETYPE_WBMP): {
-				imagewbmp ($imagers, $newPath); break;
-			}
-			case (IMAGETYPE_JPEG): {
-				imagejpeg ($imagers, $newPath); break;
-			}
-			default: {
-				return false;
-			}
+			case (IMAGETYPE_BMP): imagebmp ($imagers, $newPath); break;
+			case (IMAGETYPE_PNG): imagepng ( $imagers, $newPath); break;
+			case ( IMAGETYPE_GIF): imagegif ( $imagers, $newPath); break;
+			case (IMAGETYPE_WBMP): imagewbmp ($imagers, $newPath); break;
+			case (IMAGETYPE_JPEG): imagejpeg ($imagers, $newPath); break;
+			default: return false;
 		}
 
 		unlink($path);
+
 		$path = $newPath;
 	}
 
@@ -185,9 +142,7 @@ class ImageToolsClass {
 	* @return void
 	**/
 	public function multipleConvert ( string $imageInfoClassMimeType) {
-		foreach ($this->modifiedfiles as $i => $path) {
-			self::convertStatic ( $this->modifiedfiles[$i], $imageInfoClassMimeType);
-		}
+		foreach ($this->modifiedfiles as $i => $path) self::convertStatic ( $this->modifiedfiles[$i], $imageInfoClassMimeType);
 	}
 
 	/**
@@ -201,29 +156,15 @@ class ImageToolsClass {
 	 * @return void
 	 **/
 	private function render ( string $filepath = '') {
-		if ( ! empty ( $filepath)) {
-			$this->path = $filepath;
-		}
+		if (! empty($filepath)) $this->path = $filepath;
 
-		switch ( exif_imagetype ( $this->path)) {
-			case ( IMAGETYPE_PNG): {
-				imagepng ( $this->gdimage, $this->path); break;
-			}
-			case ( IMAGETYPE_WBMP): {
-				imagewbmp ( $this->gdimage, $this->path); break;
-			}
-			case ( IMAGETYPE_GIF): {
-				imagegif ( $this->gdimage, $this->path); break;
-			}
-			case ( IMAGETYPE_JPEG): {
-				imagejpeg ( $this->gdimage, $this->path); break;
-			}
-			case ( IMAGETYPE_BMP): {
-				imagebmp ( $this->gdimage, $this->path); break;
-			}
-			default: {
-				return false;
-			}
+		switch (exif_imagetype($this->path)) {
+			case (IMAGETYPE_PNG): imagepng ( $this->gdimage, $this->path); break;
+			case (IMAGETYPE_WBMP): imagewbmp ( $this->gdimage, $this->path); break;
+			case (IMAGETYPE_GIF): imagegif ( $this->gdimage, $this->path); break;
+			case (IMAGETYPE_JPEG): imagejpeg ( $this->gdimage, $this->path); break;
+			case (IMAGETYPE_BMP): imagebmp ( $this->gdimage, $this->path); break;
+			default: return false;
 		}
 	}
 

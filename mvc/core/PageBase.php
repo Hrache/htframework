@@ -92,10 +92,7 @@ final class PageBase {
 
 		if (!file_exists($filepath)) {
 			$filepath = $this->websiteDir . $this->homepage . '.' . $this->fileExt;
-
-			if (!file_exists($filepath)) {
-				throw new Error('No such file found.');
-			}
+			if (!file_exists($filepath)) throw new Error('No such file found.');
 		}
 
 		return(boolval(require_once($filepath)));

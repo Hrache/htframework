@@ -13,11 +13,8 @@ class MySQLTable {
 	**/
 	function __construct(string $name, array $fields) {
 		$this->name = $name;
-
 		foreach($fields as $i => $field) {
-			if (!is_object($field)) {
-				continue;
-			}
+			if (!is_object($field)) continue;
 
 			$this->fields[$field->Field] = new MySQLField($field);
 		}

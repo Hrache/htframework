@@ -23,11 +23,8 @@ abstract class MySQLModelAbstract {
 	}
 
 	protected function initProperties(array $modelsData) {
-		foreach ($this as $prop => $val) {
-			if (isset($modelsData[$prop])) {
-				$this->$prop = $modelsData[$prop];
-			}
-		}
+		foreach ($this as $prop => $val)
+			if (isset($modelsData[$prop])) $this->$prop = $modelsData[$prop];
 	}
 
 	/**
@@ -46,24 +43,16 @@ abstract class MySQLModelAbstract {
 	static function updateQuery(array $modelNames, array $fieldsValues, array $where = []): string {
 		// TABLE NAMES
 		$modelNames_ = '';
-
-		foreach ($modelNames as $i => $val) {
-		    $modelNames_[] = self::_fier($val);
-		}
+		foreach ($modelNames as $i => $val) $modelNames_[] = self::_fier($val);
 
 		$modelNames_ = implode(',', $modelNames_);
 		$set = '';	//	SET
-		
-		foreach ($fieldsValues as $key => $val) {
-		    $set[] = sprintf ('%s = \'%s\'', self::_fier ($val), $key);
-		}
+
+		foreach ($fieldsValues as $key => $val) $set[] = sprintf ('%s = \'%s\'', self::_fier ($val), $key);
 
 		$set = implode (',', $set);
 		$where = '';	//	WHERE
-
-		foreach ($where as $key => $val) {
-		    $where[] = sprintf('%s = \'%s\'', self::_fier($val), $key);
-		}
+		foreach ($where as $key => $val) $where[] = sprintf('%s = \'%s\'', self::_fier($val), $key);
 
 		$where = 'WHERE ' . implode(',', $where);
 		return sprintf('UPDATE %s SET %s %s;', $modelNames_, $set, $where);
@@ -86,9 +75,7 @@ abstract class MySQLModelAbstract {
 	static function getByFields(ArrayClass $fields, string $model): string {
 		self::_fier8($model);
 
-		if ($fields->isEmpty() OR !$model) {
-			return '';
-		}
+		if ($fields->isEmpty() OR !$model) return '';
 
 		$fields->eachItem(function(&$v, $k) {
 			self::_fier($v);
@@ -146,9 +133,7 @@ abstract class MySQLModelAbstract {
 	static function insertByMap(array $data, string $model): string {
 		self::_fier8($model);
 
-		if (!$data) {
-			return '';
-		}
+		if (!$data) return '';
 
 		array_walk($data, function(&$v, $k) {
 			self::_fier8($v);

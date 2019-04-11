@@ -1,43 +1,33 @@
-HracheJS =
-{
+HracheJS = {
 	/**
 		* Adds placeholder abbility to the appropriate elements
 		* Call it from self-callable at DOMReady stage
 		* @return void
 		*/
-	activatePlaceholders: function()
-	{
-		$('input[alt]').each(function()
-		{
+	activatePlaceholders: function() {
+		$('input[alt]').each(function() {
 			var theAlt = $(this).attr('alt');
 			var defColor = $(this).css('color');
 			var defFSize = $(this).css('font-size');
 
-			$(this).css(
-			{
+			$(this).css({
 				"color": "#aaa",
 				"font-size": defFSize
 			}).val(theAlt);
 
-			$(this).focusin(function()
-			{
-				if (($(this).val()).toLowerCase() !== (theAlt).toLowerCase())
-				{
+			$(this).focusin(function() {
+				if (($(this).val()).toLowerCase() !== (theAlt).toLowerCase()) {
 					return false;
 				}
 
-				$(this).css(
-				{
+				$(this).css({
 					'color': defColor,
 					"font-size": "120%"
 				}).val('');
 			})
-			.focusout(function()
-			{
-				if ($(this).val() === '')
-				{
-					$(this).css(
-					{
+			.focusout(function() {
+				if ($(this).val() === '') {
+					$(this).css({
 						"color": "#aaa",
 						"font-size": defFSize
 					}).val(theAlt);
@@ -52,12 +42,10 @@ HracheJS =
 		* Generates random text
 		* @param string selector The jquery selector
 		*/
-	randomText: function(selector, length)
-	{
+	randomText: function(selector, length) {
 		var length = (length < 1) ? 25 : length;
 
-		$(selector).each(function()
-		{
+		$(selector).each(function() {
 			$(this).val(HracheJS.randomWord(length));
 		});
 	},
@@ -72,39 +60,31 @@ HracheJS =
 		* @param int maxlength The length of the returnable text data
 		* @param string lang Possible values ('en', 'ru', 'arm')
 		*/
-	StrongPassword: function(maxlength, lang)
-	{
-		var langs =
-		{
-			'en':
-			[
+	StrongPassword: function(maxlength, lang) {
+		var langs = {
+			'en': [
 				"abcdefghijklmnopqrstuvwxyz",
 				"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 			],
-			'arm':
-			[
+			'arm': [
 				"աբգդեզէըթժիլխծկհձղճմյնշոչպջռսվտր�?ւփքևօֆ",
 				"ԱԲԳԴԵԶԷԸԷԺԻԼԽԾԿՀ�?ՂՃՄՅՆՇՈՉՊՋՌ�?Վ�?�?ՑՒՓՔևՕՖ"
 			],
-			'ru':
-			[
+			'ru': [
 				"абвгдеежзийклмнопр�?туфхцчшщыь�?ю�?",
 				"�?БВГДЕЕЖЗИЙКЛМ�?ОПРСТУФХЦЧШЩЫЬЭЮЯ"
 			]
 		};
 
-		if (!langs[lang])
-		{
+		if (!langs[lang]) {
 			lang = 'en';
 		}
 
-		this.generate = function()
-		{
+		this.generate = function() {
 			var wdata = "";
 			var chars_def = new Array(langs[lang][0], langs[lang][1], "\;\.\:\(\)\[\]\{\}\=\!\?\-0123456789");
 
-			for (i = 0; i < maxlength; i++)
-			{
+			for (i = 0; i < maxlength; i++) {
 				el = Math.round(Math.random() * (chars_def.length - 1));
 				wdata += chars_def[el][Math.round(Math.random() * (chars_def[el].length - 1))];
 			}
@@ -119,21 +99,17 @@ HracheJS =
 		* @param object data Key value pair of data for being sent
 		* @return void
 		*/
-	requestPost: function(url, data)
-	{
-		var form = $('<form></form>').attr(
-		{
+	requestPost: function(url, data) {
+		var form = $('<form></form>').attr({
 			'action': url,
 			'method': "post",
 			'id': 'fakepost'
 		});
 
-		for (item in data)
-		{
+		for (item in data) {
 			var i = $('<input/>');
 
-			i.attr(
-			{
+			i.attr({
 				'type': 'hidden',
 				'name': item,
 				'value': data[item]
@@ -151,12 +127,10 @@ HracheJS =
 		* @param {bool} exit description
 		* @return
 		*/
-	doboog: function(message, exit)
-	{
+	doboog: function(message, exit)	{
 		alert(message);
 
-		if (exit)
-		{
+		if (exit) {
 			return false;
 		}
 	},
@@ -166,26 +140,20 @@ HracheJS =
 		* @param {jQuery} wrapperr The element which will be appended
 		* @param {obj} steps The list of objects that trugger the progress
 		*/
-	UIWizardProgressBar: function(wrapperr, steps)
-	{
-		var wrapper = $('<div></div>').css(
-		{
+	UIWizardProgressBar: function(wrapperr, steps) {
+		var wrapper = $('<div></div>').css({
 			'max-width': '99%',
 			'width': '99%',
 			'background-color': '#f0f0f0',
 			'border': '8px solid #999999',
 			'display': 'inline-block'
 		});
-
-		var bar = $('<div></div>').css(
-		{
+		var bar = $('<div></div>').css({
 			'width': '100%',
 			'max-width': '100%',
 			'background-color': 'white'
 		});
-
-		var progress = $('<div></div>').css(
-		{
+		var progress = $('<div></div>').css({
 			'width': '0%',
 			'max-width': '100%',
 			'max-height': '20px',
@@ -209,26 +177,42 @@ HracheJS =
 		};
 	},
 
+	/*
+	 * Incapsulator for toggle in-between two function
+	 * call the only public method "toggle"
+	 * @param {callback} func1 First function
+	 * @param {callback} func2 Seccond function
+	 * @returns {void}
+	 */
+	Togglable: function(func1, func2) {
+		var state = false;
+		this.toggle = function() {
+			if (!state) {
+				func1();
+				state = true;
+			}
+			else {
+				func2();
+				state = false;
+			}
+		};
+	},
+
 	/**
 	 * Use this to turn desired object onto movable
 	 * @param {jQuery object} jObj The desired jQuery object
 	 * @returns {void}
 	 */
-	UIMovableCallback: function(jObj)
-	{
-		jObj.mouseup(function(eo)
-		{
+	UIMovableCallback: function(jObj) {
+		jObj.mouseup(function(eo) {
 			$(this).parent().unbind('mousemove');
 		})
-		.mousedown(function(eo)
-		{
+		.mousedown(function(eo) {
 			mouseDiffX = parseInt(eo.pageX) - parseInt(jObj.parent().css('left'));
 			mouseDiffY = parseInt(eo.pageY) - parseInt(jObj.parent().css('top'));
 
-			$(this).parent().bind('mousemove', function(eo)
-			{
-				jObj.parent().css(
-				{
+			$(this).parent().bind('mousemove', function(eo) {
+				jObj.parent().css({
 					'left': parseInt(eo.pageX) - mouseDiffX,
 					'top': parseInt(eo.pageY) - mouseDiffY
 				});
@@ -243,11 +227,9 @@ HracheJS =
 		* to the programmer's given object
 		* @returns {jQuery object} Returns the closeButton
 		*/
-	UICloseButton: function(id, callback)
-	{
+	UICloseButton: function(id, callback) {
 		return $('<span></span>').attr('id', id).text('x')
-		.css(
-		{
+		.css({
 			'display': 'inline-block',
 			'padding': '1%',
 			'margin': '1%',
@@ -259,10 +241,8 @@ HracheJS =
 		.click(callback);
 	},
 
-	PopupMessage: function(text)
-	{
-		if (document.getElementById('tagel'))
-		{
+	PopupMessage: function(text) {
+		if (document.getElementById('tagel')) {
 			document.getElementById('tagel').innerHTML += text;
 
 			return;
@@ -303,13 +283,11 @@ HracheJS =
 		document.body.appendChild(hrachepopup);
 	},
 
-	range: function(start, end)
-	{
+	range: function(start, end) {
 		var i = Math.min(start, end);
 		var range = [i];
 
-		while (i < Math.max(start, end))
-		{
+		while (i < Math.max(start, end)) {
 			i++;
 			range.push(i);
 		}
@@ -317,24 +295,20 @@ HracheJS =
 		return range;
 	},
 
-	NumberRangeOptions: function(start, end, reverse)
-	{
+	NumberRangeOptions: function(start, end, reverse) {
 		var range = HracheJS.range(start, end);
 
-		if (reverse === undefined)
-		{
+		if (reverse === undefined) {
 			reverse = false;
 		}
 
-		if (!reverse)
-		{
+		if (!reverse) {
 			range.reverse();
 		}
 
 		var options = '';
 
-		while (range.length)
-		{
+		while (range.length) {
 			var i = range.shift();
 			options += '<option value="'+i+'">'+i+'</option>';
 		}
@@ -347,10 +321,8 @@ HracheJS =
 	/**
 		* Random rgb(x,y,z) text value for css
 		*/
-	randomCSSRGB: function(modifier1, modifier2)
-	{
-		function channel()
-		{
+	randomCSSRGB: function(modifier1, modifier2) {
+		function channel() {
 			return Math.round(modifier1 * Math.random() + modifier2);
 		}
 
@@ -358,8 +330,7 @@ HracheJS =
 	}
 };
 
-DOMHelpersJS =
-{
+DOMHelpersJS = {
 	div: '<div></div>',
 	span: '<span></span>',
 	option: '<option></option>'
@@ -369,10 +340,8 @@ DOMHelpersJS =
  * @param {string} id The id of the observable element
  * @returns {DOMElement} The observable element
  */
-function getById(id)
-{
-	if (!id)
-	{
+function getById(id) {
+	if (!id) {
 		alert('No id was given.');
 
 		return false;

@@ -1,11 +1,8 @@
 <?php
-final class FinalSettings extends SettingsClass
-{
+final class FinalSettings extends SettingsClass {
 	const db1 = 'td_database';
 	const db2 = 'acs_database';
-
-	function __construct()
-	{
+	function __construct() {
 		$settings = new ArrayClass([
 			SettingsClass::Errorpage => 'error.php',
 			SettingsClass::Homepage => 'home',

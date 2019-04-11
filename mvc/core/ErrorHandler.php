@@ -6,7 +6,6 @@ class ErrorHandler extends Error {
 
 	function __construct(string $message = '', $code = null, $projectState = false) {
 		$message = sprintf("<p style='font-weight: bold;'>%s</p>", $message);
-
 		parent::__construct($message, $code);
 	}
 }

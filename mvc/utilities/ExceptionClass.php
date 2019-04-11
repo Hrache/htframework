@@ -30,8 +30,7 @@ class ExceptionClass extends Exception {
 	function __construct ($message = '', int $code = 0, Exception $previous = null, Array $errors = null) {
 		parent::__construct ($message, $code, $previous);
 
-		if (!is_null ($errors)) {
-			$this->errors = $errors;}
+		if (!is_null ($errors)) $this->errors = $errors;
 
 		$this->errorIndex = array_key_exists ($this->getCode(), $this->errors)? $this->getCode() : 13;
 		$this->errorTitle = $this->errors [$this->errorIndex];

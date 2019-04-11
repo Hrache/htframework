@@ -1,6 +1,5 @@
 <?php
-if (!__('settings')->getSetting('useheadersearch'))
-{
+if (!__('settings')->getSetting('useheadersearch')) {
 	return false;
 }
 
@@ -8,12 +7,8 @@ __('language')->append('searchform');
 ?>
 <form class="w3-panel w3-padding w3-white w3-round" name="headersearchform" id="headersearchform" style="display:none;">
 	<div class="w3-row">
-		<div class="w3-col l6 s12 m6 w3-padding">
-			
-		</div>
-		<div class="w3-col l6 s12 m6 w3-padding">
-			
-		</div>
+		<div class="w3-col l6 s12 m6 w3-padding"></div>
+		<div class="w3-col l6 s12 m6 w3-padding"></div>
 	</div>
 	<div class="w3-btn w3-blue w3-margin-top" id="headersearch_btn"><?= _abc('search')?></div>
 </form>

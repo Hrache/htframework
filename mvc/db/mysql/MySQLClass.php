@@ -12,7 +12,6 @@ final class MySQLClass {
 	const DBPORT = 'dbport';
 	const DBNAME = 'dbname';
 	const DBCHARSET = 'dbchar';
-
 	function __construct(ArrayClass $settings, bool $nodb = false) {
 		$this->settings = $settings;
 		$PDODriver = $nodb?
@@ -30,8 +29,7 @@ final class MySQLClass {
 		$this->mysql = new PDO(
 			$PDODriver,
 			$settings->item(self::DBUSER),
-			$settings->item(self::DBPASSWORD),
-			[
+			$settings->item(self::DBPASSWORD), [
 				PDO::ATTR_PERSISTENT => true
 			]
 		);

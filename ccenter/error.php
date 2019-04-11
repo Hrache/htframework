@@ -6,8 +6,7 @@
 	<body>
 		<h1>Error</h1>
 <?php
-if (!ProjectState)
-{
+if (!ProjectState) {
 	printf('%s<br/>'.PHP_EOL, $e->getLine());
 
 	printf('%s<br/>'.PHP_EOL, $e->getFile());

@@ -1,6 +1,5 @@
 <?php
-class DOMElementClass
-{
+class DOMElementClass {
 	const _html = 'html';
 	const _head = 'head';
 	const _title = 'title';
@@ -31,8 +30,7 @@ class DOMElementClass
 	private $closed = false;
 	private $data = '';
 	private $_html_;
-	private $open_tags =
-	[
+	private $open_tags = [
 		self::_br => true,
 		self::_hr => true,
 		self::_link => true,
@@ -40,15 +38,10 @@ class DOMElementClass
 		self::_input => true
 	];
 
-	function __construct ( string $tag, string $data = '')
-	{
-		if (!array_key_exists($tag, $this->open_tags))
-		{
-			$this->closed = true;
-		}
+	function __construct (string $tag, string $data = '') {
+		if (!array_key_exists($tag, $this->open_tags)) $this->closed = true;
 
 		$this->data = $data;
-
 		$this->_tag();
 	}
 
@@ -65,14 +58,10 @@ class DOMElementClass
 	*
 	* @return string - representation of the string element
 	*/
-	static function _tag_(string $tag, string $id = '', string $class = '', string $data = '', bool $closed = false, array $add_attrs = []): string
-	{
+	static function _tag_(string $tag, string $id = '', string $class = '', string $data = '', bool $closed = false, array $add_attrs = []): string {
 		$_attrs = ($id !== '')? ' id="$id"': '';
 		$_attrs .= ($class !== '')? ' class="$class"': '';
-	
-		if ($add_attrs)
-			foreach ($add_attrs as $attr => $value)
-				$_attrs .= sprintf(' %s="%s"', $attr, $value);
+			if ($add_attrs) foreach ($add_attrs as $attr => $value) $_attrs .= sprintf(' %s="%s"', $attr, $value);
 
 		return sprintf('<%s %s%s%s'.PHP_EOL, $tag, $_attrs, ($closed)? '>' : ' />', ($closed)? sprintf('%s</%s>', $data, $tag) : '');
 	}
@@ -82,80 +71,64 @@ class DOMElementClass
 	 *
 	 * @return DOMElementClass - for method chaining
 	 **/
-	function _tag(): DOMElementClass
-	{
+	function _tag(): DOMElementClass {
 		$this->_html_ = self::_tag_($this->tag, $this->id, $this->class, $this->data, $this->closed, $this->addAttributes);
-
 		return $this;
 	}
 	
-	function getId()
-	{
+	function getId() {
 		return $this->id;
 	}
 	
-	function setId($id)
-	{
+	function setId($id) {
 		$this->id = $id;
 	}
 	
-	function getData()
-	{
+	function getData() {
 		return $this->data;
 	}
 	
-	function setData($data)
-	{
+	function setData($data) {
 		$this->data = $data;
 	}
 	
-	function getClass()
-	{
+	function getClass() {
 		return $this->class;
 	}
 	
-	function getTag()
-	{
+	function getTag() {
 		return $this->tag;
 	}
 	
-	function setClass($class)
-	{
+	function setClass($class) {
 		$this->class = $class;
 	}
 	
-	function setTag($tag)
-	{
+	function setTag($tag) {
 		$this->tag = $tag;
 	}
 	
-	function getAddAttributes()
-	{
+	function getAddAttributes() {
 		return $this->addAttributes;
 	}
 	
-	function getClosed()
-	{
+	function getClosed() {
 		return $this->closed;
 	}
 	
-	function get_html_()
-	{
+	function get_html_() {
 		return $this->_html_;
 	}
 	
-	function setAddAttributes($addAttributes)
-	{
+	function setAddAttributes($addAttributes) {
 		$this->addAttributes = $addAttributes;
 	}
 	
-	function setClosed($closed)
-	{
+	function setClosed($closed) {
 		$this->closed = $closed;
 	}
 	
-	function set_html($_html_)
-	{
+	function set_html($_html_) {
 		$this->_html_ = $_html_;
 	}
 }

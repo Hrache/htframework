@@ -28,7 +28,6 @@ class TableToHTML {
 		'min' => 16,
 		'max' => 20,
 	];
-
 	const ENUM = 2;
 	const int_4 = 3;
 
@@ -40,12 +39,12 @@ class TableToHTML {
 
 		// array of names of files of model-classes
 		$modelsList = scandir_c($modelsDir);
-
 		StringHelper::lastSignSlash($modelsDir);
 
 		foreach ($models as $i => $model) {
 			if (!class_exists($model)) {
 				_delete($models, $i);
+
 				continue;
 			}
 
@@ -59,9 +58,7 @@ class TableToHTML {
 			$rModelRules = $rModel->getConstant('rules');
 
 			foreach ($rModelConstants as $i => $const) {
-				if (in_array($i, ['rules', 'MODEL'])) {
-					continue;
-				}
+				if (in_array($i, ['rules', 'MODEL'])) continue;
 
 				// rules for current field
 				$cRules = new FieldRules(settype($rModelRules[$const], 'object'));

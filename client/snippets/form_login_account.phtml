@@ -1,8 +1,4 @@
-<?php
-if (__('account')) {
-	return false;
-}
-?>
+<?php if (__('account')) return false;?>
 <form id="headerloginform" class="w3-cell-middle w3-padding w3-margin w3-round w3-white" action="<?= SiteURL ?>?account/signin" method="post" enctype="application/x-www-form-urlencoded">
 	<label for="loginidentity" class="w3-text-blue"><b><?= _abc("email") ?></b></label>
 	<input type="text" id="loginidentity" name="loginidentity" class="w3-input w3-border" />

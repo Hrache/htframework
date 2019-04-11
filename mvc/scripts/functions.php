@@ -13,15 +13,11 @@ if (array_search('core.php', scandir($lib))) {
 
 		while ($args) {
 			$item = $lib.DIRECTORY_SEPARATOR.array_shift($args);
-
 			if (!stristr(get_include_path(), $item)) {
 				if (!is_dir($item)) {
 					if (!file_exists($item)) {
 						$item .= '.php';
-
-						if (!file_exists($item)) {
-							continue;
-						}
+						if (!file_exists($item)) continue;
 					}
 
           			# file.require
@@ -42,13 +38,13 @@ if (array_search('core.php', scandir($lib))) {
 	 */
 	function lib_unload(string ...$args): void {
 		$baseDir = dirname(dirname(__FILE__));
-
 		foreach ($args as $ind => $item) {
 			// TODO: finish up
 			if (!is_dir($item) && !is_dir(dirname($item)) || is_file($item)) {}
 
 			$item = PATH_SEPARATOR . __DIR__ . DIRECTORY_SEPARATOR . $item;
 			str_replace($item, '', get_include_path());
+
 			unset($args [$ind]);
 		}
 	}
@@ -77,19 +73,18 @@ if (array_search('core.php', scandir($lib))) {
 		function scandir_c(string $path, bool $filesOnly = true, bool $object = true) {
 			$path = (is_file($path))? dirname($path) : $path;
 			lastSignSlash($path);
+
 			$data = new ArrayClass(scandir($path));
 			$data->del(0, 1);
-			$return = new ArrayClass();
 
+			$return = new ArrayClass();
 			while (!$data->isEmpty()) {
 				$i = $data->pull();
-
-				if ($filesOnly && !is_dir($path . ($i->value))) {
-					$return->add(null, $i->value);
-				}
+				if ($filesOnly && !is_dir($path . ($i->value))) $return->add(null, $i->value);
 			}
 
 			unset($path, $data);
+
 			return(($object)? (new ArrayClass(array_values($return->input))) : $return->input);
 		}
 
@@ -100,22 +95,16 @@ if (array_search('core.php', scandir($lib))) {
 		 * in case if its null only options will be returned
 		 */
 		function arrayToDDown($data, $attrs = [], string $empty = ''): string {
-			if (!($attrs instanceof ArrayClass) && boolval($attrs) && !is_array($attrs)) {
+			if (!($attrs instanceof ArrayClass) && boolval($attrs) && !is_array($attrs))
 				die(__FUNCTION__." expects second parameter to be array or ArrayClass.".gettype($attrs));
-			}
-			elseif (!is_array($data)) {
-				return $data;
-			}
+			elseif (!is_array($data)) return $data;
 			elseif (is_array($data)) {
 				$options = ($empty || ($empty === '')) ? '<option value="">' . $empty . '</option>' . PHP_EOL : '';
-
 				if ($attrs) {
-					if (is_array($attrs)) {
-						$attrs = new ArrayClass($attrs);
-					}
+					if (is_array($attrs)) $attrs = new ArrayClass($attrs);
+
 
 					$attr = new ArrayClass();
-
 					while (!$attrs->isEmpty()) {
 						$i = $attrs->pull();
 						$attr->add(null, sprintf('%s="%s"', $i->key, $i->value));
@@ -125,7 +114,6 @@ if (array_search('core.php', scandir($lib))) {
 				}
 
 				$data = new ArrayClass($data);
-
 				while (!$data->isEmpty()) {
 					$d = $data->pull();
 					$options .= sprintf('<option value="%s">%s</option>' . PHP_EOL, $d->key, $d->value);
@@ -141,18 +129,21 @@ if (array_search('core.php', scandir($lib))) {
 		// access/return by the given key
 		function __($key) {
 			global $data;
+
 			return $data->item($key);
 		}
 
 		// add by value
 		function _di($key, $val) {
 			global $data;
+
 			$data->add($key, $val);
 		}
 
 		// add by reference
 		function _d8($key, &$val) {
 			global $data;
+
 			$data->add($key, $val);
 		}
 
@@ -165,13 +156,12 @@ if (array_search('core.php', scandir($lib))) {
 		// check existance
 		function _db($key) {
 			global $data;
+
 			return boolval($data->item($key));
 		}
 	}
 }
-else {
-	die('Error: System file is missing.');
-}
+else die('Error: System file is missing.');
 
 /**
  * Echos html option
@@ -198,9 +188,7 @@ function is($op1, $op2, bool $strict = false): bool {
  * @return void
  */
 function do_if(bool $exprCondition, callable $function): void {
-	if ($exprCondition)	{
-		call_user_func($function);
-	}
+	if ($exprCondition) call_user_func($function);
 }
 
 /**
@@ -215,10 +203,7 @@ function do_if(bool $exprCondition, callable $function): void {
  */
 function _tag(string $tagName, array $attrs = [], bool $closed = false, string $data = ''): string {
 	$_attrs = '';
-
-	foreach ($attrs as $attr => $value) {
-		$_attrs .= sprintf(' %s="%s"', $attr, $value);
-	}
+	foreach ($attrs as $attr => $value) $_attrs .= sprintf(' %s="%s"', $attr, $value);
 
 	return sprintf('<%s %s%s%s' . PHP_EOL, $tagName, $_attrs, ($closed) ? '>' : ' />', ($closed) ? sprintf('%s</%s>', $data, $tagName) : '');
 }
@@ -242,16 +227,10 @@ function filenamenoext(string $filepath): string {
  */
 function html_list(array $attrs = [], array $data_items) {
 	$_attr = '';
-
-	foreach ($attrs as $name => $val) {
-		$_attr .= sprintf(' %s="%s"', $name, $val);
-	}
+	foreach ($attrs as $name => $val) $_attr .= sprintf(' %s="%s"', $name, $val);
 
 	$_data = '';
-
-	foreach ($data_items as $i => $item) {
-		$_data .= sprintf('<li>%s</li>' . PHP_EOL, $item);
-	}
+	foreach ($data_items as $i => $item) $_data .= sprintf('<li>%s</li>' . PHP_EOL, $item);
 
 	printf('<ul%s>%s</ul>' . PHP_EOL, $_attr, $_data);
 
@@ -269,10 +248,7 @@ function html_list(array $attrs = [], array $data_items) {
  */
 function html_dropdown_items(array $data, int $offsetOfSelected): string {
 	$_options = '';
-
-	for ($i = 1; $i <= count($data); $i++) {
-		$_options .= html_option($data[$i-1], $i, ($i == intval($offsetOfSelected)) ? true : false);
-	}
+	for ($i = 1; $i <= count($data); $i++) $_options .= html_option($data[$i-1], $i, ($i == intval($offsetOfSelected)) ? true : false);
 
 	return $_options;
 }
@@ -294,22 +270,15 @@ function _phpeol() {
 
 // Encodes array elements and/or single string values into UTF8
 function utf8_encode_deep(&$input) {
-	if (is_string($input)) {
-		$input = utf8_encode(trim($input));
-	}
+	if (is_string($input)) $input = utf8_encode(trim($input));
 	elseif (is_array($input)) {
-		foreach ($input as &$value) {
-			utf8_encode_deep($value);
-		}
+		foreach ($input as &$value) utf8_encode_deep($value);
 
 		unset($value);
 	}
 	elseif (is_object($input)) {
 		$vars = array_keys(get_object_vars($input));
-
-		foreach ($vars as $var) {
-			utf8_encode_deep($input->$var);
-		}
+		foreach ($vars as $var) utf8_encode_deep($input->$var);
 	}
 }
 
@@ -329,10 +298,7 @@ function firstLetterToUpper(string $strvar): string {
 function randomString(int $length = 25): string {
 	$id = "";
 	$chars = str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
-
-	for ($i = 0; $i < $length; $i++) {
-		$id .= $chars [rand(0, strlen($chars) - 1)];
-	}
+	for ($i = 0; $i < $length; $i++) $id .= $chars [rand(0, strlen($chars) - 1)];
 
 	return ($id);
 }
@@ -345,13 +311,8 @@ function randomString(int $length = 25): string {
  */
 function logf($data, string $fileorpath = '') {
 	$defaultFilename = 'logfile.txt';
-
-	if (is_dir($fileorpath)) {
-		$file = $fileorpath . DIRECTORY_SEPARATOR . $defaultFilename;
-	}
-	elseif (!file_exists($fileorpath)) {
-		$file = dirname(__DIR__).DIRECTORY_SEPARATOR.$defaultFilename;
-	}
+	if (is_dir($fileorpath)) $file = $fileorpath . DIRECTORY_SEPARATOR . $defaultFilename;
+	elseif (!file_exists($fileorpath)) $file = dirname(__DIR__).DIRECTORY_SEPARATOR.$defaultFilename;
 
 	file_put_contents($file, var_export($data, true), FILE_APPEND);
 }
@@ -377,6 +338,7 @@ function DOMRangeOptions(int $start, int $end, $selected = false, int $step): st
 	}
 
 	unset($digits);
+
 	return $items;
 }
 
@@ -411,14 +373,9 @@ function _ds(string $path): string {
 function _cdir(string $dir, string $folder): string {
 	$dir = _ds($dir);
 	$dir = explode(DIRECTORY_SEPARATOR, $dir);
-
 	for ($i = count($dir) - 1; $i >= 0; $i--) {
-		if ($dir[$i] != $folder) {
-			unset($dir[$i]);
-		}
-		else {
-			break;
-		}
+		if ($dir[$i] != $folder) unset($dir[$i]);
+		else break;
 	}
 
 	return _ds(implode(DIRECTORY_SEPARATOR, $dir));
@@ -452,9 +409,7 @@ function getArrayFromFile(string $path = '', string $file, $index = null): Array
  * @return bool TRUE If in given range else FALSE
  */
 function is_inrange(int $a, int $b, int $c): bool {
-	if ((($a >= $b) && ($a < $c)) || (($a > $b) && ($a <= $c))) {
-		return true;
-	}
+	if ((($a >= $b) && ($a < $c)) || (($a > $b) && ($a <= $c))) return true;
 
 	return false;
 }
@@ -476,13 +431,9 @@ function array_last(array &$php_array) {
 function array_item($array, ...$keys) {
 	while ($keys) {
 		$key = array_shift($keys);
-
 		if (isset($array[$key])) {
 			$array = $array[$key];
-
-			if (!is_array($array)) {
-				return $array;
-			}
+			if (!is_array($array)) return $array;
 		}
 	}
 
@@ -527,6 +478,7 @@ function _item(array &$array, $index) {
 function _delete(array &$arr, string $index): bool {
 	if (_item($arr, $index)) {
 		unset($arr[$index]);
+
 		return true;
 	}
 
@@ -540,11 +492,8 @@ function _delete(array &$arr, string $index): bool {
  * @return void
  */
 function array_keys_exist(array $keys, array $source): bool {
-	foreach ($keys as $id => $key) {
-		if (!array_key_exists($key, $source)) {
-			return false;
-		}
-	}
+	foreach ($keys as $id => $key)
+		if (!array_key_exists($key, $source)) return false;
 
 	return true;
 }
@@ -556,9 +505,7 @@ function array_keys_exist(array $keys, array $source): bool {
  * @return void
  */
 function get_file(string $path, $params = null) {
-	if (file_exists($path))	{
-		require_once($path);
-	}
+	if (file_exists($path)) require_once($path);
 }
 
 /*
@@ -589,7 +536,6 @@ function multipleIncludes(ArrayClass $paths) {
  */
 function multipleInsert(ArrayClass $paths): string {
 	$data = '';
-
 	while (!$paths->isEmpty()) {
 		$path = $paths->pull();
 		$data .= file_get_contents($path->value);
@@ -605,11 +551,8 @@ function multipleInsert(ArrayClass $paths): string {
  */
 function sliceAndGlue(string $input, $delimiter = '_'): string {
 	$pieces = explode($delimiter, $input);
-
 	array_walk($pieces, function(&$val, $key) {
-		if (!is_array($val)) {
-			$val = ucfirst($val);
-		}
+		if (!is_array($val)) $val = ucfirst($val);
 	});
 
 	$pieces = implode('', $pieces);
@@ -631,7 +574,6 @@ function createurl(bool $httpors = false, string $appdir): string {
 final class JSSerializedArray {
 	const Name = 'name';
 	const Value = 'value';
-
 	static function decode(array &$input) {
 		$_ = array_shift($input);
 		return(($_)? [$_[self::Name], $_[self::Value]]: false);
@@ -646,13 +588,9 @@ final class JSSerializedArray {
 	*/
 	static function decodeAll(array &$input, string $arraykey): array {
 		$a_ = [];
-
 		while ($input) {
 			$_ = array_shift($input);
-
-			if ($_[self::Value]) {
-				$a_[$arraykey][self::Name] = $_[self::Value];
-			}
+			if ($_[self::Value]) $a_[$arraykey][self::Name] = $_[self::Value];
 		}
 
 		return $a_;
@@ -679,7 +617,6 @@ final class MD5Index {
 	static function encode(array $input): array {
 		$out;
 		$input = array_values($input);
-
 		while ($input) {
 			$_ = array_shift($input);
 			$md5 = md5($_);
@@ -699,7 +636,6 @@ final class MD5Index {
 	 */
 	static function decode(array $md5input): array {
 		$out;
-
 		while($md5input) {
 			$_ = array_shift($md5input);
 			$out[] = $_[self::Source];
@@ -719,9 +655,9 @@ class JSONic {
 	 */
 	static function encode(array $pairs, $deliemiter = ','): string {
 		$result = null;
-
 		array_walk_recursive($pairs, function(&$val, $key) {
 			global $result;
+
 			$result[] = self::pairEncode($key, $val);
 		});
 
@@ -735,10 +671,7 @@ class JSONic {
 	static function decode($pairs, $delimiter = ','): array	{
 		$pairs = explode($delimiter, $pairs);
 		$decoded = null;
-
-		while ($pairs) {
-			$decoded[] = self::pairDecode(array_shift($pairs));
-		}
+		while ($pairs) $decoded[] = self::pairDecode(array_shift($pairs));
 
 		return $decoded;
 	}

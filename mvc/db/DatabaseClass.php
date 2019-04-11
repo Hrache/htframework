@@ -20,7 +20,6 @@ class DatabaseClass {
 	protected $settings = null;
 	protected $dbcon = null;
 	protected $dbSettingsIndex = null;
-
 	function __construct(ArrayClass $settings = null, $dbSettingsIndex = null) {
 		$this->settings = $settings;
 		$this->dbSettingsIndex = $dbSettingsIndex;
@@ -77,7 +76,6 @@ class DatabaseClass {
 		$db = $this->settings->item(self::DBNAME) ?? $this->settings->item(self::DATABASE);
 		$port = $this->settings->item(self::PORT);
 		$charset = $this->settings->item(self::CHARSET) ?? '';
-
 		switch ($this->settings->item(self::VENDOR)) {
 			case (self::VENDOR_MSSQL): {
 				$dsn = $this->DSNMSSQL($db, $port);
@@ -87,13 +85,10 @@ class DatabaseClass {
 				$dsn = $this->DSNMYSQL($db, $port);
 				break;
 			}
-			default: {
-				throw new ErrorException('', self::NOT_SUPPORTED_DATABASE_VENDOR_ERROR);
-			}
+			default: throw new ErrorException('', self::NOT_SUPPORTED_DATABASE_VENDOR_ERROR);
 		}
 
 		$this->dbcon = new PDO($dsn, $this->settings->item(self::DBUSER), $this->settings->item(self::DBPASS));
-
 		return $this->dbcon;
 	}
 
@@ -116,16 +111,13 @@ class DatabaseClass {
 		$consts = (new ReflectionClass('DatabaseClass'))->getConstants();
 		$vendor_keys = array_merge(preg_grep('/VENDOR_/m', array_keys($consts)), []);
 		$keys_ = array_keys($consts);
-
 		while ($keys_) {
 			$_ = array_shift($keys_);
-
-			if (!in_array($_, $vendor_keys)) {
-				unset($consts[$_]);
-			}
+			if (!in_array($_, $vendor_keys)) unset($consts[$_]);
 		}
 
 		unset($keys_, $vendor_keys);
+
 		return $consts;
 	}
 

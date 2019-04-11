@@ -53,9 +53,7 @@ class SnippetsClass {
 	 * @return SnippetsClass
 	 */
 	function setExtension($extension): SnippetsClass {
-		if ($extension[0] !== ".") {
-			$extension=".".$extension;
-		}
+		if ($extension[0] !== ".") $extension=".".$extension;
 
 		$this->extension = $extension;
 		return $this;

@@ -13,23 +13,18 @@ class TableToModel {
 		$tables_q = 'SHOW FULL TABLES;';
 		$tables_qr = $mysql->PDOFetchArray($tables_q, MySQLClass::PDO_FETCH_COLUMN);
 		$tables_qr = $tables_qr->input;
-
 		foreach ($tables_qr as $id => $name) {
-			if ($tables && (!in_array($name, $tables) || !$name)) {
-				continue;
-			}
+			if ($tables && (!in_array($name, $tables) || !$name)) continue;
 
 			$desc_q = sprintf('DESCRIBE %s;', $name);
 			$desc_qr = $mysql->PDOFetchArray($desc_q, MySQLClass::PDO_FETCH_DEFAULT)->input;
-			
-			if (!is_array($desc_qr)) {
-				continue;
-			}
+			if (!is_array($desc_qr)) continue;
 			
 			$modelInheritance = self::modelInheritance(ucfirst($name));
 			$properties = self::createProperties($desc_qr);
 			$content = self::modelFinalizer($name, $modelInheritance, $properties);
 			self::varnameDesigner($name);
+
 			self::renderModelFile($filePath . DIRECTORY_SEPARATOR . $name . 'Model.php', $content);
 		}
 
@@ -48,7 +43,6 @@ class TableToModel {
 		$rules = $properties = $constants = $enums_ = '';
 		$rules = PHP_EOL . '	const rules = [%s' . PHP_EOL . '	];';
 		$rules_items = '';
-
 		foreach ($tbl_desc as $i => $val) {
 			if (is_array($val)) {
 				$constants .= PHP_EOL . '	const ' . $val[MySQLField::tbl_field] . ' = \'' . $val[MySQLField::tbl_field] . '\';';
@@ -60,10 +54,7 @@ class TableToModel {
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_TYPE_MYSQL . "' => '%s',", $type[0]);
 				$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_NULL_MYSQL . "' => '%s',", $val[2]);
 				$enum = strripos($type_parts[0], 'enum');
-
-				if ($enum !== false) {
-					$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_ENUM_MYSQL . "' => array%s,", substr($type_parts[0], 4));
-				}
+				if ($enum !== false) $rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_ENUM_MYSQL . "' => array%s,", substr($type_parts[0], 4));
 
 				if (preg_match('/\d+/i', $type_parts[0], $matches) && $enum === false) {
 					$rules_item .= sprintf(PHP_EOL . "			'" . ValidationClass::VALIDATION_LENGTH_MYSQL . "' => '%s',", $matches[0]);
@@ -91,6 +82,7 @@ class TableToModel {
 	static function modelInheritance(string $modelName, string $extends = 'MySQLModelAbstract', string $implements = ''): string {
 		$modelName .= 'Model';
 		self::varnameDesigner($modelName);
+
 		$extends = ($extends ? 'extends ' . $extends . ' ' : '');
 		$implements = (!$extends && $implements) ? 'implements ' . $implements : '';
 		$data = sprintf('class %s %s %s', $modelName, $extends, $implements);
@@ -106,7 +98,6 @@ class TableToModel {
 		*/
 	static function varnameDesigner(string &$varName): void {
 		$varName = explode('_', $varName);
-
 		array_walk($varName, function (&$val, $key) {
 			$val = ucfirst($val);
 		});
@@ -129,7 +120,6 @@ class TableToModel {
 $modelInheritance {
 	use ModelsTrait;
 	const MODEL = '$modelName';$properties
-
 	function __construct(array \$modelData = []) {
 		parent::__construct(self::MODEL, \$modelData);
 	}
@@ -148,10 +138,7 @@ EOD;
 		*/
 	static function renderModelFile(string $path, $content = ''): void {
 		$fres = fopen($path, 'w', false);
-
-		if (fclose($fres)) {
-			file_put_contents($path, $content);
-		}
+		if (fclose($fres)) file_put_contents($path, $content);
 	}
 
 	/**
@@ -205,12 +192,8 @@ EOD;
 			'set'
 		];
 
-		if (boolval($id) && isset($mysqlType [$id])) {
-			return $mysqlType [$id];
-		}
-		else {
-			return $mysqlType;
-		}
+		if (boolval($id) && isset($mysqlType [$id])) return $mysqlType [$id];
+		else return $mysqlType;
 	}
 
 	/**

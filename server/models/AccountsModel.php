@@ -9,6 +9,4 @@ class AccountsModel {
 	const surname = 'surname';
 	const gender = 'gender';
 }
-
-class_alias('AccountsModel', 'Accounts');
 ?>

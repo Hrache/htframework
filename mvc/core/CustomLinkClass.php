@@ -17,20 +17,16 @@ class CustomLinkClass extends LinkClass {
 	 */
 	function __construct(string $requestURI, string $indexPage, string $defaultAction = '', $delimiter = '/') {
 		parent::__construct($requestURI);
-
 		$this->indexPage = $indexPage;
 		$this->pageUrl = array_shift($this->getParams);
 		$_ = explode($delimiter, array_shift($this->getParams));
 		$this->page = ArrayClass::nonEmpty(array_shift($_), $this->indexPage);
 		$this->action = array_shift($_) ?? $defaultAction;
-
 		unset($_);
 	}
 
 	function linkString(string $domain, string $indexFile = 'index.php', string $page, $action='', bool $secure = false, ArrayClass $params = null): string	{
-		if ($params) {
-			$params = self::queryString($params->input);
-		}
+		if ($params) $params = self::queryString($params->input);
 
 		return sprintf('http%s://%s/%s?%s/%s%s', ($secure)? 's' : '', $domain, $indexFile, $page ?? $this->page, $action ?? $this->action, $params);
 	}

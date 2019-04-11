@@ -22,14 +22,12 @@ __('language')->append('common', 'errors');
 $settings->setSetting('useheadersearch', true);
 
 // if is logged in load some front end stuff (resources, language files)
-/*
-if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
-	// @var pre_res resources from preload.php file created for default template file
-	_di('pre_res', implode(PHP_EOL, [HTMLHelpers::CSSLink("client/css/account.css")]));
 
+if (CurrentPage === 'account' || __('session')->cookieExists('account')) {
 	$language->append('signup', 'date', 'account');
 }
 
+/*
 // Account session restoration per-request
 if (__('session')->cookieExists('account')) {
 	if (CurrentPage === 'advertisements') {

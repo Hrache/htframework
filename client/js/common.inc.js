@@ -5,7 +5,6 @@ function modalVsMenu() {
 // Header search form validation
 $('#headersearch_btn').click(function(e) {
 	var crit = $('#headersearchform').serializeArray();
-
 	$('#modalcontent').html($('#headersearchform').attr('action')+crit).show();
 
 	return false;
@@ -23,7 +22,6 @@ $('#headersearch_btn').click(function(e) {
 // Header login form validation
 $('#headerloginform').submit(function(e) {
 	var password = md5($(this).find('input[type=password]:eq(0)').val());
-
 	$(this).find('input[type=password]:eq(0)').val(password);
 
 	delete(password);

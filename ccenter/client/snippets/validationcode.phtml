@@ -17,12 +17,14 @@ foreach (filter_list() as $i => $flt) {
 				<option value=""><?= _abc('regexp')?></option>
 <?php
 lib_load('validation');
+
 $rc = new ReflectionClass('ValidationBase');
 foreach ($rc->getConstants() as $constName => $regexp) {
 	if ($regexp) {
 		echo '<option value="'.strtolower($constName).'">'.$constName.'</option>';
 	}
 }
+
 unset($rc, $ind);
 ?>
 			</select>
@@ -49,11 +51,11 @@ unset($rc, $ind);
 		</div>
 	</div>
 	<script type="text/javascript">
-		var PHPBridge = {};
-		PHPBridge.error_varname = "<?= _abc('error_varname')?>";
-		PHPBridge.error_filter_or_regexp = "<?= _abc('error_filter_or_regexp')?>";
-		PHPBridge.error_not_numeric = "<?= _abc('error_not_numeric')?>";
-		PHPBridge.ajax_url = "<?= SiteURL.'?home/'.ValidationCode?>";
+	var PHPBridge = {};
+	PHPBridge.error_varname = "<?= _abc('error_varname')?>";
+	PHPBridge.error_filter_or_regexp = "<?= _abc('error_filter_or_regexp')?>";
+	PHPBridge.error_not_numeric = "<?= _abc('error_not_numeric')?>";
+	PHPBridge.ajax_url = "<?= SiteURL.'?home/'.ValidationCode?>";
 	</script>
 	<script type="text/javascript" src="client/js/validationcode.js"></script>
 </div>

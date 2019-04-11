@@ -2,13 +2,12 @@
 	<div class="w3-col">
 		<div class="w3-cell-row">
 			<div class="w3-box w3-cell w3-cell-top w3-tooltip w3-padding w3-right">
-				<img src="client/images/arrowdown.png" class="w3-image"
-						 onclick="getById('footercontent').style.display='none';"
-						 onmouseover="getById('footercontent').style.display='block';"
-						 style="position:relative;bottom:-40px;filter:drop-shadow(0 0 15px #00ee00);" />
+				<img src="client/images/arrowdown.png" class="w3-image" id="footerbutton"
+					onclick="footercontent.toggle()"
+					style="position:relative;bottom:-40px;z-index:2;filter:drop-shadow(0 0 15px #00ee00);" />
 			</div>
 		</div>
-		<div class="w3-row w3-lime" id="footercontent" style="display:none;">
+		<div class="w3-row w3-lime w3-animate-opacity" id="footercontent" style="display: none;">
 			<div class="w3-col">
 				<ul class="w3-ul">
 					<li><a href="<?= SiteURL.'?support' ?>"><?= _abc("support")?></a></li>
@@ -23,3 +22,10 @@
 		<?php __('cpage')->footer(); ?>
 	</div>
 </div>
+<script type="text/javascript">
+var footercontent = new HracheJS.Togglable(function() {
+	w3.show('#footercontent');
+}, function() {
+	w3.hide('#footercontent');
+});
+</script>

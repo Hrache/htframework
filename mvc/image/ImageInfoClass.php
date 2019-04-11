@@ -5,8 +5,9 @@ class ImageInfoClass extends FileInfoClass {
 	private $width;
 	private $height;
 
-	function __construct ( string $filepath) {
-		parent::__construct ( $filepath);
+	function __construct(string $filepath) {
+		parent::__construct($filepath);
+
 		$this->imagefullinfo = getimagesize ( $filepath);
 		$this->mimetype = $this->imagefullinfo ['mime'];
 		$this->width = $this->imagefullinfo [0];
@@ -29,20 +30,20 @@ class ImageInfoClass extends FileInfoClass {
 		return $this->height;
 	}
 
-	static function fullimageinfo ( string $filepath): Array {
-		return getimagesize ( $filepath);
+	static function fullimageinfo (string $filepath): Array {
+		return getimagesize($filepath);
 	}
 
-	static function imagemimetype ( string $filepath): string {
-		return getimagesize ( $filepath)[ 'mime'];
+	static function imagemimetype (string $filepath): string {
+		return getimagesize($filepath)['mime'];
 	}
 
-	static function imagewidth ( string $filepath): string {
-		return getimagesize ( $filepath)[ 0];
+	static function imagewidth (string $filepath): string {
+		return getimagesize($filepath)[0];
 	}
 
 	static function imageheight ( string $filepath): string {
-		return getimagesize ( $filepath)[ 1];
+		return getimagesize($filepath)[1];
 	}
 
 	/**
@@ -55,7 +56,7 @@ class ImageInfoClass extends FileInfoClass {
 	static function is_image ( string $filepath): bool {
 		if (is_file($filepath)) {
 			$imageinfo = in_array ( FileInfoClass::fileextension ( $filepath), ImageTypeClass::extensionVsMime ( 'ext'));
-			return boolval ( $imageinfo);
+			return boolval($imageinfo);
 		}
 
 		return false;

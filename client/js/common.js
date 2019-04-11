@@ -16,7 +16,6 @@ function html_option(value, content) {
  */
 function randtext(selector, length) {
 	length = (length < 1)? 25 : length;
-
 	$(selector).each(function()	{
 		$(this).val(rword(Math.round(Math.random() * length)));
 	});
@@ -30,34 +29,24 @@ function randtext(selector, length) {
  */
 _responsive = function(margin, width) {
 	var screenWidth = parseInt($('body').width());
-
-	var result =
-	{
+	var result = {
 		'width': null,
 		'margin-left': null
 	};
-
-	result ['width'] = '';
-	result ['margin-left'] = '';
-
+	result['width'] = '';
+	result['margin-left'] = '';
 	if (screenWidth > 1280)	{
-		result ['width'] = '960px';
-		result ['margin-left'] = ((screenWidth - 1024) / 2) + 'px';
+		result['width'] = '960px';
+		result['margin-left'] = ((screenWidth - 1024) / 2) + 'px';
 	}
 	else if (screenWidth > 1024) {
-		result ['width'] = '800px';
-		result ['margin-left'] = ((screenWidth - 800) / 2) + 'px';
+		result['width'] = '800px';
+		result['margin-left'] = ((screenWidth - 800) / 2) + 'px';
 	}
 
-	if (width && margin) {
-		return (result);
-	}
-	else if (width)	{
-		return result['width'];
-	}
-	else if (margin) {
-		return result['margin-left'];
-	}
+	if (width && margin) return (result);
+	else if (width) return result['width'];
+	else if (margin) return result['margin-left'];
 };
 
 /**
@@ -75,11 +64,9 @@ hiddenToButton = function(selector) {
 		})
 		.click(function() {
 			var valOfHidden = $(this).children(':input[type="hidden"]:first').val();
-
 			switch (valOfHidden) {
 				case ("0"): {
-					$(this).css(
-					{
+					$(this).css({
 						'background-color': 'brown',
 						'color': 'white'
 					})
@@ -87,10 +74,8 @@ hiddenToButton = function(selector) {
 
 					break;
 				}
-				case ("1"):
-				{
-					$(this).css(
-					{
+				case ("1"): {
+					$(this).css({
 						'background-color': 'white',
 						'color': 'black'
 					})

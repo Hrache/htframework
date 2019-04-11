@@ -1,11 +1,11 @@
 <form class="w3-container" action="<?= SiteURL?>?account/signup" id="signupform" name="signupform" method="POST" accept-charset="UTF-8">
 	<h1 class="w3-padding"><?= _abc('createaccount') ?></h1>
-	<div class="w3-row w3-padding w3-content">
+	<div class="w3-row-padding w3-content">
 		<div class="w3-half">
 			<label for="<?= Accounts::email ?>"><?= _abc('email') ?></label>
-			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>" id="<?= Accounts::email ?>" value="<?= post_('signupemail') ?>" />
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>" id="<?= Accounts::email ?>" value="<?= post_(Accounts::email) ?>" />
 			<label for="<?= Accounts::email ?>c"><?= _abc('confirmemail') ?></label>
-			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>c" id="<?= Accounts::email ?>c" value="<?= post_('signupemailc') ?>" />
+			<input type="text" class="w3-input w3-border" name="<?= Accounts::email ?>c" id="<?= Accounts::email ?>c" value="<?= post_(Accounts::email.'c') ?>" />
 			<label for="<?= Accounts::password ?>"><?= _abc('password') ?></label>
 			<input type="password" class="w3-input w3-border" name="<?= Accounts::password ?>" id="<?= Accounts::password ?>" />
 			<label for="<?= Accounts::password ?>c"><?= _abc('confirmpassword') ?></label>
@@ -76,7 +76,7 @@
 			<input type="hidden" name="dateformat" id="dateformat" value="dd-mm-yyyy" />
 		</div>
 	</div>
-	<div class="w3-row w3-padding">
+	<div class="w3-row-padding w3-content">
 		<div class="w3-col">
 			<div style="word-wrap:break-word;">
 				<input type="checkbox" class="w3-check" name="signin" id="signinsftersignup" value="1" checked="checked" />

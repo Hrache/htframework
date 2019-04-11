@@ -15,6 +15,7 @@ class RequestClass extends CustomLinkClass {
 	  */
 	function __construct(string $websiteDir, string $defaultLink, string $indexPage, string $defaultAction, string $pagefileExtension = 'php') {
 		require_once(realpath(__DIR__.'/../scripts').ds.'requestclass.php');
+
 		parent::__construct(isset($_SERVER['REQUEST_URI'])? $_SERVER['REQUEST_URI']: '', $indexPage, $defaultAction);
 
 		# const SiteURL
@@ -32,13 +33,9 @@ class RequestClass extends CustomLinkClass {
 
 	private function cleanupInputs() {
 		$gbls = [$_POST, $_GET, $_FILES];
-
 		while ($gbls) {
 			$gbl = array_shift($gbls);
-
-			if (!$gbl) {
-				continue;
-			}
+			if (!$gbl) continue;
 
 			array_walk_recursive($gbl, function(&$v, $k) {
 				$v = stringCleanup($v);
@@ -56,10 +53,7 @@ class RequestClass extends CustomLinkClass {
 		$this->cleanupInputs();
 		$this->gets = new ArrayClass($_GET);
 		$this->posts = new ArrayClass($_POST);
-
-		if ($_FILES) {
-			$this->files = new ArrayClass($_FILES);
-		}
+		if ($_FILES) $this->files = new ArrayClass($_FILES);
 	}
 
 	function unHandleGlobals() {
@@ -110,8 +104,7 @@ class RequestClass extends CustomLinkClass {
 		return $this;
 	}
 
-	function getItem($index)
-	{
+	function getItem($index) {
 		return $this->gets->item($index);
 	}
 
@@ -168,6 +161,7 @@ class RequestClass extends CustomLinkClass {
 	 */
 	function deletePost(...$key): RequestClass {
 		$this->posts->del($key);
+
 		return $this;
 	}
 }

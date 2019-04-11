@@ -2,7 +2,6 @@
 return ([
 	'about' => 'About',
 	'account' => 'Account',
-	'advertisements' => 'Advertisements',
 	'contacts' => 'Contacts',
 	'error' => 'Error',
 	'home' => 'Home',
@@ -11,5 +10,5 @@ return ([
 	'termsofuse' => 'Terms of use',
 	'support' => 'Support',
 	'search' => 'Search',
-	]);
+]);
 ?>

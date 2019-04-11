@@ -69,37 +69,21 @@ abstract class ImageTypeClass {
 			'xwd' =>	'image/x-xwd',
 			'xwd' =>	'image/x-xwindowdump',
 		];
-
-		$exts = array_keys ( $array);
-		$mimes = array_values ( $array);
-
+		$exts = array_keys($array);
+		$mimes = array_values($array);
 		switch ($data) {
-			case 'ext': {
-				return $exts;
-			}
-			case 'mime': {
-				return $mimes;
-			}
-			default: {
-				if (isset($array[$data])) {
-					return ($ext[$data]);
-				}
-				elseif (boolval(array_search($data, $array))) {
-					return (array_search($data, $array));
-				}
-			}
+			case 'ext': return $exts;
+			case 'mime': return $mimes;
+			default:
+				if (isset($array[$data])) return ($ext[$data]);
+				elseif (array_search($data, $array)) return (array_search($data, $array));
 		}
 	}
 
 	static function nonEmptyArray(): array {
 		$args = func_get_args();
 		$args['n_arr'] = array();
-
-		foreach ($args as $i => $arr) {
-			if (!empty($arr)) {
-				$args['n_arr'][] = $args[$i];
-			}
-		}
+		foreach ($args as $i => $arr) if (!empty($arr)) $args['n_arr'][] = $args[$i];
 
 		return $args['n_arr'];
 	}
@@ -116,27 +100,15 @@ abstract class ImageTypeClass {
   * @return int in case of 0 filetype is not supported
   **/
 
-	static function extToIMAGETYPE ( string $filename): int {
-		switch ( ImageInfoClass::fileextension ( $filename)) {
-			case ( 'png'): {
-				return IMAGETYPE_PNG;
-			}
-			case ( 'bmp'): {
-				return IMAGETYPE_BMP;
-			}
-			case ( 'gif'): {
-				return IMAGETYPE_GIF;
-			}
-			case ( 'wbmp'): {
-				return IMAGETYPE_WBMP;
-			}
-			case ( 'jpg'):
-			case ( 'jpeg'): {
-				return IMAGETYPE_JPEG;
-			}
-			default: {
-				return 0;
-			}
+	static function extToIMAGETYPE(string $filename): int {
+		switch (ImageInfoClass::fileextension($filename)) {
+			case ('png'): return IMAGETYPE_PNG;
+			case ('bmp'): return IMAGETYPE_BMP;
+			case ('gif'): return IMAGETYPE_GIF;
+			case ('wbmp'): return IMAGETYPE_WBMP;
+			case ('jpg'):
+			case ('jpeg'): return IMAGETYPE_JPEG;
+			default: return 0;
 		}
 	}
 }

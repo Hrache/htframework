@@ -14,8 +14,12 @@ return([
 	'signinaftersignup' => 'Sign in after signup.',
 	'signupsuccess' => 'You are now signedup. Now you may signin by using your credentials.',
 	'rules' => 'Rules',
-	'reqedorwrong' => 'Field is missing or wrong',
-	'emailconferror' => 'Email confirmation failure',
+	'requiredfield' => '%s is required.',
+	'wrongdatatype' => 'It isn\'t %s.',
+	'emailconferror' => 'Email confirmation failed',
+	'emailexists' => 'Email is registered already: provide another email.', // or maybe some other strict checkout
+	'passwordmaxlen' => 'Password must be maximum %s characters long.',
+	'passwordminlen' => 'Password must be minimum %s characters long.',
 	'phonenumber' => 'Phonenumber'
 ]);
 ?>

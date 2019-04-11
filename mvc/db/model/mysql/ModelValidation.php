@@ -7,10 +7,7 @@ class ModelValidation {
 	protected function validate(array $modelRules, array $userFields = []) {
 		$fields = array_keys($modelRules);
 		$fields = array_diff($userFields, $fields);
-
-		while($modelRules) {
-			$modelRules = array_shift($modelRules);
-		}
+		while($modelRules) $modelRules = array_shift($modelRules);
 	}
 }
 ?>

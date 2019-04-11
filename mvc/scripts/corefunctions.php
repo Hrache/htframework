@@ -29,6 +29,7 @@ function get_($index) {
 function setDatabaseConnection(ArrayClass $dbsettings) {
 	$dbclass = new DatabaseClass($dbsettings);
 	_di('dbroot', $dbclass);
+
 	_di('database', $dbclass->connect());
 }
 

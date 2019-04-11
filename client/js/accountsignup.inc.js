@@ -1,12 +1,9 @@
 // Getting the list of countries for the new account form
-if ($('#country_id') && $('#country_id').find('option').length <= 1)
-{
-	$.post(SiteURL+'?account',
-	{
+if ($('#country_id') && $('#country_id').find('option').length <= 1) {
+	$.post(SiteURL+'?account', {
 		async: 'countries'
 	},
-	function(data, textStatus, jqXHR)
-	{
+	function(data, textStatus, jqXHR) {
 		$('#country_id').append(data);
 	}, 'text');
 }
@@ -75,26 +72,20 @@ function FormDate(dayidu, monthidu, yearidu, hiddenidu) {
 	}
 
 	function setFormat(format) {
-		if ('012'.search(parseInt(format))) {
-			format = format;
-		}
+		if ('012'.search(parseInt(format))) format = format;
 
 		return this;
 	}
 
-	function setDelimiter(delimiteru)
-	{
+	function setDelimiter(delimiteru) {
 		delimiter = delimiteru;
-
 		return this;
 	}
 
-	this.newDate = function()
-	{
+	this.newDate = function() {
 		day = $('#'+this.dayid).val();
 		month = $('#'+this.monthid).val();
 		year = $('#'+this.yearid).val();
-
 		hiddenValue();
 	};
 }
